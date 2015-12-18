@@ -13,10 +13,10 @@ $ npm install
 
 ## Usage
 
-Use `run.sh` with an URL:
+Use `a11ym` with an URL:
 
 ```sh
-$ ./run example.org
+$ ./a11ym example.org
 ```
 
 Then open `output/index.hmtl` and browser the result!
