@@ -20,4 +20,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 $DIR/scripts/crawl.sh $1 | \
     xargs -n 1 -P 1 -I {} bash -c 'index "$@"' _ {} | \
-    $DIR/scripts/pa11y.sh -0 -r html -o 'output/%HASH%.html'
+    $DIR/node_modules/.bin/pa11y -0 -r html -o 'output/%HASH%.html'
