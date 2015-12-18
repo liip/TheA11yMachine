@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Hywan/TheA11yMachine#readme",
   "dependencies": {
     "pa11y": "git://github.com/Hywan/pa11y#url_from_stdin",
+    "process": "^0.11.2",
     "simplecrawler": "^0.5.4"
   }
 }
