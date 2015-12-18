@@ -1,23 +1,47 @@
 #!/bin/bash
 
-set -x
+function usage {
+    echo >&2 "Usage:"
+    echo >&2 "    $0 <options> <root url>"
+    echo >&2 ""
+    echo >&2 "Options:"
+    echo >&2 "    -o  The output directory name."
+    echo >&2 "    -h  This help."
+}
+
+url=${@: -1}
+output='a11m_output'
+
+while getopts o:h opt; do
+    case $opt in
+        o)   output=$OPTARG;;
+        h)   usage; exit 2;;
+        [?]) usage; exit 2;;
+    esac
+done
+
+if [[ 0 -eq $# ]]; then
+    usage
+    exit 2
+fi
 
 function index {
     local url=$1
+    local output=$2
     local hash=`php -r 'echo sha1($argv[1]);' "$url"`
 
-    touch output/${hash}.html
-    echo "<li><a href=\"${hash}.html\">$url</a></li>" >> output/index.html
+    touch ${output}/${hash}.html
+    echo "<li><a href=\"${hash}.html\">$url</a></li>" >> ${output}/index.html
 
     echo $1
 }
 
-rm -rf output
-mkdir -p output
+rm -rf ${output}
+mkdir -p ${output}
 export -f index
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-$DIR/scripts/crawl.sh $1 | \
-    xargs -n 1 -P 1 -I {} bash -c 'index "$@"' _ {} | \
-    $DIR/node_modules/.bin/pa11y -0 -r html -o 'output/%HASH%.html'
+$DIR/scripts/crawl.sh $url | \
+    xargs -n 1 -P 1 -I {} bash -c 'index "$1" "$2"' _ {} $output | \
+    $DIR/node_modules/.bin/pa11y -0 -r html -o ${output}'/%HASH%.html'
