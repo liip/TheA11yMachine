@@ -16,10 +16,10 @@ $ npm install
 Use `a11ym` with an URL:
 
 ```sh
-$ ./a11ym example.org
+$ ./a11ym http://example.org
 ```
 
-Then open `output/index.hmtl` and browser the result!
+Then open `a11ym_output/index.hmtl` and browser the result!
 
 ## License
 
