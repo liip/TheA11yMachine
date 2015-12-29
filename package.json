@@ -21,6 +21,8 @@
   "dependencies": {
     "async": "^1.5.0",
     "commander": "^2.9.0",
+    "crypto": "0.0.3",
+    "mkdirp": "^0.5.1",
     "pa11y": "git://github.com/Hywan/pa11y#url_from_stdin",
     "process": "^0.11.2",
     "simplecrawler": "^0.5.4"

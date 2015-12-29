@@ -11,8 +11,13 @@ program
     .usage('[options] <url>')
     .option(
         '-d, --depth <depth>',
-        'Maximum depth (hops)',
+        'Maximum depth (hops).',
         3
+    )
+    .option(
+        '-o, --output <output_directory>',
+        'Output directory.',
+        __dirname + '/a11ym_output'
     )
     .parse(process.argv);
 
@@ -24,8 +29,13 @@ if (!program.url) {
 }
 
 var runTest = new function () {
+    var reporter = require('./reporter/html');
+    reporter.config({
+        outputDirectory: program.output
+    });
+
     options = {
-        log: require('./reporter/html')
+        log: reporter
     };
     var test = pa11y(options);
 
