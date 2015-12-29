@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Hywan/TheA11yMachine#readme",
   "dependencies": {
+    "async": "^1.5.0",
+    "commander": "^2.9.0",
     "pa11y": "git://github.com/Hywan/pa11y#url_from_stdin",
     "process": "^0.11.2",
     "simplecrawler": "^0.5.4"

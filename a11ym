@@ -1,47 +1,102 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-function usage {
-    echo >&2 "Usage:"
-    echo >&2 "    $0 <options> <root url>"
-    echo >&2 ""
-    echo >&2 "Options:"
-    echo >&2 "    -o  The output directory name."
-    echo >&2 "    -h  This help."
+var Crawler = require('simplecrawler');
+var program = require('commander');
+var process = require('process');
+var URL     = require('url');
+var pa11y   = require('pa11y');
+var async   = require('async');
+
+program
+    .usage('[options] <url>')
+    .option(
+        '-d, --depth <depth>',
+        'Maximum depth (hops)',
+        3
+    )
+    .parse(process.argv);
+
+program.url = program.args[0];
+
+if (!program.url) {
+    program.help();
+    process.exit(1);
 }
 
-url=${@: -1}
-output='a11m_output'
+var runTest = new function () {
+    options = {
+        log: require('./reporter/html')
+    };
+    var test = pa11y(options);
 
-while getopts o:h opt; do
-    case $opt in
-        o)   output=$OPTARG;;
-        h)   usage; exit 2;;
-        [?]) usage; exit 2;;
-    esac
-done
+    return function (url, callbacks) {
+        try {
+            test.run(
+                url,
+                function (error, results) {
+                    if (error) {
+                        options.log.error(error.stack);
 
-if [[ 0 -eq $# ]]; then
-    usage
-    exit 2
-fi
+                        return callbacks.error(error);
+                    }
 
-function index {
-    local url=$1
-    local output=$2
-    local hash=`php -r 'echo sha1($argv[1]);' "$url"`
+                    options.log.results(results, url);
+                    callbacks.complete(results);
+                }
+            );
+        } catch (error) {
+            options.log.error(error.stack);
+            process.exit(1);
+        }
+    };
+};
 
-    touch ${output}/${hash}.html
-    echo "<li><a href=\"${hash}.html\">$url</a></li>" >> ${output}/index.html
+var hasErrors = false;
 
-    echo $1
-}
+var url  = URL.parse(program.url);
+var urls = async.queue(
+    function (task, onTaskComplete) {
+        console.log("Run: " + task.url);
+        runTest(
+            task.url,
+            {
+                complete: function(results) {
+                    onTaskComplete(null, results);
+                },
+                error: function(error) {
+                    hasErrors = true;
+                    onTaskComplete(error);
+                }
+            }
+        );
+    }
+);
+urls.drains = function () {
+    if (true === hasErrors) {
+        process.exit(2);
+    }
+};
 
-rm -rf ${output}
-mkdir -p ${output}
-export -f index
+var crawler             = new Crawler(url.hostname);
+crawler.initialPath     = url.path;
+crawler.initialPort     = url.port || 80;
+crawler.initialProtocol = url.protocol || 'http';
+crawler.interval        = 100;
+crawler.maxConcurrency  = 5;
+crawler.maxDepth        = +program.depth;
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+var i = 0;
+crawler.on('fetchcomplete', function(queueItem) {
+    if (null === queueItem.stateData.contentType.match(/^text\/html/)) {
+        return;
+    }
 
-$DIR/scripts/crawl.sh $url | \
-    xargs -n 1 -P 1 -I {} bash -c 'index "$1" "$2"' _ {} $output | \
-    $DIR/node_modules/.bin/pa11y -0 -r html -o ${output}'/%HASH%.html'
+    if (++i > 2) {
+        crawler.stop();
+    }
+
+    console.log("Received: " + queueItem.url);
+    urls.push({url: queueItem.url});
+});
+
+crawler.start();
