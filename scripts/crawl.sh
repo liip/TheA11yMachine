@@ -31,6 +31,9 @@ crawler.maxConcurrency  = 5;
 crawler.maxDepth        = +program.depth;
 
 crawler.on('fetchcomplete', function(queueItem) {
+    if (null === queueItem.stateData.contentType.match(/^text\/html/)) {
+        return;
+    }
 
     process.stdout.write(queueItem.url + '\n');
 });
