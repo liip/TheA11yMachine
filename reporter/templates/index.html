@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Accessibility report for “{url}” ({date})</title>
+  <title>Accessibility report ({date})</title>
 
   <style>
     @font-face {
@@ -39,28 +39,6 @@
       margin-bottom: 3em;
     }
 
-    h2 {
-      margin-bottom: 1em;
-      line-height: 1.3em;
-    }
-
-    .results {
-      list-style: none;
-    }
-
-    .result {
-      padding: 1em 2em;
-    }
-
-    .result > h2 {
-      margin-bottom: .5em;
-      line-height: 1.3em;
-    }
-
-    .result > p {
-      margin-bottom: .5em;
-    }
-
     [data-result-type="error"] {
       stroke: rgb(244, 96, 37);
       background-color: rgba(244, 96, 37, .1);
@@ -88,10 +66,6 @@
         color: rgb(10, 172, 207);
       }
 
-    pre {
-      overflow: scroll;
-    }
-
     .pie {
       display: block;
       margin: 2em auto;
@@ -112,17 +86,58 @@
       text-anchor: middle;
       dominant-baseline: middle;
     }
+
+    .reports {
+      list-style: none;
+    }
+
+    .report {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+
+    .report > .pie {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 2.5em;
+      margin: 0 2em;
+    }
   </style>
+  <script>
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+            var reducer = function (key) {
+                return function (accumulator, stat) {
+                    return accumulator + stat[key];
+                };
+            };
+            var errorCount   = stats.reduce(reducer('errors'), 0);
+            var warningCount = stats.reduce(reducer('warnings'), 0);
+            var noticeCount  = stats.reduce(reducer('notices'), 0);
+            var total        = errorCount + warningCount + noticeCount;
+
+            var pie = document.querySelector('#bigPie');
+
+            pie.innerHTML =
+                pie.innerHTML.
+                    replace(/{errorCount}/g, "" + errorCount).
+                    replace(/{errorPercentage}/g, "" + ((errorCount * 100) / total)).
+                    replace(/{warningCount}/g, "" + warningCount).
+                    replace(/{warningPercentage}/g, "" + ((warningCount * 100) / total)).
+                    replace(/{noticeCount}/g, "" + noticeCount).
+                    replace(/{noticePercentage}/g, "" + ((noticeCount * 100) / total));
+        },
+        false
+    );
+  </script>
 </head>
 
 <body>
-  <h1>
-    Accessibility report for
-    “<a href="{url}" title="Visit the page targeted by the report">{url}</a>”
-  </h1>
+  <h1>Accessibility report</h1>
   <p class="infos">Generated at {date}.</p>
 
-  <svg viewBox="0 0 64 64" class="pie" data-result-type="error">
+  <svg id="bigPie" viewBox="0 0 64 64" class="pie" data-result-type="error">
     <title>
       {errorCount} errors,
       {warningCount} warnings,
@@ -145,8 +160,8 @@
     <text x="50%" y="55%">errors</text>
   </svg>
 
-  <ul class="results">
-    {results|raw}
-  </ul>
-</body>
-</html>
+  <script>
+    var stats = [];
+  </script>
+
+  <ul class="reports">

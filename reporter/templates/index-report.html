@@ -1,0 +1,26 @@
+<li class="report">
+  <svg viewBox="0 0 64 64" class="small pie" data-result-type="error">
+    <title>
+      {errorCount} errors,
+      {warningCount} warnings,
+      {noticeCount} notices.
+    </title>
+    <circle
+      r="25%" cx="50%" cy="50%"
+      stroke-dasharray="{warningPercentage} 100"
+      data-result-type="warning" />
+    <circle
+      r="25%" cx="50%" cy="50%"
+      stroke-dashoffset="-{warningPercentage}"
+      stroke-dasharray="{noticePercentage} 100"
+      data-result-type="notice" />
+  </svg>
+  <a href="{reportUrl}">{url}</a>
+  <script>
+    stats.push({
+      errors: {errorCount},
+      warnings: {warningCount},
+      notices: {noticeCount}
+    });
+  </script>
+</li>

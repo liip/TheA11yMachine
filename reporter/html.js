@@ -21,7 +21,22 @@ function emptyFunction() {}
 function config(options) {
     outputDirectory = options.outputDirectory;
     mkdirp(outputDirectory);
-    indexStream = fs.createWriteStream(outputDirectory + '/index.html');
+    indexStream = fs.createWriteStream(
+        outputDirectory + '/index.html',
+        {
+            flag: 'a',
+            mode: 0o644,
+            defaultEncoding: 'utf8'
+        }
+    );
+    indexStream.write(
+        buildHtml(
+            __dirname + '/templates/index.html',
+            {
+                date: new Date()
+            }
+        )
+    );
 }
 
 function reportError(message) {
@@ -30,9 +45,28 @@ function reportError(message) {
 
 function reportResults(results, url) {
     var hash = crypto.createHash('sha1').update(url).digest('hex');
+
+    var errorCount   = results.filter(isError).length;
+    var warningCount = results.filter(isWarning).length;
+    var noticeCount  = results.filter(isNotice).length;
+    var total        = errorCount + warningCount + noticeCount;
+
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
-        buildHtml(results, url),
+        buildHtml(
+            __dirname + '/templates/report.html',
+            {
+                url              : url,
+                date             : new Date(),
+                errorCount       : errorCount,
+                errorPercentage  : (errorCount * 100) / total,
+                warningCount     : warningCount,
+                warningPercentage: (warningCount * 100) / total,
+                noticeCount      : noticeCount,
+                noticePercentage : (noticeCount * 100) / total,
+                results          : buildResultsHtml(results)
+            }
+            ),
         {
             flag: 'w',
             mode: 0o644,
@@ -40,37 +74,30 @@ function reportResults(results, url) {
         }
     );
     indexStream.write(
-        '<li><a href="./' + hash + '.html">' + url + '</a></li>',
-        {
-            flag: 'a',
-            mode: 0o644,
-            defaultEncoding: 'utf8',
-        }
+        buildHtml(
+            __dirname + '/templates/index-report.html',
+            {
+                url              : url,
+                reportUrl        : './' + hash + '.html',
+                errorCount       : errorCount,
+                errorPercentage  : (errorCount * 100) / total,
+                warningCount     : warningCount,
+                warningPercentage: (warningCount * 100) / total,
+                noticeCount      : noticeCount,
+                noticePercentage : (noticeCount * 100) / total,
+            }
+        )
     );
 }
 
-function buildHtml(results, url) {
-    var renderMain = template(__dirname + '/templates/report.html');
-    var errorCount = results.filter(isError).length;
-    var warningCount = results.filter(isWarning).length;
-    var noticeCount = results.filter(isNotice).length;
-    var total = errorCount + warningCount + noticeCount;
+function buildHtml(templateFile, data) {
+    var render = template(templateFile);
 
-    return renderMain({
-        date             : new Date(),
-        errorCount       : errorCount,
-        errorPercentage  : (errorCount * 100) / total,
-        warningCount     : warningCount,
-        warningPercentage: (warningCount * 100) / total,
-        noticeCount      : noticeCount,
-        noticePercentage : (noticeCount * 100) / total,
-        results          : buildResultsHtml(results),
-        url              : url
-    });
+    return render(data);
 }
 
 function buildResultsHtml(results) {
-    var renderResult = template(__dirname + '/templates/result.html');
+    var renderResult = template(__dirname + '/templates/report-result.html');
 
     return results.map(
         function(result) {
