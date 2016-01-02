@@ -19,7 +19,17 @@ Use `a11ym` with an URL:
 $ ./a11ym http://example.org
 ```
 
-Then open `a11ym_output/index.hmtl` and browser the result!
+Then open `a11ym_output/index.html` and browser the result!
+
+### Possible output
+
+The index of the reports:
+
+<img src="http://i.imgur.com/bebKxQ8.png" alt="Index of the report" width="800" />
+
+Report of a specific URL:
+
+<img src="http://i.imgur.com/Kdgx9KZ.png" alt="Report of a specific URL" width="800" />
 
 ## License
 
