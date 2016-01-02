@@ -1,106 +1,155 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <title>Accessibility report for “{url}” ({date})</title>
 
-    <meta charset="utf-8"/>
-    <title>Accessibility Report For "{url}" ({date})</title>
+  <style>
+    @font-face {
+      font-family: Source Sans Pro;
+      font-style: normal;
+      font-weight: 200;
+      src: local(Source Sans Pro ExtraLight),
+         local(SourceSansPro-ExtraLight),
+         url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGIAPdqzPmKFFIYQ-46z3JxY.woff2) format('woff2');
+    }
 
-    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-		html, body {
-			margin: 0;
-			padding: 0;
-			background-color: #fff;
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 16px;
-			line-height: 22px;
-			color: #333;
-		}
-		li {
-			margin-bottom: 15px;
-		}
-		h1, h2, p, pre, ul {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-		h1 {
-			margin-bottom: 10px;
-			font-size: 24px;
-			line-height: 24px;
-		}
-		h2 {
-			font-size: 16px;
-		}
-		pre {
-			white-space: pre-wrap;
-			overflow: auto;
-		}
+    body {
+      font: .9em/1.2em Source Sans Pro;
+      color: rgb(43, 6, 1);
+    }
 
-		.page {
-			max-width: 800px;
-			margin: 0 auto;
-			padding: 25px;
-		}
+    h1 {
+      text-align: center;
+      margin: 1em 0;
+    }
 
-		.counts {
-			margin-top: 30px;
-			font-size: 20px;
-		}
-		.count {
-			display: inline-block;
-			padding: 5px;
-			border-radius: 5px;
-			border: 1px solid #eee;
-		}
+    a {
+      color: inherit;
+    }
 
-		.clean-list {
-			margin-left: 0;
-			padding-left: 0;
-			list-style: none;
-		}
-		.results-list {
-			margin-top: 30px;
-		}
+    .infos {
+      text-align: center;
+      margin-bottom: 3em;
+    }
 
-		.result {
-			padding: 10px;
-			border-radius: 5px;
-			border: 1px solid #eee;
-		}
-		.error {
-			background-color: #fdd;
-			border-color: #ff9696;
-		}
-		.warning {
-			background-color: #ffd;
-			border-color: #e7c12b;
-		}
-		.notice {
-			background-color: #eef4ff;
-			border-color: #b6d0ff;
-		}
+    h2 {
+      margin-bottom: 1em;
+      line-height: 1.3em;
+    }
 
-	</style>
+    .results {
+      list-style: none;
+    }
 
+    .result {
+      padding: 1em 2em;
+    }
+
+    .result > h2 {
+      margin-bottom: .5em;
+      line-height: 1.3em;
+    }
+
+    .result > p {
+      margin-bottom: .5em;
+    }
+
+    [data-result-type="error"] {
+      stroke: rgb(244, 96, 37);
+      background-color: rgba(244, 96, 37, .1);
+    }
+
+      [data-result-type="error"] h2 {
+        color: rgb(244, 96, 37);
+      }
+
+    [data-result-type="notice"] {
+      stroke: rgb(254, 178, 54);
+      background-color: rgba(254, 178, 54, .1);
+    }
+
+      [data-result-type="notice"] h2 {
+        color: rgb(254, 178, 54);
+      }
+
+    [data-result-type="warning"] {
+      stroke: rgb(10, 172, 207);
+      background-color: rgba(10, 172, 207, .1);
+    }
+
+      [data-result-type="warning"] h2 {
+        color: rgb(10, 172, 207);
+      }
+
+    pre {
+      overflow: scroll;
+    }
+
+    .pie {
+      display: block;
+      margin: 2em auto;
+      max-width: 200px;
+      background: rgb(244, 96, 37);
+      border-radius: 50%;
+    }
+
+    .pie circle {
+      stroke-width: 32;
+      fill: none;
+    }
+
+    .pie text {
+      font-size: .5em;
+      color: inherit;
+      stroke: none;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="page">
+    <h1>
+      Accessibility report for
+      “<a href="{url}" title="Visit the page targeted by the report">{url}</a>”
+    </h1>
+    <p class="infos">Generated at {date}.</p>
 
-	<div class="page">
+    <svg viewBox="0 0 64 64" class="pie" data-result-type="error">
+      <title>
+        {errorCount} errors,
+        {warningCount} warnings,
+        {noticeCount} notices.
+      </title>
+      <circle
+        r="25%" cx="50%" cy="50%"
+        stroke-dasharray="{warningPercentage} 100"
+        data-result-type="warning" />
+      <circle
+        r="25%" cx="50%" cy="50%"
+        stroke-dashoffset="-{warningPercentage}"
+        stroke-dasharray="{noticePercentage} 100"
+        data-result-type="notice" />
+      <circle
+        r="15%" cx="50%" cy="50%"
+        stroke="white"
+        style="stroke-width: 19" />
+      <text x="50%" y="45%">{errorCount}</text>
+      <text x="50%" y="55%">errors</text>
+    </svg>
 
-		<h1>Accessibility Report For "{url}"</h1>
-		<p>Generated at: {date}</p>
+    <ul class="results">
+      {results|raw}
+    </ul>
 
-		<p class="counts">
-			<span class="count error">{errorCount} errors</span>
-			<span class="count warning">{warningCount} warnings</span>
-			<span class="count notice">{noticeCount} notices</span>
-		</p>
-
-		<ul class="clean-list results-list">
-			{results|raw}
-		</ul>
-
-	</div>
-
+  </div>
 </body>
 </html>

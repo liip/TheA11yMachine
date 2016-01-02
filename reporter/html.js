@@ -34,32 +34,38 @@ function reportResults(results, url) {
         outputDirectory + '/' + hash + '.html',
         buildHtml(results, url),
         {
-            encoding: 'utf8',
+            flag: 'w',
             mode: 0o644,
-            flag: 'w'
+            encoding: 'utf8'
         }
     );
-    fs.writeFileSync(
-        outputDirectory + '/index.html',
+    indexStream.write(
         '<li><a href="./' + hash + '.html">' + url + '</a></li>',
         {
-            encoding: 'utf8',
+            flag: 'a',
             mode: 0o644,
-            flag: 'a'
+            defaultEncoding: 'utf8',
         }
     );
 }
 
 function buildHtml(results, url) {
     var renderMain = template(__dirname + '/templates/report.html');
+    var errorCount = results.filter(isError).length;
+    var warningCount = results.filter(isWarning).length;
+    var noticeCount = results.filter(isNotice).length;
+    var total = errorCount + warningCount + noticeCount;
 
     return renderMain({
-        date        : new Date(),
-        errorCount  : results.filter(isError).length,
-        warningCount: results.filter(isWarning).length,
-        noticeCount : results.filter(isNotice).length,
-        results     : buildResultsHtml(results),
-        url         : url
+        date             : new Date(),
+        errorCount       : errorCount,
+        errorPercentage  : (errorCount * 100) / total,
+        warningCount     : warningCount,
+        warningPercentage: (warningCount * 100) / total,
+        noticeCount      : noticeCount,
+        noticePercentage : (noticeCount * 100) / total,
+        results          : buildResultsHtml(results),
+        url              : url
     });
 }
 
