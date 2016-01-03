@@ -5,7 +5,7 @@ tests all pages of any website.
 
 ## Installation
 
-[NPM](http://npmjs.org/) is required. Then, execute the following line:
+[NPM](http://npmjs.org/) is required. Then, execute the following lines:
 ```sh
 $ npm install -g phantomjs
 $ npm install
