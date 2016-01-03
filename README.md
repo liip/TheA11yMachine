@@ -29,7 +29,7 @@ The index of the reports:
 
 Report of a specific URL:
 
-<img src="http://i.imgur.com/Kdgx9KZ.png" alt="Report of a specific URL" width="800" />
+<img src="http://i.imgur.com/5niYPUl.png" alt="Report of a specific URL" width="800" />
 
 ## License
 
