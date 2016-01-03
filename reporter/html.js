@@ -100,8 +100,9 @@ function buildResultsHtml(results) {
     var renderResult = template(__dirname + '/templates/report-result.html');
 
     return results.map(
-        function(result) {
+        function(result, index) {
             result.typeLabel = upperCaseFirst(result.type);
+            result.index     = index;
 
             return renderResult(result);
         }

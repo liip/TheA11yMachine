@@ -119,6 +119,18 @@
       dominant-baseline: middle;
     }
 
+    #controls {
+      margin: 0 0 2em 2em;
+    }
+
+    #controls > p {
+      display: inline-block;
+    }
+
+    #controls > p + p {
+      margin-left: 3em;
+    }
+
     input[id^="filter"] {
       display: none;
     }
@@ -157,6 +169,58 @@
         color: #000;
         background: rgb(254, 178, 54);
       }
+
+    input[name="sort-by"] {
+      display: none;
+    }
+
+    #sort-by-document-order + label,
+    #sort-by-category + label {
+      cursor: pointer;
+      position: relative;
+    }
+
+    #sort-by-category + label {
+      margin-left: 3.2em;
+    }
+
+    #sort-by-document-order + label::after {
+      position: absolute;
+      content: '';
+      top: -.15em;
+      right: -3.2em;
+      width: 3em;
+      height: 1.5em;
+      border-radius: 1.2em;
+      background: rgb(105, 211, 141);
+    }
+
+    #sort-by-category + label::after {
+      position: absolute;
+      top: 0;
+      left: -3.05em;
+      content: '';
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 1.2em;
+      background: #fff;
+      transition: left .3s ease-out .3s;
+      animation: .8s linear unswitch;
+    }
+
+    @keyframes switch {
+      30% { width: 1.5em; }
+    }
+
+    @keyframes unswitch {
+      30% { margin-left: -.3em; width: 1.5em; }
+    }
+
+    #sort-by-category:checked + label::after {
+      left: -1.55em;
+      animation: .8s linear switch;
+    }
   </style>
 
   <script>
@@ -168,6 +232,67 @@
         } else {
             classList.add('filter-' + name);
         }
+    }
+
+    function sortByDocumentOrder() {
+        var results = document.querySelectorAll('.result');
+        var getIndexOf = function (resultIndex) {
+            return parseInt(results.item(resultIndex).getAttribute('data-result-index'));
+        };
+
+        document.querySelector('#results').innerHTML =
+            Object
+                .keys(results)
+                .sort(
+                    function (a, b) {
+                        return getIndexOf(a) < getIndexOf(b) ? -1 : 1;
+                    }
+                )
+                .map(
+                    function (i) {
+                        return results.item(i).outerHTML;
+                    }
+                )
+                .join('\n');
+    }
+
+    function sortByCategory() {
+        var results = document.querySelectorAll('.result');
+        var getCategoryOf = function (resultIndex) {
+            return results.item(resultIndex).getAttribute('data-result-type');
+        };
+
+        document.querySelector('#results').innerHTML =
+            Object
+                .keys(results)
+                .sort(
+                    function (a, b) {
+                        var categoryA = getCategoryOf(a);
+                        var categoryB = getCategoryOf(b);
+
+                        if ('error' === categoryA) {
+                            return -1;
+                        } else if ('warning' === categoryA) {
+                            if ('error' === categoryB) {
+                                return 1;
+                            }
+
+                            return -1;
+                        }
+
+                        if ('notice' === categoryB) {
+                            return -1;
+                        }
+
+                        return 1;
+                    }
+                )
+                .map(
+                    function (i) {
+                        return results.item(i).outerHTML;
+                    }
+                )
+                .join('\n');
     }
   </script>
 </head>
@@ -202,27 +327,47 @@
     <text x="50%" y="55%">errors</text>
   </svg>
 
-  <p style="margin: 0 0 2em 2em">
-    Filter by:
-    <input
-      type="checkbox"
-      id="filter-errors"
-      checked="checked"
-      onclick="toggleFilter('errors')" />
-    <label for="filter-errors">errors</label>
-    <input
-      type="checkbox"
-      id="filter-warnings"
-      checked="checked"
-      onclick="toggleFilter('warnings')" />
-    <label for="filter-warnings">warnings</label>
-    <input
-      type="checkbox"
-      id="filter-notices"
-      checked="checked"
-      onclick="toggleFilter('notices')" />
-    <label for="filter-notices">notices</label>
-  </p>
+  <div id="controls">
+    <p>
+      Filter by:
+      <input
+        type="checkbox"
+        id="filter-errors"
+        checked="checked"
+        onclick="toggleFilter('errors')" />
+      <label for="filter-errors">errors</label>
+      <input
+        type="checkbox"
+        id="filter-warnings"
+        checked="checked"
+        onclick="toggleFilter('warnings')" />
+      <label for="filter-warnings">warnings</label>
+      <input
+        type="checkbox"
+        id="filter-notices"
+        checked="checked"
+        onclick="toggleFilter('notices')" />
+      <label for="filter-notices">notices</label>
+    </p>
+    <p>
+      Sort by:
+      <input
+        type="radio"
+        id="sort-by-document-order"
+        name="sort-by"
+        value="document-order"
+        checked="checked"
+        onclick="sortByDocumentOrder()" />
+      <label for="sort-by-document-order">document order</label>
+      <input
+        type="radio"
+        id="sort-by-category"
+        name="sort-by"
+        value="category"
+        onclick="sortByCategory()" />
+      <label for="sort-by-category">category</label>
+    </p>
+  </div>
 
   <ul id="results">
     {results|raw}
