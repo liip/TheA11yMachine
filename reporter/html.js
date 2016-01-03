@@ -120,7 +120,7 @@ function template(filePath) {
             }
         );
 
-        return output.replace(/\s+/g, ' ').trim();
+        return output;
     };
 }
 

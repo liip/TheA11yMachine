@@ -11,8 +11,8 @@
       font-style: normal;
       font-weight: 200;
       src: local(Source Sans Pro ExtraLight),
-         local(SourceSansPro-ExtraLight),
-         url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGIAPdqzPmKFFIYQ-46z3JxY.woff2) format('woff2');
+           local(SourceSansPro-ExtraLight),
+           url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGIAPdqzPmKFFIYQ-46z3JxY.woff2) format('woff2');
     }
 
     * {
@@ -44,8 +44,14 @@
       line-height: 1.3em;
     }
 
-    .results {
+    #results {
       list-style: none;
+    }
+
+    #results.filter-errors [data-result-type="error"],
+    #results.filter-warnings [data-result-type="warning"],
+    #results.filter-notices [data-result-type="notice"] {
+      display: none;
     }
 
     .result {
@@ -70,15 +76,6 @@
         color: rgb(244, 96, 37);
       }
 
-    [data-result-type="notice"] {
-      stroke: rgb(254, 178, 54);
-      background-color: rgba(254, 178, 54, .1);
-    }
-
-      [data-result-type="notice"] h2 {
-        color: rgb(254, 178, 54);
-      }
-
     [data-result-type="warning"] {
       stroke: rgb(10, 172, 207);
       background-color: rgba(10, 172, 207, .1);
@@ -86,6 +83,15 @@
 
       [data-result-type="warning"] h2 {
         color: rgb(10, 172, 207);
+      }
+
+    [data-result-type="notice"] {
+      stroke: rgb(254, 178, 54);
+      background-color: rgba(254, 178, 54, .1);
+    }
+
+      [data-result-type="notice"] h2 {
+        color: rgb(254, 178, 54);
       }
 
     pre {
@@ -112,7 +118,58 @@
       text-anchor: middle;
       dominant-baseline: middle;
     }
+
+    input[id^="filter"] {
+      display: none;
+    }
+
+    input[id^="filter"] + label {
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: .4em;
+      padding: .3em .8em;
+      border-radius: .5em;
+    }
+
+    #filter-errors + label {
+      color: rgb(244, 96, 37);
+    }
+
+      #filter-errors:checked + label {
+        color: #fff;
+        background: rgb(244, 96, 37);
+      }
+
+    #filter-warnings + label {
+      color: rgb(10, 172, 207);
+    }
+
+      #filter-warnings:checked + label {
+        color: #fff;
+        background: rgb(10, 172, 207);
+      }
+
+    #filter-notices + label {
+      color: rgb(254, 178, 54);
+    }
+
+      #filter-notices:checked + label {
+        color: #000;
+        background: rgb(254, 178, 54);
+      }
   </style>
+
+  <script>
+    function toggleFilter(name) {
+        var classList = document.querySelector('#results').classList;
+
+        if (true === document.querySelector('#filter-' + name).checked) {
+            classList.remove('filter-' + name);
+        } else {
+            classList.add('filter-' + name);
+        }
+    }
+  </script>
 </head>
 
 <body>
@@ -145,7 +202,29 @@
     <text x="50%" y="55%">errors</text>
   </svg>
 
-  <ul class="results">
+  <p style="margin: 0 0 2em 2em">
+    Filter by:
+    <input
+      type="checkbox"
+      id="filter-errors"
+      checked="checked"
+      onclick="toggleFilter('errors')" />
+    <label for="filter-errors">errors</label>
+    <input
+      type="checkbox"
+      id="filter-warnings"
+      checked="checked"
+      onclick="toggleFilter('warnings')" />
+    <label for="filter-warnings">warnings</label>
+    <input
+      type="checkbox"
+      id="filter-notices"
+      checked="checked"
+      onclick="toggleFilter('notices')" />
+    <label for="filter-notices">notices</label>
+  </p>
+
+  <ul id="results">
     {results|raw}
   </ul>
 </body>
