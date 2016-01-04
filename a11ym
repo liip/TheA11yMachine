@@ -175,8 +175,7 @@ crawler.on('fetchcomplete', function(queueItem) {
     if (--maximumUrls <= 0) {
         crawler.stop();
         console.log(
-            'Crawler has stopped because it has reached the maximum URLs ' +
-            'to compute.'
+            '    (ignored, crawler has reached the maximum URLs to compute).'
         );
     }
 

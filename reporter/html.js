@@ -104,6 +104,21 @@ function buildResultsHtml(results) {
             result.typeLabel = upperCaseFirst(result.type);
             result.index     = index;
 
+            if (true === /^WCAG/.test(result.code)) {
+                result.noteCodes =
+                    result.code
+                        .split('.')[4]
+                        .split(',')
+                        .map(
+                            function (noteCode) {
+                                return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
+                            }
+                        )
+                        .join(', ');
+            } else {
+                result.noteCodes = '';
+            }
+
             return renderResult(result);
         }
     ).join('');
