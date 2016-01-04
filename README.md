@@ -11,6 +11,8 @@ $ npm install -g phantomjs
 $ npm install
 ```
 
+It requires at least NodeJS 4.0.
+
 ## Usage
 
 First, see the help:
