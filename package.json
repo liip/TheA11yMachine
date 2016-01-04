@@ -26,5 +26,11 @@
     "pa11y": "git://github.com/Hywan/pa11y#url_from_stdin",
     "process": "^0.11.2",
     "simplecrawler": "^0.5.4"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "bin": {
+    "a11ym": "./a11ym"
   }
 }
