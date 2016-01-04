@@ -67,8 +67,9 @@ var runTest = new function () {
     }
 
     options = {
-        log: reporter,
-        standard: standards[program.standard]
+        log     : reporter,
+        standard: standards[program.standard],
+        htmlcs  : __dirname + '/resource/HTMLCS.js'
     };
 
     var test = pa11y(options);
