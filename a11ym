@@ -10,6 +10,11 @@ var async   = require('async');
 program
     .usage('[options] <url>')
     .option(
+        '-l, --level <level>',
+        'Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.',
+        'error'
+    )
+    .option(
         '-d, --maximum-depth <depth>',
         'Explore up to a maximum depth (hops).',
         3
@@ -86,6 +91,11 @@ var runTest = new function () {
                     }
 
                     options.log.results(results, url);
+
+                    if (true === reportShouldFail(program.level, results)) {
+                        return callbacks.error(error);
+                    }
+
                     callbacks.complete(results);
                 }
             );
@@ -94,6 +104,26 @@ var runTest = new function () {
             process.exit(1);
         }
     };
+};
+
+var reportShouldFail = function (level, results) {
+    if (level === 'notice') {
+        return results.length > 0;
+    }
+
+    if (level === 'warning') {
+        return results.filter(isErrorOrWarning).length > 0;
+    }
+
+    return results.filter(isError).length > 0;
+};
+
+var isError = function (result) {
+    return 'error' === result.type;
+};
+
+var isErrorOrWarning = function (result) {
+    return 'error' === result.type || 'warning' === result.type;
 };
 
 var hasErrors = false;
@@ -116,7 +146,7 @@ var urls = async.queue(
         );
     }
 );
-urls.drains = function () {
+urls.drain = function () {
     if (true === hasErrors) {
         process.exit(2);
     }
