@@ -24,6 +24,11 @@ program
         'Output directory.',
         __dirname + '/a11ym_output'
     )
+    .option(
+        '-r, --report <report>',
+        'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.',
+        'html'
+    )
     .parse(process.argv);
 
 program.url = program.args[0];
@@ -34,10 +39,17 @@ if (!program.url) {
 }
 
 var runTest = new function () {
-    var reporter = require('./reporter/html');
-    reporter.config({
-        outputDirectory: program.output
-    });
+    var reporter = null;
+
+    if (-1 !== ['cli', 'csv', 'json'].indexOf(program.report)) {
+        reporter = require('./node_modules/pa11y/reporter/' + program.report);
+    } else {
+        reporter = require('./reporter/html');
+        reporter.config({
+            outputDirectory: program.output
+        });
+    }
+
     options = {
         log: reporter
     };
