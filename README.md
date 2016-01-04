@@ -4,9 +4,10 @@ The A11y Machine is an automated accessibility testing tool which crawls and
 tests all pages of any website. It validates pages against the following
 specifications/laws:
 
-  * [WCAG 2.0](http://www.w3.org/TR/WCAG20/) (A, AA and AAA —[understanding
-    levels of conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)—),
-  * [Section 508](http://www.section508.gov/).
+  * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
+    (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
+    conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)),
+  * U.S. [Section 508](http://www.section508.gov/) legislation.
 
 ## Installation
 
