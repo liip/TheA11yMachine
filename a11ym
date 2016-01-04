@@ -15,6 +15,11 @@ program
         3
     )
     .option(
+        '-u, --maximum-urls <maximum_urls>',
+        'Maximum number of URLs to compute.',
+        128
+    )
+    .option(
         '-o, --output <output_directory>',
         'Output directory.',
         __dirname + '/a11ym_output'
@@ -33,10 +38,10 @@ var runTest = new function () {
     reporter.config({
         outputDirectory: program.output
     });
-
     options = {
         log: reporter
     };
+
     var test = pa11y(options);
 
     return function (url, callbacks) {
@@ -66,7 +71,7 @@ var hasErrors = false;
 var url  = URL.parse(program.url);
 var urls = async.queue(
     function (task, onTaskComplete) {
-        console.log("Run: " + task.url);
+        console.log('Run: ' + task.url);
         runTest(
             task.url,
             {
@@ -95,17 +100,22 @@ crawler.interval        = 100;
 crawler.maxConcurrency  = 5;
 crawler.maxDepth        = +program.depth;
 
-var i = 0;
+var maximumUrls = program.maximumUrls;
+
 crawler.on('fetchcomplete', function(queueItem) {
     if (null === queueItem.stateData.contentType.match(/^text\/html/)) {
         return;
     }
 
-    if (++i > 2) {
+    if (--maximumUrls <= 0) {
         crawler.stop();
+        console.log(
+            'Crawler has stopped because it has reached the maximum URLs ' +
+            'to compute.'
+        );
     }
 
-    console.log("Received: " + queueItem.url);
+    console.log('Found: ' + queueItem.url);
     urls.push({url: queueItem.url});
 });
 
