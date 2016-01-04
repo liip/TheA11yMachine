@@ -1,17 +1,21 @@
 # The A11y Machine
 
 The A11y Machine is an automated accessibility testing tool which crawls and
-tests all pages of any website.
+tests all pages of any website. It validates pages against the following
+specifications/laws:
+
+  * [WCAG 2.0](http://www.w3.org/TR/WCAG20/) (A, AA and AAA —[understanding
+    levels of conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)—),
+  * [Section 508](http://www.section508.gov/).
 
 ## Installation
 
 [NPM](http://npmjs.org/) is required. Then, execute the following lines:
+
 ```sh
 $ npm install -g phantomjs
-$ npm install
+$ npm install the-a11y-machine
 ```
-
-It requires at least NodeJS 4.0.
 
 ## Usage
 
