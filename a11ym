@@ -10,7 +10,7 @@ var async   = require('async');
 program
     .usage('[options] <url>')
     .option(
-        '-d, --depth <depth>',
+        '-d, --maximum-depth <depth>',
         'Maximum depth (hops).',
         3
     )
@@ -128,7 +128,7 @@ crawler.initialPort     = url.port || 80;
 crawler.initialProtocol = url.protocol || 'http';
 crawler.interval        = 100;
 crawler.maxConcurrency  = 5;
-crawler.maxDepth        = +program.depth;
+crawler.maxDepth        = +program.maximumDepth;
 
 var maximumUrls = program.maximumUrls;
 

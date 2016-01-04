@@ -30,7 +30,7 @@ $ ./a11ym --help
   Options:
 
     -h, --help                         output usage information
-    -d, --depth <depth>                Maximum depth (hops).
+    -d, --maximum-depth <depth>        Maximum depth (hops).
     -u, --maximum-urls <maximum_urls>  Maximum number of URLs to compute.
     -o, --output <output_directory>    Output directory.
     -r, --report <report>              Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
