@@ -29,6 +29,11 @@ program
         'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.',
         'html'
     )
+    .option(
+        '-s, --standard <standard>',
+        'Standard to use: `section508`, `wcag2a`, `wcag2aa` (default) or ` wcag2aaa`.',
+        'wcag2aa'
+    )
     .parse(process.argv);
 
 program.url = program.args[0];
@@ -50,8 +55,20 @@ var runTest = new function () {
         });
     }
 
+    var standards = {
+        section508: 'Section508',
+        wcag2a    : 'WCAG2A',
+        wcag2aa   : 'WCAG2AA',
+        wcag2aaa  : 'WCAG2AAA'
+    };
+
+    if (undefined === standards[program.standard]) {
+        program.standard = 'wcag2aa';
+    }
+
     options = {
-        log: reporter
+        log: reporter,
+        standard: standards[program.standard]
     };
 
     var test = pa11y(options);
@@ -83,7 +100,7 @@ var hasErrors = false;
 var url  = URL.parse(program.url);
 var urls = async.queue(
     function (task, onTaskComplete) {
-        console.log('Run: ' + task.url);
+        console.log('Run: ' + task.url + '.');
         runTest(
             task.url,
             {
@@ -115,7 +132,12 @@ crawler.maxDepth        = +program.depth;
 var maximumUrls = program.maximumUrls;
 
 crawler.on('fetchcomplete', function(queueItem) {
-    if (null === queueItem.stateData.contentType.match(/^text\/html/)) {
+    console.log('Found: ' + queueItem.url + '.');
+
+    if (!queueItem.stateData.contentType ||
+        null === queueItem.stateData.contentType.match(/^text\/html/)) {
+        console.log('    (skipped, not text/html).');
+
         return;
     }
 
@@ -127,7 +149,6 @@ crawler.on('fetchcomplete', function(queueItem) {
         );
     }
 
-    console.log('Found: ' + queueItem.url);
     urls.push({url: queueItem.url});
 });
 
