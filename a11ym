@@ -11,7 +11,7 @@ program
     .usage('[options] <url>')
     .option(
         '-d, --maximum-depth <depth>',
-        'Maximum depth (hops).',
+        'Explore up to a maximum depth (hops).',
         3
     )
     .option(
