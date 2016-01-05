@@ -59,6 +59,8 @@ Report of a specific URL:
 
 ## License
 
+[BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
+
 > Copyright (c) 2016, Ivan Enderlin
 > All rights reserved.
 >
