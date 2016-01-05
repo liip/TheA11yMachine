@@ -49,11 +49,11 @@ Then open `a11ym_output/index.html` and browser the result!
 
 The index of the reports:
 
-<img src="http://i.imgur.com/s7vRCi4.png" alt="Index of the report" width="800" />
+<img src="resource/screenshots/index.png" alt="Index of the report" width="800" />
 
 Report of a specific URL:
 
-<img src="http://i.imgur.com/ehjwAXw.png" alt="Report of a specific URL" width="800" />
+<img src="resource/screenshots/report.png" alt="Report of a specific URL" width="800" />
 
 ## License
 
