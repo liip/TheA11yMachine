@@ -25,7 +25,6 @@ function config(options) {
         outputDirectory + '/index.html',
         {
             flag: 'a',
-            mode: 0o644,
             defaultEncoding: 'utf8'
         }
     );
@@ -69,7 +68,6 @@ function reportResults(results, url) {
             ),
         {
             flag: 'w',
-            mode: 0o644,
             encoding: 'utf8'
         }
     );
