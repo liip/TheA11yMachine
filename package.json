@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Hywan/TheA11yMachine#readme",
   "dependencies": {
-    "HTML_CodeSniffer": "git://github.com/Hywan/HTML_CodeSniffer#contrib_grunt",
     "async": "^1.5.0",
     "commander": "^2.9.0",
     "crypto": "0.0.3",
@@ -30,7 +29,8 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "^0.11.0"
+    "grunt-contrib-uglify": "^0.11.0",
+    "HTML_CodeSniffer": "git://github.com/Hywan/HTML_CodeSniffer#contrib_grunt"
   },
   "engines": {
     "node": ">=0.12.9"
