@@ -45,10 +45,41 @@ function reportError(message) {
 function reportResults(results, url) {
     var hash = crypto.createHash('sha1').update(url).digest('hex');
 
-    var errorCount   = results.filter(isError).length;
-    var warningCount = results.filter(isWarning).length;
-    var noticeCount  = results.filter(isNotice).length;
-    var total        = errorCount + warningCount + noticeCount;
+    var noteCodes    = new Set();
+    var errorCount   = 0;
+    var warningCount = 0;
+    var noticeCount  = 0;
+
+    results.forEach(
+        function(result, index) {
+            result.typeLabel = upperCaseFirst(result.type);
+            result.index     = index;
+
+            if (true === /^WCAG/.test(result.code)) {
+                result.noteCodes     = result.code.split('.')[4].split(',');
+                result.noteCodeLinks = buildNoteCodesHtml(result.noteCodes);
+            } else {
+                result.noteCodes     = [];
+                result.noteCodeLinks = '';
+            }
+
+            result.noteCodes.forEach(
+                function (value) {
+                    noteCodes.add(value);
+                }
+            );
+
+            if (true === isError(result)) {
+                ++errorCount;
+            } else if (true === isWarning(result)) {
+                ++warningCount;
+            } else if (true === isNotice(result)) {
+                ++noticeCount;
+            }
+        }
+    );
+
+    var total = errorCount + warningCount + noticeCount;
 
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
@@ -83,6 +114,7 @@ function reportResults(results, url) {
                 warningPercentage: (warningCount * 100) / total,
                 noticeCount      : noticeCount,
                 noticePercentage : (noticeCount * 100) / total,
+                noteCodeLinks    : buildNoteCodesHtml(noteCodes)
             }
         )
     );
@@ -97,29 +129,15 @@ function buildHtml(templateFile, data) {
 function buildResultsHtml(results) {
     var renderResult = template(__dirname + '/templates/report-result.html');
 
-    return results.map(
-        function(result, index) {
-            result.typeLabel = upperCaseFirst(result.type);
-            result.index     = index;
+    return results.map(renderResult).join('');
+}
 
-            if (true === /^WCAG/.test(result.code)) {
-                result.noteCodes =
-                    result.code
-                        .split('.')[4]
-                        .split(',')
-                        .map(
-                            function (noteCode) {
-                                return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
-                            }
-                        )
-                        .join(', ');
-            } else {
-                result.noteCodes = '';
-            }
-
-            return renderResult(result);
+function buildNoteCodesHtml(noteCodes) {
+    return Array.from(noteCodes).map(
+        function (noteCode) {
+            return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
         }
-    ).join('');
+    ).join(', ');
 }
 
 function template(filePath) {

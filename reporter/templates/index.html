@@ -102,6 +102,24 @@
       max-width: 2.5em;
       margin: 0 2em;
     }
+
+    .report > a,
+    .report > .notes {
+      display: inline-block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-y: scroll;
+    }
+
+    .report > a {
+      max-width: 60%;
+    }
+
+    .report > .notes {
+      margin-top: .5em 2em 0 2em;
+      float: right;
+      max-width: 40%;
+    }
   </style>
   <script>
     document.addEventListener(

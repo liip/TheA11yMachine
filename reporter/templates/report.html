@@ -94,7 +94,7 @@
         color: rgb(254, 178, 54);
       }
 
-    .notes code {
+    .notes > code {
       margin-left: 2em;
     }
 
@@ -227,20 +227,20 @@
       border-radius: 1.2em;
       background: #fff;
       transition: left .3s ease-out .3s;
-      animation: .8s linear unswitch;
+      animation: .3s linear unswitch .2s;
     }
 
     @keyframes switch {
-      30% { width: 1.5em; }
+      30% { width: 2em; }
     }
 
     @keyframes unswitch {
-      30% { margin-left: -.3em; width: 1.5em; }
+      30% { margin-left: -.8em; width: 2em; }
     }
 
     #sort-by-category:checked + label::after {
       left: -1.55em;
-      animation: .8s linear switch;
+      animation: .3s linear switch .2s;
     }
   </style>
 
