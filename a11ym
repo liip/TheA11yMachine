@@ -11,7 +11,11 @@ program
     .usage('[options] <url>')
     .option(
         '-c, --filter-by-codes <codes>',
-        'Filter by comma-separated WCAG codes, for instance `H25,H91,G18`.'
+        'Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
+    )
+    .option(
+        '-e, --exclude-by-codes <codes>',
+        'Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
     )
     .option(
         '-l, --level <level>',
@@ -81,10 +85,15 @@ var runTest = new function () {
         htmlcs  : __dirname + '/resource/HTMLCS.js'
     };
 
-    var filterByCodes = null;
+    var filterByCodes  = null;
+    var excludeByCodes = null;
 
     if (undefined !== program.filterByCodes) {
         filterByCodes = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+    }
+
+    if (undefined !== program.excludeByCodes) {
+        excludeByCodes = new RegExp('\\b(' + program.excludeByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
     }
 
     var test = pa11y(options);
@@ -103,8 +112,15 @@ var runTest = new function () {
                     if (null !== filterByCodes) {
                         results = results.filter(
                             function (result) {
-                                console.log(result.code);
                                 return filterByCodes.test(result.code);
+                            }
+                        );
+                    }
+
+                    if (null !== excludeByCodes) {
+                        results = results.filter(
+                            function (result) {
+                                return !excludeByCodes.test(result.code);
                             }
                         );
                     }
