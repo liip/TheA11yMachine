@@ -1,10 +1,10 @@
 {
   "name": "the-a11y-machine",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "The A11y Machine is an automated accessibility testing tool which crawls and tests all pages of any website.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hywan/TheA11yMachine.git"
+    "url": "git+https://github.com/liip/TheA11yMachine.git"
   },
   "keywords": [
     "accessibility",
@@ -15,9 +15,9 @@
   "author": "Ivan Enderlin",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/Hywan/TheA11yMachine/issues"
+    "url": "https://github.com/liip/TheA11yMachine/issues"
   },
-  "homepage": "https://github.com/Hywan/TheA11yMachine#readme",
+  "homepage": "https://github.com/liip/TheA11yMachine#readme",
   "dependencies": {
     "async": "^1.5.0",
     "commander": "^2.9.0",
