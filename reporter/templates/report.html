@@ -77,21 +77,21 @@
       }
 
     [data-result-type="warning"] {
-      stroke: rgb(10, 172, 207);
-      background-color: rgba(10, 172, 207, .1);
-    }
-
-      [data-result-type="warning"] h2 {
-        color: rgb(10, 172, 207);
-      }
-
-    [data-result-type="notice"] {
       stroke: rgb(254, 178, 54);
       background-color: rgba(254, 178, 54, .1);
     }
 
-      [data-result-type="notice"] h2 {
+      [data-result-type="warning"] h2 {
         color: rgb(254, 178, 54);
+      }
+
+    [data-result-type="notice"] {
+      stroke: rgb(10, 172, 207);
+      background-color: rgba(10, 172, 207, .1);
+    }
+
+      [data-result-type="notice"] h2 {
+        color: rgb(10, 172, 207);
       }
 
     .notes > code {
@@ -174,21 +174,21 @@
       }
 
     #filter-warnings + label {
-      color: rgb(10, 172, 207);
-    }
-
-      #filter-warnings:checked + label {
-        color: #fff;
-        background: rgb(10, 172, 207);
-      }
-
-    #filter-notices + label {
       color: rgb(254, 178, 54);
     }
 
-      #filter-notices:checked + label {
+      #filter-warnings:checked + label {
         color: #000;
         background: rgb(254, 178, 54);
+      }
+
+    #filter-notices + label {
+      color: rgb(10, 172, 207);
+    }
+
+      #filter-notices:checked + label {
+        color: #fff;
+        background: rgb(10, 172, 207);
       }
 
     input[name="sort-by"] {
