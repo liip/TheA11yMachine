@@ -10,6 +10,10 @@ var async   = require('async');
 program
     .usage('[options] <url>')
     .option(
+        '-c, --filter-by-codes <codes>',
+        'Filter by comma-separated WCAG codes, for instance `H25,H91,G18`.'
+    )
+    .option(
         '-l, --level <level>',
         'Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.',
         'error'
@@ -77,6 +81,12 @@ var runTest = new function () {
         htmlcs  : __dirname + '/resource/HTMLCS.js'
     };
 
+    var filterByCodes = null;
+
+    if (undefined !== program.filterByCodes) {
+        filterByCodes = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+    }
+
     var test = pa11y(options);
 
     return function (url, callbacks) {
@@ -88,6 +98,15 @@ var runTest = new function () {
                         options.log.error(error.stack);
 
                         return callbacks.error(error);
+                    }
+
+                    if (null !== filterByCodes) {
+                        results = results.filter(
+                            function (result) {
+                                console.log(result.code);
+                                return filterByCodes.test(result.code);
+                            }
+                        );
                     }
 
                     options.log.results(results, url);
