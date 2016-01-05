@@ -79,45 +79,36 @@ function reportResults(results, url) {
         }
     );
 
-    var total = errorCount + warningCount + noticeCount;
+    var total = Math.max(errorCount + warningCount + noticeCount, 1);
+    var errorPercentage = (errorCount * 100) / total;
+    var warningPercentage = (warningCount * 100) / total;
+    var noticePercentage = (noticeCount * 100) / total;
+
+    var options = {
+        url              : url,
+        reportUrl        : './' + hash + '.html',
+        date             : new Date(),
+
+        errorCount       : errorCount,
+        errorPercentage  : errorPercentage,
+        errorOffset      : 0,
+        warningCount     : warningCount,
+        warningPercentage: warningPercentage,
+        warningOffset    : -errorPercentage,
+        noticeCount      : noticeCount,
+        noticePercentage : noticePercentage,
+        noticeOffset     : -(errorPercentage + warningPercentage),
+
+        results          : buildResultsHtml(results),
+        noteCodeLinks    : buildNoteCodesHtml(noteCodes)
+    };
 
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
-        buildHtml(
-            __dirname + '/templates/report.html',
-            {
-                url              : url,
-                date             : new Date(),
-                errorCount       : errorCount,
-                errorPercentage  : (errorCount * 100) / total,
-                warningCount     : warningCount,
-                warningPercentage: (warningCount * 100) / total,
-                noticeCount      : noticeCount,
-                noticePercentage : (noticeCount * 100) / total,
-                results          : buildResultsHtml(results)
-            }
-            ),
-        {
-            flag: 'w',
-            encoding: 'utf8'
-        }
+        buildHtml(__dirname + '/templates/report.html', options),
+        { flag: 'w', encoding: 'utf8' }
     );
-    indexStream.write(
-        buildHtml(
-            __dirname + '/templates/index-report.html',
-            {
-                url              : url,
-                reportUrl        : './' + hash + '.html',
-                errorCount       : errorCount,
-                errorPercentage  : (errorCount * 100) / total,
-                warningCount     : warningCount,
-                warningPercentage: (warningCount * 100) / total,
-                noticeCount      : noticeCount,
-                noticePercentage : (noticeCount * 100) / total,
-                noteCodeLinks    : buildNoteCodesHtml(noteCodes)
-            }
-        )
-    );
+    indexStream.write(buildHtml(__dirname + '/templates/index-report.html', options));
 }
 
 function buildHtml(templateFile, data) {

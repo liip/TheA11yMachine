@@ -70,8 +70,8 @@
       display: block;
       margin: 2em auto;
       max-width: 200px;
-      background: rgb(244, 96, 37);
       border-radius: 50%;
+      background-color: rgb(144, 238, 144);
     }
 
     .pie circle {
@@ -184,18 +184,25 @@
             var errorCount   = stats.reduce(reducer('errors'), 0);
             var warningCount = stats.reduce(reducer('warnings'), 0);
             var noticeCount  = stats.reduce(reducer('notices'), 0);
-            var total        = errorCount + warningCount + noticeCount;
+            var total        = Math.max(errorCount + warningCount + noticeCount, 1);
+
+            var errorPercentage = (errorCount * 100) / total;
+            var warningPercentage = (warningCount * 100) / total;
+            var noticePercentage = (noticeCount * 100) / total;
 
             var pie = document.querySelector('#bigPie');
 
             pie.innerHTML =
                 pie.innerHTML.
                     replace(/{errorCount}/g, "" + errorCount).
-                    replace(/{errorPercentage}/g, "" + ((errorCount * 100) / total)).
+                    replace(/{errorPercentage}/g, "" + errorPercentage).
+                    replace(/{errorOffset}/g, "" + 0).
                     replace(/{warningCount}/g, "" + warningCount).
-                    replace(/{warningPercentage}/g, "" + ((warningCount * 100) / total)).
+                    replace(/{warningPercentage}/g, "" + warningPercentage).
+                    replace(/{warningOffset}/g, "" + (-errorPercentage)).
                     replace(/{noticeCount}/g, "" + noticeCount).
-                    replace(/{noticePercentage}/g, "" + ((noticeCount * 100) / total));
+                    replace(/{noticePercentage}/g, "" + noticePercentage).
+                    replace(/{noticeOffset}/g, "" + (-(errorPercentage+warningPercentage)));
 
             sort('errors');
         },
@@ -240,11 +247,17 @@
     </title>
     <circle
       r="25%" cx="50%" cy="50%"
+      stroke-dashoffset="{errorOffset}"
+      stroke-dasharray="{errorPercentage} 100"
+      data-result-type="error" />
+    <circle
+      r="25%" cx="50%" cy="50%"
+      stroke-dashoffset="{warningOffset}"
       stroke-dasharray="{warningPercentage} 100"
       data-result-type="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="-{warningPercentage}"
+      stroke-dashoffset="{noticeOffset}"
       stroke-dasharray="{noticePercentage} 100"
       data-result-type="notice" />
     <circle
