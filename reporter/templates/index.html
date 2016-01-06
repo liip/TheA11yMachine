@@ -184,16 +184,10 @@
 
     function sort(name) {
         var results = document.querySelectorAll('.report');
-        var types = ['errors', 'warnings', 'notices']
 
         var getIndexOf = function (resultIndex) {
             return parseInt(results.item(resultIndex).getAttribute('data-' + name + '-count'));
         };
-
-        types.forEach(function(n) {
-            document.querySelector('#sort-' + n).checked = false;
-        });
-        document.querySelector('#sort-' + name).checked = true;
 
         document.querySelector('#reports').innerHTML =
             Object
@@ -250,18 +244,21 @@
         class="report-sorter"
         type="radio"
         id="sort-errors"
+        name="report-sort"
         onclick="sort('errors')" />
     <label for="sort-errors">errors</label>
     <input
         class="report-sorter"
         type="radio"
         id="sort-warnings"
+        name="report-sort"
         onclick="sort('warnings')" />
     <label for="sort-warnings">warnings</label>
     <input
         class="report-sorter"
         type="radio"
         id="sort-notices"
+        name="report-sort"
         onclick="sort('notices')" />
     <label for="sort-notices">notices</label>
     <i>(Sorting is absolute for all reports, not based on the relative amount for each report)</i>
