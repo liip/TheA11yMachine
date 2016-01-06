@@ -1,8 +1,8 @@
 # The A11y Machine
 
-The A11y Machine is an automated accessibility testing tool which crawls and
-tests all pages of any website. It validates pages against the following
-specifications/laws:
+**The A11y Machine** is an **automated accessibility testing tool** which
+**crawls** and **tests** all pages of any web application. It validates pages
+against the following specifications/laws:
 
   * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
     (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
@@ -48,7 +48,7 @@ $ ./a11ym http://example.org
 
 Then open `a11ym_output/index.html` and browser the result!
 
-### Possible output
+## Possible output
 
 The index of the reports:
 
@@ -57,6 +57,26 @@ The index of the reports:
 Report of a specific URL:
 
 ![Report of a specific URL](resource/screenshots/report.png)
+
+## How does it work?
+
+The pipe looks like this:
+
+  1. We use
+     [`node-simplecrawler`](https://github.com/cgiffard/node-simplecrawler/) to
+     crawl a web application based on the given URL,
+  2. For each URL found, we run [PhantomJS](http://phantomjs.org/) and inject
+     [`HTML_CodeSniffer`](https://github.com/squizlabs/HTML_CodeSniffer) that
+     will check the page conformance; This step is semi-automated by the help of
+     [`pa11y`](https://github.com/nature/pa11y), which is a very thin layer of
+     code wrapping PhantomJS and `HTML_CodeSniffer`,
+  3. Finally, we transform the results produced by `HTML_CodeSniffer` to produce
+     enhanced and easy to use reports.
+
+So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
+`HTML_CodeSniffer` and PhantomJS) together and provides cool reports! Moreover,
+the command-line provides useful options to work efficiently and pragmatically,
+like the `--filter-by-codes` option.
 
 ## License
 
