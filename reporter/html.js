@@ -55,7 +55,7 @@ function reportResults(results, url) {
             result.typeLabel = upperCaseFirst(result.type);
             result.index     = index;
 
-            if (true === /^WCAG/.test(result.code)) {
+            if (true === /Principle.+Guideline/.test(result.code)) {
                 result.noteCodes     = result.code.split('.')[4].split(',');
                 result.noteCodeLinks = buildNoteCodesHtml(result.noteCodes);
             } else {
