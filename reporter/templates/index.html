@@ -186,15 +186,8 @@
         var results = document.querySelectorAll('.report');
         var types = ['errors', 'warnings', 'notices']
 
-        var total = 0;
-        Object.keys(results).forEach(function(i) {
-            types.forEach(function(n) {
-               total += parseInt(results[i].getAttribute('data-' + n + '-count'));
-            });
-        });
-
         var getIndexOf = function (resultIndex) {
-            return parseInt(results.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
+            return parseInt(results.item(resultIndex).getAttribute('data-' + name + '-count'));
         };
 
         types.forEach(function(n) {
@@ -271,7 +264,7 @@
         id="sort-notices"
         onclick="sort('notices')" />
     <label for="sort-notices">notices</label>
-    <i>(Sorting is relative to the total)</i>
+    <i>(Sorting is absolute for all reports, not based on the relative amount for each report)</i>
   </p>
 
   <ul class="reports" id="reports">
