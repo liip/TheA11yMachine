@@ -14,7 +14,7 @@ program
         'Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
     )
     .option(
-        '-e, --exclude-by-codes <codes>',
+        '-C, --exclude-by-codes <codes>',
         'Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
     )
     .option(
@@ -28,7 +28,7 @@ program
         3
     )
     .option(
-        '-u, --maximum-urls <maximum_urls>',
+        '-m, --maximum-urls <maximum_urls>',
         'Maximum number of URLs to compute.',
         128
     )
@@ -46,6 +46,14 @@ program
         '-s, --standard <standard>',
         'Standard to use: `section508`, `wcag2a`, `wcag2aa` (default) or ` wcag2aaa`.',
         'wcag2aa'
+    )
+    .option(
+        '-u, --filter-by-urls <urls>',
+        'Filter URL to test by using a regular expression without delimiters (e.g. \'news|contact\').'
+    )
+    .option(
+        '-U, --exclude-by-urls <urls>',
+        'Exclude URL to test by using a regular expression without delimiters (e.g. \'news|contact\').'
     )
     .parse(process.argv);
 
@@ -195,7 +203,17 @@ crawler.interval        = 100;
 crawler.maxConcurrency  = 5;
 crawler.maxDepth        = +program.maximumDepth;
 
-var maximumUrls = program.maximumUrls;
+var maximumUrls   = program.maximumUrls;
+var filterByUrls  = null;
+var excludeByUrls = null;
+
+if (undefined !== program.filterByUrls) {
+    filterByUrls = new RegExp(program.filterByUrls, 'i');
+}
+
+if (undefined !== program.excludeByUrls) {
+    excludeByUrls = new RegExp(program.excludeByUrls, 'i');
+}
 
 crawler.on('fetchcomplete', function(queueItem) {
     console.log('Found: ' + queueItem.url + '.');
@@ -207,16 +225,30 @@ crawler.on('fetchcomplete', function(queueItem) {
         return;
     }
 
+    var url = queueItem.url;
+
+    if (null !== filterByUrls && false === filterByUrls.test(url)) {
+        console.log('    (filtered).');
+
+        return;
+    }
+
+    if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
+        console.log('    (excluded).');
+
+        return;
+    }
+
     if (--maximumUrls < 0) {
         crawler.stop();
         console.log(
-            '    (ignored, crawler has reached the maximum URLs to compute).'
+            '    (ignored, maximum URLs reached).'
         );
 
         return;
     }
 
-    urls.push({url: queueItem.url});
+    urls.push({url: url});
 });
 
 crawler.start();
