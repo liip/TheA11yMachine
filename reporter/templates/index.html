@@ -186,9 +186,9 @@
             var noticeCount  = stats.reduce(reducer('notices'), 0);
             var total        = Math.max(errorCount + warningCount + noticeCount, 1);
 
-            var errorPercentage = (errorCount * 100) / total;
+            var errorPercentage   = (errorCount * 100) / total;
             var warningPercentage = (warningCount * 100) / total;
-            var noticePercentage = (noticeCount * 100) / total;
+            var noticePercentage  = (noticeCount * 100) / total;
 
             var pie = document.querySelector('#bigPie');
 

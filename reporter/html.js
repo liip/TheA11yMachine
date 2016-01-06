@@ -79,10 +79,10 @@ function reportResults(results, url) {
         }
     );
 
-    var total = Math.max(errorCount + warningCount + noticeCount, 1);
-    var errorPercentage = (errorCount * 100) / total;
+    var total             = Math.max(errorCount + warningCount + noticeCount, 1);
+    var errorPercentage   = (errorCount * 100) / total;
     var warningPercentage = (warningCount * 100) / total;
-    var noticePercentage = (noticeCount * 100) / total;
+    var noticePercentage  = (noticeCount * 100) / total;
 
     var options = {
         url              : url,
@@ -106,7 +106,10 @@ function reportResults(results, url) {
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
         buildHtml(__dirname + '/templates/report.html', options),
-        { flag: 'w', encoding: 'utf8' }
+        {
+            flag    : 'w',
+            encoding: 'utf8'
+        }
     );
     indexStream.write(buildHtml(__dirname + '/templates/index-report.html', options));
 }
