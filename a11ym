@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 var Crawler = require('simplecrawler');
-var program = require('commander');
-var process = require('process');
 var URL     = require('url');
-var pa11y   = require('pa11y');
 var async   = require('async');
+var pa11y   = require('pa11y');
+var process = require('process');
+var program = require('commander');
 
 program
     .usage('[options] <url>')
