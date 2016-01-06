@@ -34,6 +34,39 @@
       color: inherit;
     }
 
+    .sort-control {
+      margin-left: 3em;
+      margin-bottom: 1em;
+    }
+
+    input[id^="sort"] {
+      display: none;
+    }
+
+    input[id^="sort"] + label {
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: .4em;
+      padding: .3em .8em;
+      border-radius: .5em;
+      background: rgb(200, 200, 200);
+    }
+
+      #sort-errors:checked + label {
+        color: #fff;
+        background: rgb(244, 96, 37);
+      }
+
+      #sort-warnings:checked + label {
+        color: #000;
+        background: rgb(254, 178, 54);
+      }
+
+      #sort-notices:checked + label {
+        color: #fff;
+        background: rgb(10, 172, 207);
+      }
+
     .infos {
       text-align: center;
       margin-bottom: 3em;
@@ -148,6 +181,42 @@
         },
         false
     );
+
+    function sort(name) {
+        var results = document.querySelectorAll('.report');
+        var types = ['errors', 'warnings', 'notices']
+
+        var total = 0;
+        Object.keys(results).forEach(function(i) {
+            types.forEach(function(n) {
+               total += parseInt(results[i].getAttribute('data-' + n + '-count'));
+            });
+        });
+
+        var getIndexOf = function (resultIndex) {
+            return parseInt(results.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
+        };
+
+        types.forEach(function(n) {
+            document.querySelector('#sort-' + n).checked = false;
+        });
+        document.querySelector('#sort-' + name).checked = true;
+
+        document.querySelector('#reports').innerHTML =
+            Object
+                .keys(results)
+                .sort(
+                    function (a, b) {
+                        return getIndexOf(a) < getIndexOf(b) ? 1 : -1;
+                    }
+                )
+                .map(
+                    function (i) {
+                        return results.item(i).outerHTML;
+                    }
+                )
+                .join('\n');
+    }
   </script>
 </head>
 
@@ -182,4 +251,27 @@
     var stats = [];
   </script>
 
-  <ul class="reports">
+  <p class="sort-control">
+    Sort by:
+    <input
+        class="report-sorter"
+        type="radio"
+        id="sort-errors"
+        onclick="sort('errors')" />
+    <label for="sort-errors">errors</label>
+    <input
+        class="report-sorter"
+        type="radio"
+        id="sort-warnings"
+        onclick="sort('warnings')" />
+    <label for="sort-warnings">warnings</label>
+    <input
+        class="report-sorter"
+        type="radio"
+        id="sort-notices"
+        onclick="sort('notices')" />
+    <label for="sort-notices">notices</label>
+    <i>(Sorting is relative to the total)</i>
+  </p>
+
+  <ul class="reports" id="reports">
