@@ -196,6 +196,8 @@
                     replace(/{warningPercentage}/g, "" + ((warningCount * 100) / total)).
                     replace(/{noticeCount}/g, "" + noticeCount).
                     replace(/{noticePercentage}/g, "" + ((noticeCount * 100) / total));
+
+            sort('errors');
         },
         false
     );
@@ -221,8 +223,6 @@
                 )
                 .join('\n');
     }
-
-    sort('errors');
 
     var stats = [];
   </script>
