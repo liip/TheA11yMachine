@@ -198,7 +198,7 @@ crawler.interval        = 100;
 crawler.maxConcurrency  = 5;
 crawler.maxDepth        = +program.maximumDepth;
 
-// deactivate invalid SSL certificate checking
+// Deactivate invalid SSL certificate checking.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 crawler.ignoreInvalidSSL = true;
 
