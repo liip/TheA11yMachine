@@ -183,18 +183,29 @@
     );
 
     function sort(name) {
-        var results = document.querySelectorAll('.report');
-        var types = ['errors', 'warnings', 'notices']
+        var types   = ['errors', 'warnings', 'notices'];
+        var reports = document.querySelectorAll('.report');
+        var total   = 0;
 
-        var total = 0;
-        Object.keys(results).forEach(function(i) {
-            types.forEach(function(n) {
-               total += parseInt(results[i].getAttribute('data-' + n + '-count'));
-            });
-        });
+        var total =
+            Object
+              .keys(reports)
+              .reduce(
+                  function (accumulator, reportIndex) {
+                      return accumulator + types.reduce(
+                          function (subAccumulator, type) {
+                              var score = +reports[reportIndex].getAttribute('data-' + type + '-count');
 
-        var getIndexOf = function (resultIndex) {
-            return parseInt(results.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
+                              return subAccumulator + score;
+                          },
+                          0
+                      );
+                  },
+                  0
+              );
+
+        var getReportScore = function (resultIndex) {
+            return parseInt(reports.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
         };
 
         types.forEach(function(n) {
@@ -204,15 +215,15 @@
 
         document.querySelector('#reports').innerHTML =
             Object
-                .keys(results)
+                .keys(reports)
                 .sort(
                     function (a, b) {
-                        return getIndexOf(a) < getIndexOf(b) ? 1 : -1;
+                        return getReportScore(a) < getReportScore(b) ? 1 : -1;
                     }
                 )
                 .map(
                     function (i) {
-                        return results.item(i).outerHTML;
+                        return reports.item(i).outerHTML;
                     }
                 )
                 .join('\n');
