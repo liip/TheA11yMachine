@@ -49,8 +49,8 @@ program
     )
     .option(
         '-S, --sniffers <sniffers>',
-        'Path to the sniffers file, e.g. `resource/HTMLCS.js` (default).',
-        __dirname + '/resource/HTMLCS.js'
+        'Path to the sniffers file, e.g. `resource/sniffers.js` (default).',
+        __dirname + '/resource/sniffers.js'
     )
     .option(
         '-u, --filter-by-urls <urls>',

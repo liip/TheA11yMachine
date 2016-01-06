@@ -4,7 +4,7 @@ module.exports = function (grunt) {
         __dirname + '/resource/sniffers/custom';
     var sniffersOutput =
         grunt.option('sniffers-output') ||
-        'resource/HTMLCS.js';
+        'resource/sniffers.js';
 
     var configuration = {
         pkg: grunt.file.readJSON('package.json'),
