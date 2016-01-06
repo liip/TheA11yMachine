@@ -201,29 +201,9 @@
     );
 
     function sort(name) {
-        var types   = ['errors', 'warnings', 'notices'];
         var reports = document.querySelectorAll('.report');
-        var total   = 0;
-
-        var total =
-            Object
-              .keys(reports)
-              .reduce(
-                  function (accumulator, reportIndex) {
-                      return accumulator + types.reduce(
-                          function (subAccumulator, type) {
-                              var score = +reports[reportIndex].getAttribute('data-' + type + '-count');
-
-                              return subAccumulator + score;
-                          },
-                          0
-                      );
-                  },
-                  0
-              );
-
         var getReportScore = function (resultIndex) {
-            return parseInt(reports.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
+            return +reports.item(resultIndex).getAttribute('data-' + name + '-count');
         };
 
         document.querySelector('#reports').innerHTML =
@@ -297,7 +277,6 @@
         value="notices"
         onclick="sort('notices')" />
       <label for="sort-by-notices">notices</label>
-      <i>(sorting is relative to the total)</i>
     </p>
   </div>
 
