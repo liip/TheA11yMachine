@@ -37,7 +37,8 @@ $ ./a11ym --help
     -m, --maximum-urls <maximum_urls>  Maximum number of URLs to compute.
     -o, --output <output_directory>    Output directory.
     -r, --report <report>              Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
-    -s, --standard <standard>          Standard to use: `section508`, `wcag2a`, `wcag2aa` (default) or ` wcag2aaa`.
+    -s, --standard <standard>          Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default) or ` WCAG2AAA`.
+    -S, --sniffers <sniffers>          Path to the sniffers file, e.g. `resource/HTMLCS.js` (default).
     -u, --filter-by-urls <urls>        Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
     -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
 ```
@@ -79,6 +80,29 @@ So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
 `HTML_CodeSniffer` and PhantomJS) together and provides cool reports! Moreover,
 the command-line provides useful options to work efficiently and pragmatically,
 like the `--filter-by-codes` option.
+
+## Write your custom sniffers
+
+`HTML_CodeSniffer` is build in a way that allows you to extend existing sniffers
+or write your own. The `resource/sniffers/` directory contains an example of a
+custom sniffer.
+
+The A11y Machine comes with a default file containing all the sniffers:
+`resource/sniffers.js`. You can provide your own by using the `--sniffers`
+option. To build your own sniffers, simply copy the `resource/sniffers/`
+somewhere as a basis, complete it, then compile it with
+[Grunt](http://gruntjs.com/) (you need to install Grunt with `npm install -g
+grunt-cli`):
+
+```sh
+$ grunt --sniffers-directory my/sniffers/ --sniffers-output my_sniffers.js
+```
+
+Then, to effectively use it:
+
+```sh
+$ a11ym --sniffers my_sniffers.js http://example.org/
+```
 
 ## License
 
