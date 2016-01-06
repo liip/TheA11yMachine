@@ -43,14 +43,14 @@ program
         'html'
     )
     .option(
-        '--sniffers <sniffers>',
-        'Path to the sniffers file, e.g. `resource/HTMLCS.js` (default).',
-        __dirname + '/resource/HTMLCS.js'
-    )
-    .option(
         '-s, --standard <standard>',
         'Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default) or ` WCAG2AAA`.',
         'WCAG2AA'
+    )
+    .option(
+        '-S, --sniffers <sniffers>',
+        'Path to the sniffers file, e.g. `resource/HTMLCS.js` (default).',
+        __dirname + '/resource/HTMLCS.js'
     )
     .option(
         '-u, --filter-by-urls <urls>',
