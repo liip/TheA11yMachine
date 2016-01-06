@@ -34,39 +34,6 @@
       color: inherit;
     }
 
-    .sort-control {
-      margin-left: 3em;
-      margin-bottom: 1em;
-    }
-
-    input[id^="sort"] {
-      display: none;
-    }
-
-    input[id^="sort"] + label {
-      cursor: pointer;
-      font-weight: bold;
-      margin-right: .4em;
-      padding: .3em .8em;
-      border-radius: .5em;
-      background: rgb(200, 200, 200);
-    }
-
-      #sort-errors:checked + label {
-        color: #fff;
-        background: rgb(244, 96, 37);
-      }
-
-      #sort-warnings:checked + label {
-        color: #000;
-        background: rgb(254, 178, 54);
-      }
-
-      #sort-notices:checked + label {
-        color: #fff;
-        background: rgb(10, 172, 207);
-      }
-
     .infos {
       text-align: center;
       margin-bottom: 3em;
@@ -153,6 +120,57 @@
       float: right;
       max-width: 40%;
     }
+
+    #controls {
+      margin: 0 0 2em 2em;
+    }
+
+    #controls > p {
+      display: inline-block;
+    }
+
+    #controls > p + p {
+      margin-left: 3em;
+    }
+
+    input[id^="sort-by"] {
+      display: none;
+    }
+
+    input[id^="sort"] + label {
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: .4em;
+      padding: .3em .8em;
+      border-radius: .5em;
+    }
+
+    #sort-by-errors + label {
+      color: rgb(244, 96, 37);
+    }
+
+      #sort-by-errors:checked + label {
+        color: #fff;
+        background: rgb(244, 96, 37);
+      }
+
+    #sort-by-warnings + label {
+      color: rgb(254, 178, 54);
+    }
+
+      #sort-by-warnings:checked + label {
+        color: #000;
+        background: rgb(254, 178, 54);
+      }
+
+    #sort-by-notices + label {
+      color: rgb(10, 172, 207);
+    }
+
+      #sort-by-notices:checked + label {
+        color: #fff;
+        background: rgb(10, 172, 207);
+      }
   </style>
   <script>
     document.addEventListener(
@@ -208,11 +226,6 @@
             return parseInt(reports.item(resultIndex).getAttribute('data-' + name + '-count')) / total;
         };
 
-        types.forEach(function(n) {
-            document.querySelector('#sort-' + n).checked = false;
-        });
-        document.querySelector('#sort-' + name).checked = true;
-
         document.querySelector('#reports').innerHTML =
             Object
                 .keys(reports)
@@ -260,27 +273,32 @@
     <text x="50%" y="55%">errors</text>
   </svg>
 
-  <p class="sort-control">
-    Sort by:
-    <input
-        class="report-sorter"
+  <div id="controls">
+    <p>
+      Sort by:
+      <input
         type="radio"
-        id="sort-errors"
+        id="sort-by-errors"
+        name="sort"
+        value="errors"
         onclick="sort('errors')" />
-    <label for="sort-errors">errors</label>
-    <input
-        class="report-sorter"
+      <label for="sort-by-errors">errors</label>
+      <input
         type="radio"
-        id="sort-warnings"
+        id="sort-by-warnings"
+        name="sort"
+        value="warnings"
         onclick="sort('warnings')" />
-    <label for="sort-warnings">warnings</label>
-    <input
-        class="report-sorter"
+      <label for="sort-by-warnings">warnings</label>
+      <input
         type="radio"
-        id="sort-notices"
+        id="sort-by-notices"
+        name="sort"
+        value="notices"
         onclick="sort('notices')" />
-    <label for="sort-notices">notices</label>
-    <i>(Sorting is relative to the total)</i>
-  </p>
+      <label for="sort-by-notices">notices</label>
+      <i>(sorting is relative to the total)</i>
+    </p>
+  </div>
 
   <ul class="reports" id="reports">
