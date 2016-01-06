@@ -222,6 +222,8 @@
                 .join('\n');
     }
 
+    sort('errors');
+
     var stats = [];
   </script>
 </head>
@@ -261,6 +263,7 @@
         id="sort-by-errors"
         name="sort"
         value="errors"
+        checked="checked"
         onclick="sort('errors')" />
       <label for="sort-by-errors">errors</label>
       <input
