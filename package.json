@@ -19,18 +19,16 @@
   },
   "homepage": "https://github.com/liip/TheA11yMachine#readme",
   "dependencies": {
+    "HTML_CodeSniffer": "git://github.com/Hywan/HTML_CodeSniffer#contrib_grunt",
     "async": "^1.5.0",
     "commander": "^2.9.0",
     "crypto": "0.0.3",
-    "mkdirp": "^0.5.1",
-    "pa11y": "git://github.com/Hywan/pa11y#url_from_stdin",
-    "process": "^0.11.2",
-    "simplecrawler": "git://github.com/cgiffard/node-simplecrawler#master"
-  },
-  "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-uglify": "^0.11.0",
-    "HTML_CodeSniffer": "git://github.com/Hywan/HTML_CodeSniffer#contrib_grunt"
+    "mkdirp": "^0.5.1",
+    "pa11y": "git://github.com/Hywan/pa11y#relax_standards",
+    "process": "^0.11.2",
+    "simplecrawler": "git://github.com/cgiffard/node-simplecrawler#master"
   },
   "engines": {
     "node": ">=0.12.9"

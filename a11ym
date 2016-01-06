@@ -44,8 +44,8 @@ program
     )
     .option(
         '-s, --standard <standard>',
-        'Standard to use: `section508`, `wcag2a`, `wcag2aa` (default) or ` wcag2aaa`.',
-        'wcag2aa'
+        'Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default) or ` WCAG2AAA`.',
+        'WCAG2AA'
     )
     .option(
         '-u, --filter-by-urls <urls>',
@@ -76,21 +76,11 @@ var runTest = new function () {
         });
     }
 
-    var standards = {
-        section508: 'Section508',
-        wcag2a    : 'WCAG2A',
-        wcag2aa   : 'WCAG2AA',
-        wcag2aaa  : 'WCAG2AAA'
-    };
-
-    if (undefined === standards[program.standard]) {
-        program.standard = 'wcag2aa';
-    }
-
     options = {
-        log     : reporter,
-        standard: standards[program.standard],
-        htmlcs  : __dirname + '/resource/HTMLCS.js'
+        log      : reporter,
+        standard : program.standard,
+        standards: [program.standard],
+        htmlcs   : program.sniffers
     };
 
     var filterByCodes  = null;
