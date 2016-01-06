@@ -82,7 +82,7 @@ like the `--filter-by-codes` option.
 
 [BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
 
-> Copyright (c) 2016, Ivan Enderlin
+> Copyright (c) 2016, Ivan Enderlin and Liip
 > All rights reserved.
 >
 > Redistribution and use in source and binary forms, with or without modification,
