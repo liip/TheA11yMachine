@@ -37,8 +37,8 @@ $ ./a11ym --help
     -m, --maximum-urls <maximum_urls>  Maximum number of URLs to compute.
     -o, --output <output_directory>    Output directory.
     -r, --report <report>              Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
-    -s, --standard <standard>          Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default) or ` WCAG2AAA`.
-    -S, --sniffers <sniffers>          Path to the sniffers file, e.g. `resource/HTMLCS.js` (default).
+    -s, --standard <standard>          Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).
+    -S, --sniffers <sniffers>          Path to the sniffers file, e.g. `resource/sniffers.js` (default).
     -u, --filter-by-urls <urls>        Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
     -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
 ```
@@ -101,7 +101,7 @@ $ grunt --sniffers-directory my/sniffers/ --sniffers-output my_sniffers.js
 Then, to effectively use it:
 
 ```sh
-$ a11ym --sniffers my_sniffers.js http://example.org/
+$ a11ym --sniffers my_sniffers.js --standard MyStandard http://example.org/
 ```
 
 ## License

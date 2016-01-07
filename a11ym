@@ -44,7 +44,7 @@ program
     )
     .option(
         '-s, --standard <standard>',
-        'Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default) or ` WCAG2AAA`.',
+        'Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).',
         'WCAG2AA'
     )
     .option(
