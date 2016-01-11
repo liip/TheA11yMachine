@@ -1,13 +1,24 @@
 # The A11y Machine
 
-**The A11y Machine** is an **automated accessibility testing tool** which
-**crawls** and **tests** all pages of any web application. It validates pages
-against the following specifications/laws:
+**The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
+accessibility testing tool** which **crawls** and **tests** all pages of any web
+application, to finally produce detailed and efficient reports. It validates
+pages against the following specifications/laws:
 
   * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
     (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
     conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)),
   * U.S. [Section 508](http://www.section508.gov/) legislation.
+
+## Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Possible output](#possible-output)
+  * [How does it work?](#how-does-it-work)
+  * [Write your custom sniffers](#write-your-custom-sniffers)
+* [Roadmap](#roadmap)
+* [License](#license)
 
 ## Installation
 
@@ -20,7 +31,7 @@ $ npm install the-a11y-machine
 
 ## Usage
 
-First, see the help:
+As a prelude, see the help:
 
 ```sh
 $ ./a11ym --help
@@ -43,7 +54,7 @@ $ ./a11ym --help
     -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
 ```
 
-Then, the simplest use is `a11ym` with an URL:
+Thus, the simplest use is to run `a11ym` with a URL:
 
 ```sh
 $ ./a11ym http://example.org
@@ -51,7 +62,7 @@ $ ./a11ym http://example.org
 
 Then open `a11ym_output/index.html` and browser the result!
 
-## Possible output
+### Possible output
 
 The index of the reports:
 
@@ -61,7 +72,7 @@ Report of a specific URL:
 
 ![Report of a specific URL](resource/screenshots/report.png)
 
-## How does it work?
+### How does it work?
 
 The pipe looks like this:
 
@@ -81,7 +92,7 @@ So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
 the command-line provides useful options to work efficiently and pragmatically,
 like the `--filter-by-codes` option.
 
-## Write your custom sniffers
+### Write your custom sniffers
 
 `HTML_CodeSniffer` is build in a way that allows you to extend existing sniffers
 or write your own. The `resource/sniffers/` directory contains an example of a
@@ -103,6 +114,16 @@ Then, to effectively use it:
 ```sh
 $ a11ym --sniffers my_sniffers.js --standard MyStandard http://example.org/
 ```
+
+## Roadmap and board
+
+The roadmap is public:
+  * See [the incoming
+    milestones](https://github.com/liip/TheA11yMachine/milestones),
+  * See [the in progress
+    issues](https://github.com/liip/TheA11yMachine/labels/in%20progress).
+
+The board is publicly available at the following URL: https://waffle.io/liip/TheA11yMachine.
 
 ## License
 
