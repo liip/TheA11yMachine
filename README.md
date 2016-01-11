@@ -18,7 +18,7 @@ pages against the following specifications/laws:
   * [Possible output](#possible-output)
   * [How does it work?](#how-does-it-work)
   * [Write your custom sniffers](#write-your-custom-sniffers)
-* [Roadmap](#roadmap)
+* [Roadmap and board](#roadmap-and-board)
 * [Authors and license](#authors-and-license)
 
 ## Why?
