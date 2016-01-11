@@ -12,6 +12,7 @@ pages against the following specifications/laws:
 
 ## Table of contents
 
+* [Why?](#why)
 * [Installation](#installation)
 * [Usage](#usage)
   * [Possible output](#possible-output)
@@ -19,6 +20,34 @@ pages against the following specifications/laws:
   * [Write your custom sniffers](#write-your-custom-sniffers)
 * [Roadmap](#roadmap)
 * [License](#license)
+
+## Why?
+
+If **privacy** matters for you, you're likely to install The A11y Machine over
+any SaaS services: It runs locally so you don't need to send your code
+somewhere, you can test all parts of your application including the ones which
+requires an authentification (like a checkout, a back-office etc.)…
+
+Here is the pros and cons of The A11y Machine vs. other third-party/SaaS
+services put in a table:
+
+Properties | The A11y Machine | SaaS services
+-----------|------------------|---------------
+Can run locally              | yes | no
+Can test each patch          | yes | no (except if commit)
+Reduce the test loop         | yes | no (the loop is longer)
+Can test private code        | yes | no (you must send your code)
+Can test auth-required parts | yes | no
+Can crawl all your pages     | yes | no (it depends of your money)
+
+Accessibility is not only a concern for disabled people: The biggest disabled
+peoples are bots, like [DuckDuckGo](https://duckduckgo.com),
+[Google](https://google.com/) or [Bing](https://bing.com/). By respecting these
+standards, you're likely to have a better referencing. Also it helps to clean
+your code. Accessibility might often not be addressed because of its cost, but
+what cost the most is finding errors! With The A11y Machine, this cost is
+aggressively reduced and you can focus on fixing reported errors. We heard about
+stories fixing thousands of errors in a day.
 
 ## Installation
 
