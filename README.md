@@ -19,7 +19,7 @@ pages against the following specifications/laws:
   * [How does it work?](#how-does-it-work)
   * [Write your custom sniffers](#write-your-custom-sniffers)
 * [Roadmap](#roadmap)
-* [License](#license)
+* [Authors and license](#authors-and-license)
 
 ## Why?
 
@@ -154,7 +154,12 @@ The roadmap is public:
 
 The board is publicly available at the following URL: https://waffle.io/liip/TheA11yMachine.
 
-## License
+## Authors and license
+
+Original author is [Ivan Enderlin](http://mnt.io/), accompagnied by [Gilles
+Crettenand](https://github.com/krtek4) and [David
+Jeanmonod](https://github.com/jeanmonod). This software is backed by
+[Liip](https://liip.ch/).
 
 [BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
 
