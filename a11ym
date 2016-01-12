@@ -61,6 +61,10 @@ program
         '-U, --exclude-by-urls <urls>',
         'Exclude URL to test by using a regular expression without delimiters (e.g. \'news|contact\').'
     )
+    .option(
+        '--http-tls-disable',
+        'Disable TLS/SSL when crawling or downloading pages.'
+    )
     .parse(process.argv);
 
 if (!program.args[0]) {
@@ -212,9 +216,10 @@ crawler.filterByDomain = true;
 
 var maximumUrls = +program.maximumUrls;
 
-// Deactivate invalid SSL certificate checking.
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-crawler.ignoreInvalidSSL = true;
+if (true === program.httpTlsDisable) {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    crawler.ignoreInvalidSSL                 = true;
+}
 
 var filterByUrls  = null;
 var excludeByUrls = null;
