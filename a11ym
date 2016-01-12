@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
-var Crawler = require('simplecrawler');
-var URL     = require('url');
-var async   = require('async');
-var pa11y   = require('pa11y');
-var process = require('process');
-var program = require('commander');
+var Crawler  = require('simplecrawler');
+var URL      = require('url');
+var async    = require('async');
+var pa11y    = require('pa11y');
+var process  = require('process');
+var program  = require('commander');
+var readline = require('readline');
 
 program
-    .usage('[options] <url>')
+    .usage('[options] url …')
     .option(
         '-c, --filter-by-codes <codes>',
         'Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
@@ -62,9 +63,7 @@ program
     )
     .parse(process.argv);
 
-program.url = program.args[0];
-
-if (!program.url) {
+if (!program.args[0]) {
     program.help();
     process.exit(1);
 }
@@ -166,7 +165,6 @@ var isErrorOrWarning = function (result) {
 
 var hasErrors = false;
 
-var url  = URL.parse(program.url);
 var urls = async.queue(
     function (task, onTaskComplete) {
         console.log('Run: ' + task.url + '.');
@@ -190,19 +188,34 @@ urls.drain = function () {
     }
 };
 
-var crawler             = new Crawler(url.hostname);
-crawler.initialPath     = url.path;
-crawler.initialPort     = url.port || 80;
-crawler.initialProtocol = (url.protocol || 'http').replace(':', '');
-crawler.interval        = 100;
-crawler.maxConcurrency  = 5;
-crawler.maxDepth        = +program.maximumDepth;
+var parseURL = function (url) {
+    var parsed = URL.parse(url);
+
+    if (!parsed.protocol) {
+        parsed.protocol = 'http';
+    } else {
+        parsed.protocol = parsed.protocol.replace(':', '');
+    }
+
+    if (!parsed.port) {
+        parsed.port = 'http' === parsed.protocol ? 80 : 443;
+    }
+
+    return parsed;
+};
+
+var crawler            = new Crawler();
+crawler.interval       = 100;
+crawler.maxConcurrency = 5;
+crawler.maxDepth       = +program.maximumDepth;
+crawler.filterByDomain = true;
+
+var maximumUrls = +program.maximumUrls;
 
 // Deactivate invalid SSL certificate checking.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 crawler.ignoreInvalidSSL = true;
 
-var maximumUrls   = program.maximumUrls;
 var filterByUrls  = null;
 var excludeByUrls = null;
 
@@ -250,4 +263,43 @@ crawler.on('fetchcomplete', function(queueItem) {
     urls.push({url: url});
 });
 
-crawler.start();
+var computeURLToCrawler = function (crawler) {
+    var first = true;
+
+    return function (value) {
+        var url = crawler.processURL(value);
+        console.log(url);
+
+        if (true === first) {
+            first                   = false;
+            crawler.host            = url.host;
+            crawler.initialProtocol = url.protocol;
+            crawler.initialPort     = url.port;
+            crawler.initialPath     = url.path;
+        } else {
+            ++maximumUrls;
+        }
+
+        crawler.queue.add(
+            url.protocol,
+            url.host,
+            url.port,
+            url.path
+        );
+    };
+};
+
+if (1 === program.args.length && '-' === program.args[0]) {
+    crawler.maxDepth = 1;
+    readline
+        .createInterface(process.stdin, undefined)
+        .on('line', computeURLToCrawler(crawler))
+        .on('close', function () { crawler.start(); });
+} else {
+    if (1 < program.args.length) {
+        crawler.maxDepth = 1;
+    }
+
+    program.args.forEach(computeURLToCrawler(crawler));
+    crawler.start();
+}
