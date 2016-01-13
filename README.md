@@ -1,9 +1,9 @@
 # The A11y Machine
 
 **The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
-accessibility testing tool** which **crawls** and **tests** all pages of any web
-application, to finally produce detailed and efficient reports. It validates
-pages against the following specifications/laws:
+accessibility testing tool** which **crawls** and **tests** pages of any web
+application to produce detailed reports. It validates pages against the
+following specifications/laws:
 
   * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
     (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
@@ -17,7 +17,7 @@ pages against the following specifications/laws:
 * [Usage](#usage)
   * [Possible output](#possible-output)
   * [How does it work?](#how-does-it-work)
-  * [Write your custom sniffers](#write-your-custom-sniffers)
+  * [Write your custom rules](#write-your-custom-rules)
 * [Roadmap and board](#roadmap-and-board)
 * [Authors and license](#authors-and-license)
 
@@ -28,26 +28,25 @@ any SaaS services: It runs locally so you don't need to send your code
 somewhere, you can test all parts of your application including the ones which
 requires an authentification (like a checkout, a back-office etc.)…
 
-Here is the pros and cons of The A11y Machine vs. other third-party/SaaS
-services put in a table:
+Here are some pros and cons compared to SaaS solutions:
 
 Properties | The A11y Machine | SaaS services
 -----------|------------------|---------------
 Can run locally              | yes | no
-Can test each patch          | yes | no (except if commit)
+Can test each patch          | yes | no (except if deployed)
 Reduce the test loop         | yes | no (the loop is longer)
 Can test private code        | yes | no (you must send your code)
 Can test auth-required parts | yes | no
-Can crawl all your pages     | yes | no (it depends of your money)
+Can crawl all your pages     | yes | yes (but it can be pricey)
 
-Accessibility is not only a concern for disabled people: The biggest disabled
-peoples are bots, like [DuckDuckGo](https://duckduckgo.com),
+Accessibility is not only a concern for disabled people. Bots can be considered
+as such, like [DuckDuckGo](https://duckduckgo.com),
 [Google](https://google.com/) or [Bing](https://bing.com/). By respecting these
-standards, you're likely to have a better referencing. Also it helps to clean
-your code. Accessibility might often not be addressed because of its cost, but
-what cost the most is finding errors! With The A11y Machine, this cost is
-aggressively reduced and you can focus on fixing reported errors. We heard about
-stories fixing thousands of errors in a day.
+standards, you're likely to have a better ranking. Also it helps to clean your
+code. Accessibility issues are often left unaddressed for budget reasons. In
+fact most of the cost is spent looking for errors on your website. The A11y
+Machine greatly help with this task, you can thus focus on fixing your code and
+reap the benefits.
 
 ## Installation
 
@@ -121,11 +120,12 @@ So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
 the command-line provides useful options to work efficiently and pragmatically,
 like the `--filter-by-codes` option.
 
-### Write your custom sniffers
+### Write your custom rules
 
-`HTML_CodeSniffer` is build in a way that allows you to extend existing sniffers
-or write your own. The `resource/sniffers/` directory contains an example of a
-custom sniffer.
+`HTML_CodeSniffer` is build in a way that allows you to extend existing rules or
+write your own. A rule is represented as a sniffer (this is another
+terminology). The `resource/sniffers/` directory contains an example of
+a custom sniffer.
 
 The A11y Machine comes with a default file containing all the sniffers:
 `resource/sniffers.js`. You can provide your own by using the `--sniffers`
