@@ -1,13 +1,53 @@
 # The A11y Machine
 
-**The A11y Machine** is an **automated accessibility testing tool** which
-**crawls** and **tests** all pages of any web application. It validates pages
-against the following specifications/laws:
+**The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
+accessibility testing tool** which **crawls** and **tests** pages of any web
+application to produce detailed reports. It validates pages against the
+following specifications/laws:
 
   * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
     (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
     conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)),
   * U.S. [Section 508](http://www.section508.gov/) legislation.
+
+## Table of contents
+
+* [Why?](#why)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [List of URLs instead of crawling](#list-of-urls-instead-of-crawling)
+  * [Possible output](#possible-output)
+  * [How does it work?](#how-does-it-work)
+  * [Write your custom rules](#write-your-custom-rules)
+* [Roadmap and board](#roadmap-and-board)
+* [Authors and license](#authors-and-license)
+
+## Why?
+
+If **privacy** matters for you, you're likely to install The A11y Machine over
+any SaaS services: It runs locally so you don't need to send your code
+somewhere, you can test all parts of your application including the ones which
+requires an authentification (like a checkout, a back-office etc.)…
+
+Here are some pros and cons compared to SaaS solutions:
+
+Properties | The A11y Machine | SaaS services
+-----------|------------------|---------------
+Can run locally              | yes | no
+Can test each patch          | yes | no (except if deployed)
+Reduce the test loop         | yes | no (the loop is longer)
+Can test private code        | yes | no (you must send your code)
+Can test auth-required parts | yes | no
+Can crawl all your pages     | yes | yes (but it can be pricey)
+
+Accessibility is not only a concern for disabled people. Bots can be considered
+as such, like [DuckDuckGo](https://duckduckgo.com),
+[Google](https://google.com/) or [Bing](https://bing.com/). By respecting these
+standards, you're likely to have a better ranking. Also it helps to clean your
+code. Accessibility issues are often left unaddressed for budget reasons. In
+fact most of the cost is spent looking for errors on your website. The A11y
+Machine greatly help with this task, you can thus focus on fixing your code and
+reap the benefits.
 
 ## Installation
 
@@ -20,7 +60,7 @@ $ npm install the-a11y-machine
 
 ## Usage
 
-First, see the help:
+As a prelude, see the help:
 
 ```sh
 $ ./a11ym --help
@@ -43,7 +83,7 @@ $ ./a11ym --help
     -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
 ```
 
-Then, the simplest use is `a11ym` with an URL:
+Thus, the simplest use is to run `a11ym` with a URL:
 
 ```sh
 $ ./a11ym http://example.org/
@@ -72,7 +112,7 @@ Note the `-`: It means “Read URLs from STDIN please”.
 
 When reading several URLs, the `--maximum-depth` option will be forced to 1.
 
-## Possible output
+### Possible output
 
 The index of the reports:
 
@@ -82,7 +122,7 @@ Report of a specific URL:
 
 ![Report of a specific URL](resource/screenshots/report.png)
 
-## How does it work?
+### How does it work?
 
 The pipe looks like this:
 
@@ -102,11 +142,12 @@ So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
 the command-line provides useful options to work efficiently and pragmatically,
 like the `--filter-by-codes` option.
 
-## Write your custom sniffers
+### Write your custom rules
 
-`HTML_CodeSniffer` is build in a way that allows you to extend existing sniffers
-or write your own. The `resource/sniffers/` directory contains an example of a
-custom sniffer.
+`HTML_CodeSniffer` is build in a way that allows you to extend existing rules or
+write your own. A rule is represented as a sniffer (this is another
+terminology). The `resource/sniffers/` directory contains an example of
+a custom sniffer.
 
 The A11y Machine comes with a default file containing all the sniffers:
 `resource/sniffers.js`. You can provide your own by using the `--sniffers`
@@ -125,7 +166,22 @@ Then, to effectively use it:
 $ ./a11ym --sniffers my_sniffers.js --standard MyStandard http://example.org/
 ```
 
-## License
+## Roadmap and board
+
+The roadmap is public:
+  * See [the incoming
+    milestones](https://github.com/liip/TheA11yMachine/milestones),
+  * See [the in progress
+    issues](https://github.com/liip/TheA11yMachine/labels/in%20progress).
+
+The board is publicly available at the following URL: https://waffle.io/liip/TheA11yMachine.
+
+## Authors and license
+
+Original author is [Ivan Enderlin](http://mnt.io/), accompagnied by [Gilles
+Crettenand](https://github.com/krtek4) and [David
+Jeanmonod](https://github.com/jeanmonod). This software is backed by
+[Liip](https://liip.ch/).
 
 [BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
 
