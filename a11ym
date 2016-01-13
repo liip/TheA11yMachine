@@ -263,7 +263,7 @@ crawler.on('fetchcomplete', function(queueItem) {
     urls.push({url: url});
 });
 
-var computeURLToCrawler = function (crawler) {
+var addURLToCrawler = function (crawler) {
     var first = true;
 
     return function (value) {
@@ -292,13 +292,13 @@ if (1 === program.args.length && '-' === program.args[0]) {
     crawler.maxDepth = 1;
     readline
         .createInterface(process.stdin, undefined)
-        .on('line', computeURLToCrawler(crawler))
+        .on('line', addURLToCrawler(crawler))
         .on('close', function () { crawler.start(); });
 } else {
     if (1 < program.args.length) {
         crawler.maxDepth = 1;
     }
 
-    program.args.forEach(computeURLToCrawler(crawler));
+    program.args.forEach(addURLToCrawler(crawler));
     crawler.start();
 }
