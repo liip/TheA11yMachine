@@ -137,7 +137,13 @@
     }
 
     #controls {
-      margin: 0 0 2em 2em;
+      margin: 0 2em 2em;
+    }
+
+    #controls::after {
+      content: '';
+      display: block;
+      clear: both;
     }
 
     #controls > p {
@@ -147,6 +153,39 @@
     #controls > p + p {
       margin-left: 3em;
     }
+
+    #controls > .all-notes {
+      float: right;
+      width: 40%;
+      max-height: 1.1em;
+      overflow: hidden;
+      transition: max-height .5s ease-in-out;
+    }
+
+      #controls > .all-notes:hover {
+        max-height: 1000px;
+      }
+
+      #controls > .all-notes > p {
+        cursor: pointer;
+        text-align: right;
+        text-decoration: underline;
+        margin-bottom: .7em;
+      }
+
+      #controls > .all-notes > ul {
+        list-style: none;
+        -moz-column-width: 3.5em;
+        -moz-column-gap: 2.5em;
+        -webkit-column-width: 3.5em;
+        -webkit-column-gap: 2.5em;
+        column-width: 3.5em;
+        column-gap: 2.5em;
+      }
+
+      #controls > .all-notes > ul > li > small {
+        float: right;
+      }
 
     input[id^="sort-by"] {
       display: none;
@@ -188,41 +227,8 @@
       }
   </style>
   <script>
-    document.addEventListener(
-        'DOMContentLoaded',
-        function () {
-            var reducer = function (key) {
-                return function (accumulator, stat) {
-                    return accumulator + stat[key];
-                };
-            };
-            var errorCount   = stats.reduce(reducer('errors'), 0);
-            var warningCount = stats.reduce(reducer('warnings'), 0);
-            var noticeCount  = stats.reduce(reducer('notices'), 0);
-            var total        = Math.max(errorCount + warningCount + noticeCount, 1);
-
-            var errorPercentage   = (errorCount * 100) / total;
-            var warningPercentage = (warningCount * 100) / total;
-            var noticePercentage  = (noticeCount * 100) / total;
-
-            var pie = document.querySelector('#bigPie');
-
-            pie.innerHTML =
-                pie.innerHTML.
-                    replace(/{errorCount}/g, "" + errorCount).
-                    replace(/{errorPercentage}/g, "" + errorPercentage).
-                    replace(/{errorOffset}/g, "" + 0).
-                    replace(/{warningCount}/g, "" + warningCount).
-                    replace(/{warningPercentage}/g, "" + warningPercentage).
-                    replace(/{warningOffset}/g, "" + (-errorPercentage)).
-                    replace(/{noticeCount}/g, "" + noticeCount).
-                    replace(/{noticePercentage}/g, "" + noticePercentage).
-                    replace(/{noticeOffset}/g, "" + (-(errorPercentage+warningPercentage)));
-
-            sort('errors');
-        },
-        false
-    );
+    var ewn   = [];
+    var notes = {};
 
     function sort(name) {
         var reports = document.querySelectorAll('.report');
@@ -246,7 +252,74 @@
                 .join('\n');
     }
 
-    var stats = [];
+    function pushEWN(_ewn) {
+        ewn.push(_ewn);
+    }
+
+    function pushNotes(_notes) {
+        _notes.forEach(
+            function (note) {
+                if (undefined === notes[note]) {
+                    notes[note] = 1;
+                } else {
+                    ++notes[note];
+                }
+            }
+        );
+    }
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+            var reducer = function (key) {
+                return function (accumulator, stat) {
+                    return accumulator + stat[key];
+                };
+            };
+            var errorCount   = ewn.reduce(reducer('errors'), 0);
+            var warningCount = ewn.reduce(reducer('warnings'), 0);
+            var noticeCount  = ewn.reduce(reducer('notices'), 0);
+            var total        = Math.max(errorCount + warningCount + noticeCount, 1);
+
+            var errorPercentage   = (errorCount * 100) / total;
+            var warningPercentage = (warningCount * 100) / total;
+            var noticePercentage  = (noticeCount * 100) / total;
+
+            var pie = document.querySelector('#bigPie');
+
+            pie.innerHTML =
+                pie.innerHTML.
+                    replace(/{errorCount}/g, "" + errorCount).
+                    replace(/{errorPercentage}/g, "" + errorPercentage).
+                    replace(/{errorOffset}/g, "" + 0).
+                    replace(/{warningCount}/g, "" + warningCount).
+                    replace(/{warningPercentage}/g, "" + warningPercentage).
+                    replace(/{warningOffset}/g, "" + (-errorPercentage)).
+                    replace(/{noticeCount}/g, "" + noticeCount).
+                    replace(/{noticePercentage}/g, "" + noticePercentage).
+                    replace(/{noticeOffset}/g, "" + (-(errorPercentage+warningPercentage)));
+
+            document.querySelector('.all-notes ul').innerHTML =
+                '<li>' +
+                Object
+                    .keys(notes)
+                    .sort(
+                        function (a, b) {
+                            return -(notes[a] - notes[b]);
+                        }
+                    )
+                    .map(
+                        function (code) {
+                            return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + code + '.html">' + code + '</a> <small>(' + notes[code] + ')</small>';
+                        }
+                    )
+                    .join('</li><li>') +
+                '</li>';
+
+            sort('errors');
+        },
+        false
+    );
   </script>
 </head>
 
@@ -319,6 +392,11 @@
         onclick="sort('notices')" />
       <label for="sort-by-notices">notices</label>
     </p>
+    <div class="all-notes">
+      <p>See all notes</p>
+      <ul>
+      </ul>
+    </div>
   </div>
 
   <ul class="reports" id="reports">

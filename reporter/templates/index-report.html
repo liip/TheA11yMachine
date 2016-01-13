@@ -28,10 +28,11 @@
   <a href="{reportUrl}">{url}</a>
   <span class="notes">{noteCodeLinks|raw}</span>
   <script>
-    stats.push({
+    pushEWN({
       errors: {errorCount},
       warnings: {warningCount},
       notices: {noticeCount}
     });
+    pushNotes({noteCodeArray|raw});
   </script>
 </li>

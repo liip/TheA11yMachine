@@ -58,9 +58,11 @@ function reportResults(results, url) {
             if (true === /Principle.+Guideline/.test(result.code)) {
                 result.noteCodes     = result.code.split('.')[4].split(',');
                 result.noteCodeLinks = buildNoteCodesHtml(result.noteCodes);
+                result.noteCodeArray = buildNoteCodesArray(result.noteCodes);
             } else {
                 result.noteCodes     = [];
                 result.noteCodeLinks = '';
+                result.noteCodeArray = '[]';
             }
 
             result.noteCodes.forEach(
@@ -100,7 +102,8 @@ function reportResults(results, url) {
         noticeOffset     : -(errorPercentage + warningPercentage),
 
         results          : buildResultsHtml(results),
-        noteCodeLinks    : buildNoteCodesHtml(noteCodes)
+        noteCodeLinks    : buildNoteCodesHtml(noteCodes),
+        noteCodeArray    : buildNoteCodesArray(noteCodes)
     };
 
     fs.writeFileSync(
@@ -132,6 +135,14 @@ function buildNoteCodesHtml(noteCodes) {
             return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
         }
     ).join(', ');
+}
+
+function buildNoteCodesArray(noteCodes) {
+    return '[' + Array.from(noteCodes).map(
+        function (noteCode) {
+            return '\'' + noteCode + '\'';
+        }
+    ).join(', ') + ']';
 }
 
 function template(filePath) {
