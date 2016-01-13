@@ -274,6 +274,12 @@ var addURLToCrawler = function (crawler) {
     return function (value) {
         var url = crawler.processURL(value);
 
+        if (!url.host) {
+            process.stderr.write('URL ' + value + ' is invalid. Ignore it.\n');
+
+            return;
+        }
+
         if (true === first) {
             first                   = false;
             crawler.host            = url.host;
