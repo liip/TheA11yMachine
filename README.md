@@ -25,7 +25,7 @@ First, see the help:
 ```sh
 $ ./a11ym --help
 
-  Usage: a11ym [options] <url>
+  Usage: a11ym [options] url …
 
   Options:
 
@@ -46,10 +46,28 @@ $ ./a11ym --help
 Then, the simplest use is `a11ym` with an URL:
 
 ```sh
-$ ./a11ym http://example.org
+$ ./a11ym http://example.org/
 ```
 
 Then open `a11ym_output/index.html` and browser the result!
+
+### Compute several URLs
+
+You can compute several URLs by adding them to the command-line, like this:
+
+```sh
+$ ./a11ym http://example.org/A http://example.org/B http://example.org/C
+```
+
+Alternatively, this is possible to read URLs from STDIN, as follows:
+
+```sh
+$ cat URLs.lists | ./a11ym -
+```
+
+Note the `-`: It means “Read URLs from STDIN please”.
+
+When reading several URLs, the `--maximum-depth` option will be forced to 1.
 
 ## Possible output
 
@@ -101,7 +119,7 @@ $ grunt --sniffers-directory my/sniffers/ --sniffers-output my_sniffers.js
 Then, to effectively use it:
 
 ```sh
-$ a11ym --sniffers my_sniffers.js --standard MyStandard http://example.org/
+$ ./a11ym --sniffers my_sniffers.js --standard MyStandard http://example.org/
 ```
 
 ## License
