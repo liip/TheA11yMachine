@@ -81,6 +81,7 @@ $ ./a11ym --help
     -S, --sniffers <sniffers>          Path to the sniffers file, e.g. `resource/sniffers.js` (default).
     -u, --filter-by-urls <urls>        Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
     -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
+    --http-tls-disable                 Disable TLS/SSL when crawling or downloading pages.
 ```
 
 Thus, the simplest use is to run `a11ym` with a URL:
