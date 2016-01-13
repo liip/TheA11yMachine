@@ -232,41 +232,57 @@ if (undefined !== program.excludeByUrls) {
     excludeByUrls = new RegExp(program.excludeByUrls, 'i');
 }
 
-crawler.on('fetchcomplete', function(queueItem) {
-    console.log('Found: ' + queueItem.url + '.');
+crawler
+    .on(
+        'fetch404',
+        function(queueItem) {
+            process.stderr.write(queueItem.url + ' responds with a 404.\n');
+        }
+    )
+    .on(
+        'fetcherror',
+        function () {
+            process.stderr.write(queueItem.url + ' failed to fetch.\n');
+        }
+    ).
+    on(
+        'fetchcomplete',
+        function(queueItem) {
+            console.log('Found: ' + queueItem.url + '.');
 
-    if (!queueItem.stateData.contentType ||
-        null === queueItem.stateData.contentType.match(/^text\/html/)) {
-        console.log('    (skipped, not text/html).');
+            if (!queueItem.stateData.contentType ||
+                null === queueItem.stateData.contentType.match(/^text\/html/)) {
+                console.log('    (skipped, not text/html).');
 
-        return;
-    }
+                return;
+            }
 
-    var url = queueItem.url;
+            var url = queueItem.url;
 
-    if (null !== filterByUrls && false === filterByUrls.test(url)) {
-        console.log('    (filtered).');
+            if (null !== filterByUrls && false === filterByUrls.test(url)) {
+                console.log('    (filtered).');
 
-        return;
-    }
+                return;
+            }
 
-    if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
-        console.log('    (excluded).');
+            if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
+                console.log('    (excluded).');
 
-        return;
-    }
+                return;
+            }
 
-    if (--maximumUrls < 0) {
-        crawler.stop();
-        console.log(
-            '    (ignored, maximum URLs reached).'
-        );
+            if (--maximumUrls < 0) {
+                crawler.stop();
+                console.log(
+                    '    (ignored, maximum URLs reached).'
+                );
 
-        return;
-    }
+                return;
+            }
 
-    urls.push({url: url});
-});
+            urls.push({url: url});
+        }
+    );
 
 var addURLToCrawler = function (crawler) {
     var first = true;
