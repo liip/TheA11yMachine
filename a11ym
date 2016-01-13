@@ -268,7 +268,6 @@ var computeURLToCrawler = function (crawler) {
 
     return function (value) {
         var url = crawler.processURL(value);
-        console.log(url);
 
         if (true === first) {
             first                   = false;
