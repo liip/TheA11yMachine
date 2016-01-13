@@ -49,9 +49,12 @@ Then, the simplest use is `a11ym` with an URL:
 $ ./a11ym http://example.org/
 ```
 
+All URLs accessible from `http://example.org/` will be tested. See the
+`--maximum-urls` options to reduce the number of URLs to test.
+
 Then open `a11ym_output/index.html` and browser the result!
 
-### Compute several URLs
+### List of URLs instead of crawling
 
 You can compute several URLs by adding them to the command-line, like this:
 
