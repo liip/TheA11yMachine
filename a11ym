@@ -243,7 +243,7 @@ crawler
     )
     .on(
         'fetcherror',
-        function () {
+        function (queueItem) {
             process.stderr.write(queueItem.url + ' failed to fetch.\n');
         }
     ).
