@@ -28,7 +28,8 @@
     "mkdirp": "^0.5.1",
     "pa11y": "https://github.com/Hywan/pa11y#relax_standards",
     "process": "^0.11.2",
-    "simplecrawler": "https://github.com/cgiffard/node-simplecrawler#master"
+    "simplecrawler": "https://github.com/cgiffard/node-simplecrawler#master",
+    "underscore": "^1.8.3"
   },
   "engines": {
     "node": ">=0.12.9"
