@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var Crawler  = require('simplecrawler');
 var URL      = require('url');
 var async    = require('async');
@@ -84,7 +86,7 @@ var runTest = new function () {
         });
     }
 
-    options = {
+    var options = {
         log      : reporter,
         standard : program.standard,
         standards: [program.standard],

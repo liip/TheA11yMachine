@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Accessibility report for “{url}” ({date})</title>
+  <title>Accessibility report for “<%- url %>” (<%- date %>)</title>
 
   <style>
     @font-face {
@@ -336,45 +336,45 @@
 <body>
   <h1>
     Accessibility report for
-    “<a href="{url}" title="Visit the page targeted by the report">{url}</a>”
+    “<a href="<%- url %>" title="Visit the page targeted by the report"><%- url %></a>”
   </h1>
-  <p class="infos">Generated at {date}.</p>
+  <p class="infos">Generated at <%- date %>.</p>
 
   <svg viewBox="0 0 64 64" class="pie" data-result-type="error">
     <title>
-      {errorCount} errors,
-      {warningCount} warnings,
-      {noticeCount} notices.
+      <%- errorCount %> errors,
+      <%- warningCount %> warnings,
+      <%- noticeCount %> notices.
     </title>
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="{errorOffset}"
-      stroke-dasharray="{errorPercentage} 100"
+      stroke-dashoffset="<%- errorOffset %>"
+      stroke-dasharray="<%- errorPercentage %> 100"
       data-result-type="error" />
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="{warningOffset}"
-      stroke-dasharray="{warningPercentage} 100"
+      stroke-dashoffset="<%- warningOffset %>"
+      stroke-dasharray="<%- warningPercentage %> 100"
       data-result-type="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="{noticeOffset}"
-      stroke-dasharray="{noticePercentage} 100"
+      stroke-dashoffset="<%- noticeOffset %>"
+      stroke-dasharray="<%- noticePercentage %> 100"
       data-result-type="notice" />
     <circle
       r="15%" cx="50%" cy="50%"
       stroke="white"
       style="stroke-width: 19" />
     <g data-result-text-type="error">
-      <text x="50%" y="45%">{errorCount}</text>
+      <text x="50%" y="45%"><%- errorCount %></text>
       <text x="50%" y="55%">errors</text>
     </g>
     <g data-result-text-type="warning">
-      <text x="50%" y="45%">{warningCount}</text>
+      <text x="50%" y="45%"><%- warningCount %></text>
       <text x="50%" y="55%">warnings</text>
     </g>
     <g data-result-text-type="notice">
-      <text x="50%" y="45%">{noticeCount}</text>
+      <text x="50%" y="45%"><%- noticeCount %></text>
       <text x="50%" y="55%">notices</text>
     </g>
   </svg>
@@ -425,7 +425,29 @@
   </div>
 
   <ul id="results">
-    {results|raw}
+    <%
+      _.each(
+          results,
+          function (result) {
+              %>
+              <li class="result" data-result-type="<%- result.type %>" data-result-index="<%- result.index %>">
+                <h2><%- result.typeLabel %>: <%- result.message %></h2>
+                <p class="notes">Note codes: <%=
+                  _.map(
+                      result.noteCodes,
+                      function (noteCode) {
+                          return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
+                      }
+                  )
+                  .join(', ')
+                %> <code>#<%- result.code %></code></p>
+                <p class="selector"><input type="text" class="selector" value="<%- result.selector %>" readonly="readonly" /></p>
+                <pre><%- result.context %></pre>
+              </li>
+              <%
+          }
+      )
+    %>
   </ul>
 </body>
 </html>

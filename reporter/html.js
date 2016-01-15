@@ -1,8 +1,9 @@
 'use strict';
 
-var fs = require('fs');
-var mkdirp = require('mkdirp');
+var _      = require('underscore');
 var crypto = require('crypto');
+var fs     = require('fs');
+var mkdirp = require('mkdirp');
 
 module.exports = {
     config: config,
@@ -28,14 +29,12 @@ function config(options) {
             defaultEncoding: 'utf8'
         }
     );
-    indexStream.write(
-        buildHtml(
-            __dirname + '/templates/index.html',
-            {
-                date: new Date()
-            }
-        )
+
+    var indexDotHtml = _.template(
+        fs.readFileSync(__dirname + '/templates/index.html', {encoding: 'utf-8'})
     );
+
+    indexStream.write(indexDotHtml({date: new Date()}));
 }
 
 function reportError(message) {
@@ -56,13 +55,9 @@ function reportResults(results, url) {
             result.index     = index;
 
             if (true === /Principle.+Guideline/.test(result.code)) {
-                result.noteCodes     = result.code.split('.')[4].split(',');
-                result.noteCodeLinks = buildNoteCodesHtml(result.noteCodes);
-                result.noteCodeArray = buildNoteCodesArray(result.noteCodes);
+                result.noteCodes = result.code.split('.')[4].split(',');
             } else {
-                result.noteCodes     = [];
-                result.noteCodeLinks = '';
-                result.noteCodeArray = '[]';
+                result.noteCodes = [];
             }
 
             result.noteCodes.forEach(
@@ -86,6 +81,16 @@ function reportResults(results, url) {
     var warningPercentage = (warningCount * 100) / total;
     var noticePercentage  = (noticeCount * 100) / total;
 
+    var reportDotHtml = _.template(
+        fs.readFileSync(__dirname + '/templates/report.html', {encoding: 'utf-8'})
+    );
+    var reportResultDotHtml = _.template(
+        fs.readFileSync(__dirname + '/templates/report-result.html', {encoding: 'utf-8'})
+    );
+    var indexReportDotHtml = _.template(
+        fs.readFileSync(__dirname + '/templates/index-report.html', {encoding: 'utf-8'})
+    );
+
     var options = {
         url              : url,
         reportUrl        : './' + hash + '.html',
@@ -101,77 +106,23 @@ function reportResults(results, url) {
         noticePercentage : noticePercentage,
         noticeOffset     : -(errorPercentage + warningPercentage),
 
-        results          : buildResultsHtml(results),
-        noteCodeLinks    : buildNoteCodesHtml(noteCodes),
-        noteCodeArray    : buildNoteCodesArray(noteCodes)
+        results          : results,
+        noteCodes        : noteCodes
     };
 
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
-        buildHtml(__dirname + '/templates/report.html', options),
+        reportDotHtml(options),
         {
             flag    : 'w',
             encoding: 'utf8'
         }
     );
-    indexStream.write(buildHtml(__dirname + '/templates/index-report.html', options));
-}
-
-function buildHtml(templateFile, data) {
-    var render = template(templateFile);
-
-    return render(data);
-}
-
-function buildResultsHtml(results) {
-    var renderResult = template(__dirname + '/templates/report-result.html');
-
-    return results.map(renderResult).join('');
-}
-
-function buildNoteCodesHtml(noteCodes) {
-    return Array.from(noteCodes).map(
-        function (noteCode) {
-            return '<a href="http://www.w3.org/TR/WCAG20-TECHS/' + noteCode + '.html">' + noteCode + '</a>';
-        }
-    ).join(', ');
-}
-
-function buildNoteCodesArray(noteCodes) {
-    return '[' + Array.from(noteCodes).map(
-        function (noteCode) {
-            return '\'' + noteCode + '\'';
-        }
-    ).join(', ') + ']';
-}
-
-function template(filePath) {
-    var content = fs.readFileSync(filePath, 'utf-8');
-
-    return function(context) {
-        var output = content;
-        Object.keys(context).forEach(
-            function(key) {
-                output = output.replace(new RegExp('\\{' + key + '\\}', 'g'), escapeHtml(context[key]));
-                output = output.replace(new RegExp('\\{' + key + '\\|raw\\}', 'g'), context[key]);
-            }
-        );
-
-        return output;
-    };
+    indexStream.write(indexReportDotHtml(options));
 }
 
 function upperCaseFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function escapeHtml(html) {
-    return String(html)
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
 }
 
 function isError(result) {
