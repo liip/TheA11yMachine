@@ -348,17 +348,17 @@
     </title>
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="<%- errorOffset %>"
+      stroke-dashoffset="0"
       stroke-dasharray="<%- errorPercentage %> 100"
       data-result-type="error" />
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="<%- warningOffset %>"
+      stroke-dashoffset="<%- -errorPercentage %>"
       stroke-dasharray="<%- warningPercentage %> 100"
       data-result-type="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
-      stroke-dashoffset="<%- noticeOffset %>"
+      stroke-dashoffset="<%- -(errorPercentage + warningPercentage) %>"
       stroke-dasharray="<%- noticePercentage %> 100"
       data-result-type="notice" />
     <circle

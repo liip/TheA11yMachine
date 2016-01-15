@@ -297,7 +297,7 @@
                     replace(/{warningOffset}/g, "" + (-errorPercentage)).
                     replace(/{noticeCount}/g, "" + noticeCount).
                     replace(/{noticePercentage}/g, "" + noticePercentage).
-                    replace(/{noticeOffset}/g, "" + (-(errorPercentage+warningPercentage)));
+                    replace(/{noticeOffset}/g, "" + (-(errorPercentage + warningPercentage)));
 
             document.querySelector('.all-notes ul').innerHTML =
                 '<li>' +

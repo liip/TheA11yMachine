@@ -84,9 +84,6 @@ function reportResults(results, url) {
     var reportDotHtml = _.template(
         fs.readFileSync(__dirname + '/templates/report.html', {encoding: 'utf-8'})
     );
-    var reportResultDotHtml = _.template(
-        fs.readFileSync(__dirname + '/templates/report-result.html', {encoding: 'utf-8'})
-    );
     var indexReportDotHtml = _.template(
         fs.readFileSync(__dirname + '/templates/index-report.html', {encoding: 'utf-8'})
     );
@@ -95,17 +92,12 @@ function reportResults(results, url) {
         url              : url,
         reportUrl        : './' + hash + '.html',
         date             : new Date(),
-
         errorCount       : errorCount,
         errorPercentage  : errorPercentage,
-        errorOffset      : 0,
         warningCount     : warningCount,
         warningPercentage: warningPercentage,
-        warningOffset    : -errorPercentage,
         noticeCount      : noticeCount,
         noticePercentage : noticePercentage,
-        noticeOffset     : -(errorPercentage + warningPercentage),
-
         results          : results,
         noteCodes        : noteCodes
     };
