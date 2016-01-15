@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (grunt) {
     var sniffersDirectory =
         grunt.option('sniffers-directory') ||
