@@ -15,7 +15,7 @@ module.exports = {
 };
 
 var outputDirectory = null;
-var indexStream = null;
+var indexStream     = null;
 
 function emptyFunction() {}
 
@@ -34,7 +34,16 @@ function config(options) {
         fs.readFileSync(__dirname + '/templates/index.html', {encoding: 'utf-8'})
     );
 
-    indexStream.write(indexDotHtml({date: new Date()}));
+    indexStream.write(
+        indexDotHtml(
+            {
+                date: new Date(),
+                css : {
+                    common: fs.readFileSync(__dirname + '/templates/common.css', {encoding: 'utf-8'})
+                }
+            }
+        )
+    );
 }
 
 function reportError(message) {
@@ -99,7 +108,10 @@ function reportResults(results, url) {
         noticeCount      : noticeCount,
         noticePercentage : noticePercentage,
         results          : results,
-        noteCodes        : noteCodes
+        noteCodes        : noteCodes,
+        css              : {
+            common: fs.readFileSync(__dirname + '/templates/common.css', {encoding: 'utf-8'})
+        }
     };
 
     fs.writeFileSync(
