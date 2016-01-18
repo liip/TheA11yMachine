@@ -5,6 +5,7 @@
 var Crawler  = require('simplecrawler');
 var URL      = require('url');
 var async    = require('async');
+var chalk    = require('chalk');
 var pa11y    = require('pa11y');
 var process  = require('process');
 var program  = require('commander');
@@ -39,6 +40,11 @@ program
         '-o, --output <output_directory>',
         'Output directory.',
         __dirname + '/a11ym_output'
+    )
+    .option(
+        '-p, --concurrency <concurrency>',
+        'Number of URLs computed in parallel.',
+        4
     )
     .option(
         '-r, --report <report>',
@@ -169,31 +175,6 @@ var isErrorOrWarning = function (result) {
     return 'error' === result.type || 'warning' === result.type;
 };
 
-var hasErrors = false;
-
-var urls = async.queue(
-    function (task, onTaskComplete) {
-        console.log('Run: ' + task.url + '.');
-        runTest(
-            task.url,
-            {
-                complete: function(results) {
-                    onTaskComplete(null, results);
-                },
-                error: function(error) {
-                    hasErrors = true;
-                    onTaskComplete(error);
-                }
-            }
-        );
-    }
-);
-urls.drain = function () {
-    if (true === hasErrors) {
-        process.exit(2);
-    }
-};
-
 var parseURL = function (url) {
     var parsed = URL.parse(url);
 
@@ -210,13 +191,66 @@ var parseURL = function (url) {
     return parsed;
 };
 
+var maximumUrls = +program.maximumUrls;
+var urlQueues = {};
+var hasErrors   = false;
+var isStopped   = false;
+var testQueue   = async.queue(
+    function (task, onTaskComplete) {
+        if (--maximumUrls < 0) {
+            if (false === isStopped) {
+                isStopped = true;
+                console.log(chalk.white.bgRed('Test queue is stopping, maximum URLs reached.'));
+                testQueue.kill();
+
+                Object
+                    .keys(urlQueues)
+                    .forEach(
+                        function (key) {
+                            urlQueues[key].kill();
+                        }
+                    );
+            }
+
+            onTaskComplete();
+
+            return;
+        }
+
+        console.log(
+            chalk.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
+            ' ' +
+            chalk.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.')
+        );
+        runTest(
+            task.url,
+            {
+                complete: function(results) {
+                    task.onUrlComplete();
+                    onTaskComplete(null, results);
+                },
+                error: function(error) {
+                    hasErrors = true;
+                    task.onUrlComplete();
+                    onTaskComplete(error);
+                }
+            }
+        );
+    },
+    program.concurrency
+);
+testQueue.drain = function () {
+    if (true === hasErrors) {
+        process.exit(2);
+    }
+};
+
 var crawler            = new Crawler();
-crawler.interval       = 100;
+crawler.interval       = 50;
 crawler.maxConcurrency = 5;
 crawler.maxDepth       = +program.maximumDepth;
 crawler.filterByDomain = true;
-
-var maximumUrls = +program.maximumUrls;
+crawler.timeout        = 10 * 1000;
 
 if (true === program.httpTlsDisable) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -254,39 +288,58 @@ crawler
     on(
         'fetchcomplete',
         function(queueItem) {
-            console.log('Found: ' + queueItem.url + '.');
+            var url          = queueItem.url;
+            var parsedUrl    = parseURL(url);
+            var urlQueueName = (parsedUrl.pathname.split('/', 2)[1] || '__root__');
+
+            var logPrefix = '[' + urlQueueName + '] Fetched: ' + url;
 
             if (!queueItem.stateData.contentType ||
                 null === queueItem.stateData.contentType.match(/^text\/html/)) {
-                console.log('    (skipped, not text/html).');
+                console.log(logPrefix + '; skipped, not text/html.');
 
                 return;
             }
 
-            var url = queueItem.url;
-
             if (null !== filterByUrls && false === filterByUrls.test(url)) {
-                console.log('    (filtered).');
+                console.log(logPrefix + '; filtered.');
 
                 return;
             }
 
             if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
-                console.log('    (excluded).');
+                console.log(logPrefix + '; excluded.');
 
                 return;
             }
 
-            if (--maximumUrls < 0) {
+            if (maximumUrls < 0) {
                 crawler.stop();
-                console.log(
-                    '    (ignored, maximum URLs reached).'
-                );
+                console.log(logPrefix + '; ignored, maximum URLs reached.');
 
                 return;
             }
 
-            urls.push({url: url});
+            console.log(logPrefix + '.');
+
+            if (undefined === urlQueues[urlQueueName]) {
+                urlQueues[urlQueueName] = async.queue(
+                    function (task, onTaskComplete) {
+                        console.log(chalk.magenta('[' + task.queueName + '] Waiting to run: ' + task.url) + '.');
+                        testQueue.push({
+                            url          : task.url,
+                            queueName    : task.queueName,
+                            onUrlComplete: onTaskComplete
+                        });
+                    }
+                );
+            }
+
+            console.log(chalk.yellow('[' + urlQueueName + '] Enqueue: ' + url));
+            urlQueues[urlQueueName].push({
+                queueName: urlQueueName,
+                url      : url
+            });
         }
     );
 
