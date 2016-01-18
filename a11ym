@@ -244,7 +244,11 @@ crawler
     .on(
         'fetcherror',
         function (queueItem) {
-            process.stderr.write(queueItem.url + ' failed to fetch.\n');
+            process.stderr.write(
+                queueItem.url + ' failed to fetch ' +
+                '(status code: ' + queueItem.stateData.code + ')' +
+                '.\n'
+            );
         }
     ).
     on(
