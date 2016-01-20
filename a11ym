@@ -2,6 +2,36 @@
 
 'use strict';
 
+/**
+ * Copyright (c) 2016, Ivan Enderlin and Liip
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 var Crawler  = require('simplecrawler');
 var URL      = require('url');
 var async    = require('async');
@@ -11,6 +41,7 @@ var process  = require('process');
 var program  = require('commander');
 var readline = require('readline');
 
+// Define all the options, with their description and default value.
 program
     .usage('[options] url …')
     .option(
@@ -75,11 +106,14 @@ program
     )
     .parse(process.argv);
 
+// No URL to compute? Then exit.
 if (!program.args[0]) {
     program.help();
     process.exit(1);
 }
 
+// Running a test includes using a PhantomJS instance to open a URL, inject
+// sniffers, execute them, read the raw reports and transform them.
 var runTest = new function () {
     var reporter = null;
 
@@ -155,6 +189,7 @@ var runTest = new function () {
     };
 };
 
+// Define when the process should fail or not.
 var reportShouldFail = function (level, results) {
     if (level === 'notice') {
         return results.length > 0;
@@ -167,20 +202,24 @@ var reportShouldFail = function (level, results) {
     return results.filter(isError).length > 0;
 };
 
+// Is the result an error?
 var isError = function (result) {
     return 'error' === result.type;
 };
 
+// Is the result an error or a warning?
 var isErrorOrWarning = function (result) {
     return 'error' === result.type || 'warning' === result.type;
 };
 
+// Parse a URL, canonize them and set default values.
 var parseURL = function (url) {
     var parsed = URL.parse(url);
 
     if (!parsed.protocol) {
         parsed.protocol = 'http';
     } else {
+        // Remove the trailing colon in the protocol.
         parsed.protocol = parsed.protocol.replace(':', '');
     }
 
@@ -191,11 +230,30 @@ var parseURL = function (url) {
     return parsed;
 };
 
+// Maximum number of URL to compute.
 var maximumUrls = +program.maximumUrls;
+
+// Each URL is dispatched in a specific bucket. So far, a bucket is defined as
+// the first part of the pathname. For instance let's consider the `/a/b/c` URL;
+// its bucket is `a`. Each bucket is actually a queue. They are all computed in
+// parallel. Each queue waits for the outgoing URL to be totally consumed by the
+// test queue (see bellow) before sending another one.
 var urlQueues = {};
-var hasErrors   = false;
-var isStopped   = false;
-var testQueue   = async.queue(
+
+// When an error occurs, update this flag. It will change the exit code of the
+// process.
+var hasErrors = false;
+
+// When the test queue has been stopped once, update this flag. It avoids to do
+// the “stop computation” more than once.
+var isStopped = false;
+
+// Queue of URL waiting to be tested (see the `runTest` function). This queue
+// has a user-defined concurrency level.
+// When a test is executed, it calls the “complete” callback on the task.
+// When the maximum number of URL is reached, then we kill this queue, in
+// addition to kill all URL queues.
+var testQueue = async.queue(
     function (task, onTaskComplete) {
         if (--maximumUrls < 0) {
             if (false === isStopped) {
@@ -225,10 +283,12 @@ var testQueue   = async.queue(
         runTest(
             task.url,
             {
+                // When test succeed.
                 complete: function(results) {
                     task.onUrlComplete();
                     onTaskComplete(null, results);
                 },
+                // When test failed.
                 error: function(error) {
                     hasErrors = true;
                     task.onUrlComplete();
@@ -245,6 +305,7 @@ testQueue.drain = function () {
     }
 };
 
+// Set the crawler.
 var crawler            = new Crawler();
 crawler.interval       = 50;
 crawler.maxConcurrency = 5;
@@ -288,12 +349,15 @@ crawler
     on(
         'fetchcomplete',
         function(queueItem) {
-            var url          = queueItem.url;
-            var parsedUrl    = parseURL(url);
+            var url       = queueItem.url;
+            var parsedUrl = parseURL(url);
+
+            // Compute the URL bucket name.
             var urlQueueName = (parsedUrl.pathname.split('/', 2)[1] || '__root__');
 
             var logPrefix = '[' + urlQueueName + '] Fetched: ' + url;
 
+            // Filter by content-type.
             if (!queueItem.stateData.contentType ||
                 null === queueItem.stateData.contentType.match(/^text\/html/)) {
                 console.log(logPrefix + '; skipped, not text/html.');
@@ -301,18 +365,22 @@ crawler
                 return;
             }
 
+            // Filter by URL.
             if (null !== filterByUrls && false === filterByUrls.test(url)) {
                 console.log(logPrefix + '; filtered.');
 
                 return;
             }
 
+            // Exclude by URL.
             if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
                 console.log(logPrefix + '; excluded.');
 
                 return;
             }
 
+            // The maximum number of URL is reached. Stop the crawler, but its
+            // queue is not emptied.
             if (maximumUrls < 0) {
                 crawler.stop();
                 console.log(logPrefix + '; ignored, maximum URLs reached.');
@@ -322,6 +390,7 @@ crawler
 
             console.log(logPrefix + '.');
 
+            // Create the URL “bucket”.
             if (undefined === urlQueues[urlQueueName]) {
                 urlQueues[urlQueueName] = async.queue(
                     function (task, onTaskComplete) {
@@ -336,6 +405,8 @@ crawler
             }
 
             console.log(chalk.yellow('[' + urlQueueName + '] Enqueue: ' + url));
+
+            // Feed the URL “bucket” with a new URL.
             urlQueues[urlQueueName].push({
                 queueName: urlQueueName,
                 url      : url
@@ -343,6 +414,7 @@ crawler
         }
     );
 
+// Helper to add a URL to the crawler queue.
 var addURLToCrawler = function (crawler) {
     var first = true;
 
@@ -375,12 +447,14 @@ var addURLToCrawler = function (crawler) {
 };
 
 if (1 === program.args.length && '-' === program.args[0]) {
+    // Read a list of URL from STDIN.
     crawler.maxDepth = 1;
     readline
         .createInterface(process.stdin, undefined)
         .on('line', addURLToCrawler(crawler))
         .on('close', function () { crawler.start(); });
 } else {
+    // Read a list of URL from the command-line.
     if (1 < program.args.length) {
         crawler.maxDepth = 1;
     }
