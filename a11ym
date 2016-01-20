@@ -42,11 +42,6 @@ program
         __dirname + '/a11ym_output'
     )
     .option(
-        '-p, --concurrency <concurrency>',
-        'Number of URLs computed in parallel.',
-        4
-    )
-    .option(
         '-r, --report <report>',
         'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.',
         'html'
@@ -68,6 +63,11 @@ program
     .option(
         '-U, --exclude-by-urls <urls>',
         'Exclude URL to test by using a regular expression without delimiters (e.g. \'news|contact\').'
+    )
+    .option(
+        '-w, --workers <workers>',
+        'Number of workers, i.e. number of URLs computed in parallel.',
+        4
     )
     .option(
         '--http-tls-disable',
@@ -237,7 +237,7 @@ var testQueue   = async.queue(
             }
         );
     },
-    program.concurrency
+    program.workers
 );
 testQueue.drain = function () {
     if (true === hasErrors) {
