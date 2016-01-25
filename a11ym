@@ -312,6 +312,7 @@ crawler.maxConcurrency = 5;
 crawler.maxDepth       = +program.maximumDepth;
 crawler.filterByDomain = true;
 crawler.timeout        = 10 * 1000;
+crawler.userAgent      = 'liip/a11ym';
 
 if (true === program.httpTlsDisable) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
