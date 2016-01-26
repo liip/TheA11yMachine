@@ -53,7 +53,7 @@ function reportError(message) {
 function reportResults(results, url) {
     var hash = crypto.createHash('sha1').update(url).digest('hex');
 
-    var noteCodes    = new Set();
+    var noteCodes    = {};
     var errorCount   = 0;
     var warningCount = 0;
     var noticeCount  = 0;
@@ -71,7 +71,7 @@ function reportResults(results, url) {
 
             result.noteCodes.forEach(
                 function (value) {
-                    noteCodes.add(value);
+                    noteCodes[value] = value;
                 }
             );
 
@@ -84,6 +84,8 @@ function reportResults(results, url) {
             }
         }
     );
+    
+    noteCodes = Object.keys(noteCodes);
 
     var total             = Math.max(errorCount + warningCount + noticeCount, 1);
     var errorPercentage   = (errorCount * 100) / total;
