@@ -153,12 +153,11 @@ a custom sniffer.
 The A11y Machine comes with a default file containing all the sniffers:
 `resource/sniffers.js`. You can provide your own by using the `--sniffers`
 option. To build your own sniffers, simply copy the `resource/sniffers/`
-somewhere as a basis, complete it, then compile it with
-[Grunt](http://gruntjs.com/) (you need to install Grunt with `npm install -g
-grunt-cli`):
+somewhere as a basis, complete it, then compile it with the `a11ym-sniffers`
+utility:
 
 ```sh
-$ grunt --sniffers-directory my/sniffers/ --sniffers-output my_sniffers.js
+$ ./a11ym-sniffers --directory my/sniffers/ --output my_sniffers.js
 ```
 
 Then, to effectively use it:
