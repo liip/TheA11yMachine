@@ -84,7 +84,7 @@ function reportResults(results, url) {
             }
         }
     );
-    
+
     noteCodes = Object.keys(noteCodes);
 
     var total             = Math.max(errorCount + warningCount + noticeCount, 1);
