@@ -275,6 +275,17 @@ var testQueue = async.queue(
             return;
         }
 
+        if (maximumUrls <= 0) {
+            var previousOnTaskComplete = onTaskComplete;
+            onTaskComplete = function (errors, results) {
+                previousOnTaskComplete(errors, results);
+
+                if (true === hasErrors) {
+                    process.exit(2);
+                }
+            };
+        }
+
         console.log(
             chalk.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
             ' ' +
@@ -299,11 +310,6 @@ var testQueue = async.queue(
     },
     program.workers
 );
-testQueue.drain = function () {
-    if (true === hasErrors) {
-        process.exit(2);
-    }
-};
 
 // Set the crawler.
 var crawler            = new Crawler();
