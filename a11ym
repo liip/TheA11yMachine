@@ -120,6 +120,16 @@ var hasErrors = false;
 // the “stop computation” more than once.
 var isStopped = false;
 
+// Test if some tasks are still running, if none and we have errors, exit with
+// a non 0 exit code.
+var quit = function() {
+    if(0 < testQueue.running()) {
+        setTimeout(quit, 500);
+    } else if (true === hasErrors) {
+        process.exit(2);
+    }
+};
+
 var tester = require('./tester')(program);
 
 // Queue of URL waiting to be tested (see the `runTest` function). This queue
@@ -146,10 +156,7 @@ var testQueue = async.queue(
             var previousOnTaskComplete = onTaskComplete;
             onTaskComplete = function (errors, results) {
                 previousOnTaskComplete(errors, results);
-
-                if (true === hasErrors) {
-                    process.exit(2);
-                }
+                quit();
             };
         }
 
