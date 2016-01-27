@@ -30,7 +30,7 @@ module.exports = function(program) {
         var filterByCodesRegex = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
         filterByCodes = function(results) {
             return results.filter(function(r) {
-                return filterByCodesRegex.text(r.code);
+                return filterByCodesRegex.test(r.code);
             })
         }
     }
@@ -39,7 +39,7 @@ module.exports = function(program) {
         var excludeByCodesRegex = new RegExp('\\b(' + program.excludeByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
         excludeByCodes = function(results) {
             return results.filter(function(r) {
-                return ! excludeByCodesRegex.text(r.code);
+                return ! excludeByCodesRegex.test(r.code);
             })
         }
     }
