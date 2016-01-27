@@ -175,24 +175,27 @@ var testQueue = async.queue(
 
 var crawler = require('./crawler');
 
-if (1 === program.args.length && '-' === program.args[0]) {
-    // Read a list of URL from STDIN.
-    program.maximumDepth = 1;
+if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.length) {
     maximumUrls = 0;
-    readline
-        .createInterface(process.stdin, undefined)
-        .on('line', function(url) { ++maximumUrls; crawler.add(url); })
-        .on('close', function () { program.maximumUrls = maximumUrls; crawler.start(program, testQueue); });
-} else {
-    // Read a list of URL from the command-line.
-    if (1 < program.args.length) {
-        program.maximumDepth = 1;
-        maximumUrls = 0;
-        program.args.forEach(function(url) { ++maximumUrls; crawler.add(url); })
-        program.maximumUrls = maximumUrls;
-    } else {
-        crawler.add(program.args[0]);
-    }
 
+    var add = function(url) {
+        ++maximumUrls;
+        testQueue.push({
+            url          : url,
+            queueName    : 'cli',
+            onUrlComplete: function() {}
+        });
+    };
+
+    if('-' === program.args[0]) {
+        readline
+            .createInterface(process.stdin, undefined)
+            .on('line', add);
+    } else {
+        program.args.forEach(add);
+    }
+    program.maximumUrls = maximumUrls;
+} else {
+    crawler.add(program.args[0]);
     crawler.start(program, testQueue);
 }
