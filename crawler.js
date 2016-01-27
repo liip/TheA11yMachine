@@ -175,13 +175,14 @@ function start(program, queue) {
 }
 
 function stop() {
+    maximumUrls = 0;
+    crawler.stop();
+
     Object.keys(urlQueues).forEach(
         function (key) {
             urlQueues[key].kill();
         }
     );
-
-    crawler.stop();
 }
 
 module.exports = {

@@ -130,6 +130,16 @@ var quit = function() {
     }
 };
 
+var killQueue = function(reason) {
+    if (false === isStopped) {
+        isStopped = true;
+        console.log(chalk.white.bgRed('Test queue is stopping. ' + reason));
+        if(crawler !== 'undefined') crawler.stop();
+        testQueue.kill();
+        console.log(chalk.white.bgRed(testQueue.running() + ' tests still running.'));
+    }
+};
+
 var tester = require('./tester')(program);
 
 // Queue of URL waiting to be tested (see the `runTest` function). This queue
@@ -140,15 +150,8 @@ var tester = require('./tester')(program);
 var testQueue = async.queue(
     function (task, onTaskComplete) {
         if (--maximumUrls < 0) {
-            if (false === isStopped) {
-                isStopped = true;
-                console.log(chalk.white.bgRed('Test queue is stopping, maximum URLs reached.'));
-                crawler.stop();
-                testQueue.kill();
-            }
-
+            killQueue('Maximum URLs reached.');
             onTaskComplete();
-
             return;
         }
 
@@ -204,3 +207,15 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
     crawler.add(program.args[0]);
     crawler.start(program, testQueue);
 }
+
+var first_int = true;
+process.on('SIGINT', function() {
+    killQueue('SIGINT');
+
+    if (first_int === false) {
+        console.log(chalk.white.bgRed('Yes master !'));
+        process.exit(255);
+    }
+
+    first_int = false;
+});
