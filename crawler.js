@@ -14,12 +14,17 @@ crawler.filterByDomain = true;
 crawler.timeout        = 10 * 1000;
 crawler.userAgent      = 'liip/a11ym';
 
-var filterByUrls  = null;
-var excludeByUrls = null;
-
 var maximumUrls = 0;
 
 var testQueue = null;
+
+var skipByContentType = function(queueItem) {
+    return !queueItem.stateData.contentType ||
+        null === queueItem.stateData.contentType.match(/^text\/html/)
+};
+// Those to will be redefined in `start` if need be.
+var filterByUrl = function() { return false; };
+var excludeByUrl = function() { return false; };
 
 // Each URL is dispatched in a specific bucket. So far, a bucket is defined as
 // the first part of the pathname. For instance let's consider the `/a/b/c` URL;
@@ -44,43 +49,32 @@ function enqueueUrl(queueItem) {
     var url       = queueItem.url;
     var parsedUrl = parseURL(url);
 
-    // Compute the URL bucket name.
     var urlQueueName = (parsedUrl.pathname.split('/', 2)[1] || '__root__');
 
-    var logPrefix = '[' + urlQueueName + '] Fetched: ' + url;
+    var log = function(msg) { console.log('[' + urlQueueName + '] Fetched: ' + url + msg); };
 
-    // Filter by content-type.
-    if (!queueItem.stateData.contentType ||
-        null === queueItem.stateData.contentType.match(/^text\/html/)) {
-        console.log(logPrefix + '; skipped, not text/html.');
-
+    if (skipByContentType(queueItem)) {
+        log('; skipped, not text/html.');
         return;
     }
 
-    // Filter by URL.
-    if (null !== filterByUrls && false === filterByUrls.test(url)) {
-        console.log(logPrefix + '; filtered.');
-
+    if (filterByUrl(url)) {
+        log('; filtered.');
         return;
     }
 
-    // Exclude by URL.
-    if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
-        console.log(logPrefix + '; excluded.');
-
+    if (excludeByUrl(url)) {
+        log('; excluded.');
         return;
     }
 
-    // The maximum number of URL is reached. Stop the crawler, but its
-    // queue is not emptied.
     if (--maximumUrls < 0) {
         crawler.stop();
-        console.log(logPrefix + '; ignored, maximum URLs reached.');
-
+        log('; ignored, maximum URLs reached.');
         return;
     }
 
-    console.log(logPrefix + '.');
+    log('.');
 
     // Create the URL “bucket”.
     if (undefined === urlQueues[urlQueueName]) {
@@ -101,7 +95,6 @@ function enqueueUrl(queueItem) {
 
     console.log(chalk.yellow('[' + urlQueueName + '] Enqueue: ' + url));
 
-    // Feed the URL “bucket” with a new URL.
     urlQueues[urlQueueName].push({
         queueName: urlQueueName,
         url      : url
@@ -111,7 +104,6 @@ function enqueueUrl(queueItem) {
 crawler.on('fetch404', error404)
        .on('fetcherror', error)
        .on('fetchcomplete', enqueueUrl);
-
 
 // Parse a URL, canonize them and set default values.
 var parseURL = function (url) {
@@ -134,7 +126,7 @@ var parseURL = function (url) {
 // Helper to add a URL to the crawler queue.
 var firstUrl = true;
 var addURL = function (url) {
-    var url = crawler.processURL(url);
+    url = crawler.processURL(url);
 
     if (!url.host) {
         process.stderr.write('URL ' + value + ' is invalid. Ignore it.\n');
@@ -170,18 +162,19 @@ function start(program, queue) {
     }
 
     if (undefined !== program.filterByUrls) {
-        filterByUrls = new RegExp(program.filterByUrls, 'i');
+        var filterByUrlRegex = new RegExp(program.filterByUrls, 'i');
+        filterByUrl = function(u) { return ! filterByUrlRegex.test(u); };
     }
 
     if (undefined !== program.excludeByUrls) {
-        excludeByUrls = new RegExp(program.excludeByUrls, 'i');
+        var excludeByUrlRegex = new RegExp(program.excludeByUrls, 'i');
+        excludeByUrl = function(u) { return excludeByUrlRegex.test(u); };
     }
 
     crawler.start()
 }
 
 function stop() {
-    console.log('JUST FUCKING STOP');
     Object.keys(urlQueues).forEach(
         function (key) {
             urlQueues[key].kill();

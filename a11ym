@@ -172,9 +172,6 @@ var testQueue = async.queue(
     program.workers
 );
 
-
-var crawler = require('./crawler');
-
 if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.length) {
     maximumUrls = 0;
 
@@ -196,6 +193,7 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
     }
     program.maximumUrls = maximumUrls;
 } else {
+    var crawler = require('./crawler');
     crawler.add(program.args[0]);
     crawler.start(program, testQueue);
 }

@@ -23,55 +23,49 @@ module.exports = function(program) {
         htmlcs   : program.sniffers
     };
 
-    var filterByCodes  = null;
-    var excludeByCodes = null;
+    var filterByCodes  = function(results) { return results; };
+    var excludeByCodes = function(results) { return results; };
 
     if (undefined !== program.filterByCodes) {
-        filterByCodes = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+        var filterByCodesRegex = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+        filterByCodes = function(results) {
+            return results.filter(function(r) {
+                return filterByCodesRegex.text(r.code);
+            })
+        }
     }
 
     if (undefined !== program.excludeByCodes) {
-        excludeByCodes = new RegExp('\\b(' + program.excludeByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+        var excludeByCodesRegex = new RegExp('\\b(' + program.excludeByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
+        excludeByCodes = function(results) {
+            return results.filter(function(r) {
+                return ! excludeByCodesRegex.text(r.code);
+            })
+        }
     }
 
     var test = pa11y(options);
 
     return function (url, onSuccess, onError) {
         try {
-            test.run(
-                url,
-                function (error, results) {
-                    if (error) {
-                        options.log.error(error.stack);
+            test.run(url, function (error, results) {
+                if (error) {
+                    options.log.error(error.stack);
 
-                        return onError(error);
-                    }
-
-                    if (null !== filterByCodes) {
-                        results = results.filter(
-                            function (result) {
-                                return filterByCodes.test(result.code);
-                            }
-                        );
-                    }
-
-                    if (null !== excludeByCodes) {
-                        results = results.filter(
-                            function (result) {
-                                return !excludeByCodes.test(result.code);
-                            }
-                        );
-                    }
-
-                    options.log.results(results, url);
-
-                    if (true === reportShouldFail(program.level, results)) {
-                        return onError(error);
-                    }
-
-                    onSuccess(results);
+                    return onError(error);
                 }
-            );
+
+                results = filterByCodes(results);
+                results = excludeByCodes(results);
+
+                options.log.results(results, url);
+
+                if (true === reportShouldFail(program.level, results)) {
+                    return onError(error);
+                }
+
+                onSuccess(results);
+            });
         } catch (error) {
             options.log.error(error.stack);
             process.exit(1);
