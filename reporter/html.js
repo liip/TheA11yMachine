@@ -47,7 +47,7 @@ function config(options) {
 }
 
 function reportError(message) {
-    //console.error(message);
+    console.error(message);
 }
 
 function reportResults(results, url) {
