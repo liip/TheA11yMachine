@@ -197,11 +197,12 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
     if('-' === program.args[0]) {
         readline
             .createInterface(process.stdin, undefined)
-            .on('line', add);
+            .on('line', add)
+            .on('close', function() { program.maximumUrls = maximumUrls; });
     } else {
         program.args.forEach(add);
+        program.maximumUrls = maximumUrls;
     }
-    program.maximumUrls = maximumUrls;
 } else {
     var crawler = require('./crawler');
     crawler.add(program.args[0]);
