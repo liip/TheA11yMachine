@@ -134,7 +134,7 @@ var killQueue = function(reason) {
     if (false === isStopped) {
         isStopped = true;
         console.log(chalk.white.bgRed('Test queue is stopping. ' + reason));
-        if(crawler !== 'undefined') crawler.stop();
+        if(typeof(crawler) !== 'undefined') crawler.stop();
         testQueue.kill();
         console.log(chalk.white.bgRed(testQueue.running() + ' tests still running.'));
     }
