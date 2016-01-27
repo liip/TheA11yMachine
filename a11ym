@@ -32,11 +32,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var Crawler  = require('simplecrawler');
-var URL      = require('url');
 var async    = require('async');
 var chalk    = require('chalk');
-var pa11y    = require('pa11y');
 var process  = require('process');
 var program  = require('commander');
 var readline = require('readline');
@@ -112,133 +109,8 @@ if (!program.args[0]) {
     process.exit(1);
 }
 
-// Running a test includes using a PhantomJS instance to open a URL, inject
-// sniffers, execute them, read the raw reports and transform them.
-var runTest = new function () {
-    var reporter = null;
-
-    if (-1 !== ['cli', 'csv', 'json'].indexOf(program.report)) {
-        reporter = require('./node_modules/pa11y/reporter/' + program.report);
-    } else {
-        reporter = require('./reporter/html');
-        reporter.config({
-            outputDirectory: program.output
-        });
-    }
-
-    var options = {
-        log      : reporter,
-        standard : program.standard,
-        standards: [program.standard],
-        htmlcs   : program.sniffers
-    };
-
-    var filterByCodes  = null;
-    var excludeByCodes = null;
-
-    if (undefined !== program.filterByCodes) {
-        filterByCodes = new RegExp('\\b(' + program.filterByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
-    }
-
-    if (undefined !== program.excludeByCodes) {
-        excludeByCodes = new RegExp('\\b(' + program.excludeByCodes.replace(/[\s,]/g, '|') + ')\\b', 'i');
-    }
-
-    var test = pa11y(options);
-
-    return function (url, callbacks) {
-        try {
-            test.run(
-                url,
-                function (error, results) {
-                    if (error) {
-                        options.log.error(error.stack);
-
-                        return callbacks.error(error);
-                    }
-
-                    if (null !== filterByCodes) {
-                        results = results.filter(
-                            function (result) {
-                                return filterByCodes.test(result.code);
-                            }
-                        );
-                    }
-
-                    if (null !== excludeByCodes) {
-                        results = results.filter(
-                            function (result) {
-                                return !excludeByCodes.test(result.code);
-                            }
-                        );
-                    }
-
-                    options.log.results(results, url);
-
-                    if (true === reportShouldFail(program.level, results)) {
-                        return callbacks.error(error);
-                    }
-
-                    callbacks.complete(results);
-                }
-            );
-        } catch (error) {
-            options.log.error(error.stack);
-            process.exit(1);
-        }
-    };
-};
-
-// Define when the process should fail or not.
-var reportShouldFail = function (level, results) {
-    if (level === 'notice') {
-        return results.length > 0;
-    }
-
-    if (level === 'warning') {
-        return results.filter(isErrorOrWarning).length > 0;
-    }
-
-    return results.filter(isError).length > 0;
-};
-
-// Is the result an error?
-var isError = function (result) {
-    return 'error' === result.type;
-};
-
-// Is the result an error or a warning?
-var isErrorOrWarning = function (result) {
-    return 'error' === result.type || 'warning' === result.type;
-};
-
-// Parse a URL, canonize them and set default values.
-var parseURL = function (url) {
-    var parsed = URL.parse(url);
-
-    if (!parsed.protocol) {
-        parsed.protocol = 'http';
-    } else {
-        // Remove the trailing colon in the protocol.
-        parsed.protocol = parsed.protocol.replace(':', '');
-    }
-
-    if (!parsed.port) {
-        parsed.port = 'http' === parsed.protocol ? 80 : 443;
-    }
-
-    return parsed;
-};
-
 // Maximum number of URL to compute.
 var maximumUrls = +program.maximumUrls;
-
-// Each URL is dispatched in a specific bucket. So far, a bucket is defined as
-// the first part of the pathname. For instance let's consider the `/a/b/c` URL;
-// its bucket is `a`. Each bucket is actually a queue. They are all computed in
-// parallel. Each queue waits for the outgoing URL to be totally consumed by the
-// test queue (see bellow) before sending another one.
-var urlQueues = {};
 
 // When an error occurs, update this flag. It will change the exit code of the
 // process.
@@ -247,6 +119,8 @@ var hasErrors = false;
 // When the test queue has been stopped once, update this flag. It avoids to do
 // the “stop computation” more than once.
 var isStopped = false;
+
+var tester = require('./tester')(program);
 
 // Queue of URL waiting to be tested (see the `runTest` function). This queue
 // has a user-defined concurrency level.
@@ -259,15 +133,8 @@ var testQueue = async.queue(
             if (false === isStopped) {
                 isStopped = true;
                 console.log(chalk.white.bgRed('Test queue is stopping, maximum URLs reached.'));
+                crawler.stop();
                 testQueue.kill();
-
-                Object
-                    .keys(urlQueues)
-                    .forEach(
-                        function (key) {
-                            urlQueues[key].kill();
-                        }
-                    );
             }
 
             onTaskComplete();
@@ -291,181 +158,41 @@ var testQueue = async.queue(
             ' ' +
             chalk.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.')
         );
-        runTest(
-            task.url,
-            {
-                // When test succeed.
-                complete: function(results) {
-                    task.onUrlComplete();
-                    onTaskComplete(null, results);
-                },
-                // When test failed.
-                error: function(error) {
-                    hasErrors = true;
-                    task.onUrlComplete();
-                    onTaskComplete(error);
-                }
-            }
+        tester(task.url,
+               function(results) {
+                   task.onUrlComplete();
+                   onTaskComplete(null, results);
+               }, function(error) {
+                   hasErrors = true;
+                   task.onUrlComplete();
+                   onTaskComplete(error);
+               }
         );
     },
     program.workers
 );
 
-// Set the crawler.
-var crawler            = new Crawler();
-crawler.interval       = 50;
-crawler.maxConcurrency = 5;
-crawler.maxDepth       = +program.maximumDepth;
-crawler.filterByDomain = true;
-crawler.timeout        = 10 * 1000;
-crawler.userAgent      = 'liip/a11ym';
 
-if (true === program.httpTlsDisable) {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-    crawler.ignoreInvalidSSL                 = true;
-}
-
-var filterByUrls  = null;
-var excludeByUrls = null;
-
-if (undefined !== program.filterByUrls) {
-    filterByUrls = new RegExp(program.filterByUrls, 'i');
-}
-
-if (undefined !== program.excludeByUrls) {
-    excludeByUrls = new RegExp(program.excludeByUrls, 'i');
-}
-
-crawler
-    .on(
-        'fetch404',
-        function(queueItem) {
-            process.stderr.write(queueItem.url + ' responds with a 404.\n');
-        }
-    )
-    .on(
-        'fetcherror',
-        function (queueItem) {
-            process.stderr.write(
-                queueItem.url + ' failed to fetch ' +
-                '(status code: ' + queueItem.stateData.code + ')' +
-                '.\n'
-            );
-        }
-    ).
-    on(
-        'fetchcomplete',
-        function(queueItem) {
-            var url       = queueItem.url;
-            var parsedUrl = parseURL(url);
-
-            // Compute the URL bucket name.
-            var urlQueueName = (parsedUrl.pathname.split('/', 2)[1] || '__root__');
-
-            var logPrefix = '[' + urlQueueName + '] Fetched: ' + url;
-
-            // Filter by content-type.
-            if (!queueItem.stateData.contentType ||
-                null === queueItem.stateData.contentType.match(/^text\/html/)) {
-                console.log(logPrefix + '; skipped, not text/html.');
-
-                return;
-            }
-
-            // Filter by URL.
-            if (null !== filterByUrls && false === filterByUrls.test(url)) {
-                console.log(logPrefix + '; filtered.');
-
-                return;
-            }
-
-            // Exclude by URL.
-            if (null !== excludeByUrls && true === excludeByUrls.test(url)) {
-                console.log(logPrefix + '; excluded.');
-
-                return;
-            }
-
-            // The maximum number of URL is reached. Stop the crawler, but its
-            // queue is not emptied.
-            if (maximumUrls < 0) {
-                crawler.stop();
-                console.log(logPrefix + '; ignored, maximum URLs reached.');
-
-                return;
-            }
-
-            console.log(logPrefix + '.');
-
-            // Create the URL “bucket”.
-            if (undefined === urlQueues[urlQueueName]) {
-                urlQueues[urlQueueName] = async.queue(
-                    function (task, onTaskComplete) {
-                        console.log(chalk.magenta('[' + task.queueName + '] Waiting to run: ' + task.url) + '.');
-                        testQueue.push({
-                            url          : task.url,
-                            queueName    : task.queueName,
-                            onUrlComplete: onTaskComplete
-                        });
-                    }
-                );
-            }
-
-            console.log(chalk.yellow('[' + urlQueueName + '] Enqueue: ' + url));
-
-            // Feed the URL “bucket” with a new URL.
-            urlQueues[urlQueueName].push({
-                queueName: urlQueueName,
-                url      : url
-            });
-        }
-    );
-
-// Helper to add a URL to the crawler queue.
-var addURLToCrawler = function (crawler) {
-    var first = true;
-
-    return function (value) {
-        var url = crawler.processURL(value);
-
-        if (!url.host) {
-            process.stderr.write('URL ' + value + ' is invalid. Ignore it.\n');
-
-            return;
-        }
-
-        if (true === first) {
-            first                   = false;
-            crawler.host            = url.host;
-            crawler.initialProtocol = url.protocol;
-            crawler.initialPort     = url.port;
-            crawler.initialPath     = url.path;
-        } else {
-            ++maximumUrls;
-        }
-
-        crawler.queue.add(
-            url.protocol,
-            url.host,
-            url.port,
-            url.path
-        );
-    };
-};
+var crawler = require('./crawler');
 
 if (1 === program.args.length && '-' === program.args[0]) {
     // Read a list of URL from STDIN.
-    crawler.maxDepth = 1;
+    program.maximumDepth = 1;
+    maximumUrls = 0;
     readline
         .createInterface(process.stdin, undefined)
-        .on('line', addURLToCrawler(crawler))
-        .on('close', function () { crawler.start(); });
+        .on('line', function(url) { ++maximumUrls; crawler.add(url); })
+        .on('close', function () { program.maximumUrls = maximumUrls; crawler.start(program, testQueue); });
 } else {
     // Read a list of URL from the command-line.
     if (1 < program.args.length) {
-        crawler.maxDepth = 1;
+        program.maximumDepth = 1;
+        maximumUrls = 0;
+        program.args.forEach(function(url) { ++maximumUrls; crawler.add(url); })
+        program.maximumUrls = maximumUrls;
+    } else {
+        crawler.add(program.args[0]);
     }
 
-    program.args.forEach(addURLToCrawler(crawler));
-    crawler.start();
+    crawler.start(program, testQueue);
 }
