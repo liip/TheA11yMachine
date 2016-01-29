@@ -32,6 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+var Tester   = require('./lib/tester');
 var async    = require('async');
 var chalk    = require('chalk');
 var process  = require('process');
@@ -133,14 +134,19 @@ var quit = function() {
 var killQueue = function(reason) {
     if (false === isStopped) {
         isStopped = true;
+
         console.log(chalk.white.bgRed('Test queue is stopping. ' + reason));
-        if(typeof(crawler) !== 'undefined') crawler.stop();
+
+        if(undefined !== crawler) {
+            crawler.stop();
+        }
+
         testQueue.kill();
         console.log(chalk.white.bgRed(testQueue.running() + ' tests still running.'));
     }
 };
 
-var tester = require('./tester')(program);
+var tester = Tester(program);
 
 // Queue of URL waiting to be tested (see the `runTest` function). This queue
 // has a user-defined concurrency level.
@@ -152,11 +158,13 @@ var testQueue = async.queue(
         if (--maximumUrls < 0) {
             killQueue('Maximum URLs reached.');
             onTaskComplete();
+
             return;
         }
 
         if (maximumUrls <= 0) {
             var previousOnTaskComplete = onTaskComplete;
+
             onTaskComplete = function (errors, results) {
                 previousOnTaskComplete(errors, results);
                 quit();
@@ -168,15 +176,17 @@ var testQueue = async.queue(
             ' ' +
             chalk.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.')
         );
-        tester(task.url,
-               function(results) {
-                   task.onUrlComplete();
-                   onTaskComplete(null, results);
-               }, function(error) {
-                   hasErrors = true;
-                   task.onUrlComplete();
-                   onTaskComplete(error);
-               }
+        tester(
+            task.url,
+            function (results) {
+                task.onUrlComplete();
+                onTaskComplete(null, results);
+            },
+            function (error) {
+                hasErrors = true;
+                task.onUrlComplete();
+                onTaskComplete(error);
+            }
         );
     },
     program.workers
@@ -185,12 +195,12 @@ var testQueue = async.queue(
 if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.length) {
     maximumUrls = 0;
 
-    var add = function(url) {
+    var add = function (url) {
         ++maximumUrls;
         testQueue.push({
             url          : url,
             queueName    : 'cli',
-            onUrlComplete: function() {}
+            onUrlComplete: function () {}
         });
     };
 
@@ -204,19 +214,27 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
         program.maximumUrls = maximumUrls;
     }
 } else {
-    var crawler = require('./crawler');
+    var crawler = require('./lib/crawler');
+
     crawler.add(program.args[0]);
     crawler.start(program, testQueue);
 }
 
-var first_int = true;
-process.on('SIGINT', function() {
-    killQueue('SIGINT');
+process.on(
+    'SIGINT',
+    new function () {
+        var firstSignal = true;
 
-    if (first_int === false) {
-        console.log(chalk.white.bgRed('Yes master !'));
-        process.exit(255);
+        return function () {
+            killQueue('SIGINT');
+
+            if (false === firstSignal) {
+                console.log(chalk.white.bgRed('Yes master!'));
+
+                process.exit(255);
+            }
+
+            firstSignal = false;
+        }
     }
-
-    first_int = false;
-});
+);
