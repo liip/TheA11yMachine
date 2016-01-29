@@ -99,6 +99,14 @@ program
         4
     )
     .option(
+        '--http-auth-user <http_auth_user>',
+        'Username to authenticate all HTTP requests.'
+    )
+    .option(
+        '--http-auth-password <http_auth_password>',
+        'Password to authenticate all HTTP requests.'
+    )
+    .option(
         '--http-tls-disable',
         'Disable TLS/SSL when crawling or downloading pages.'
     )
