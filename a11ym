@@ -230,6 +230,12 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
         program.args.forEach(add);
         program.maximumUrls = maximumUrls;
     }
+} else if (1 === maximumUrls) {
+    testQueue.push({
+        url          : program.args[0],
+        queueName    : 'cli',
+        onUrlComplete: function () {}
+    });
 } else {
     var Crawler = require('./lib/crawler');
     var crawler = new Crawler(program);
