@@ -32,9 +32,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+var Logger   = require('./lib/logger');
 var Tester   = require('./lib/tester');
 var async    = require('async');
-var chalk    = require('chalk');
 var process  = require('process');
 var program  = require('commander');
 var readline = require('readline');
@@ -110,6 +110,11 @@ program
         '--http-tls-disable',
         'Disable TLS/SSL when crawling or downloading pages.'
     )
+    .option(
+        '-V, --no-verbose',
+        'Make the program silent.',
+        false
+    )
     .parse(process.argv);
 
 // No URL to compute? Then exit.
@@ -117,6 +122,9 @@ if (!program.args[0]) {
     program.help();
     process.exit(1);
 }
+
+// Set the logger.
+var logger = new Logger(program);
 
 // Maximum number of URL to compute.
 var maximumUrls = +program.maximumUrls;
@@ -143,14 +151,14 @@ var killQueue = function(reason) {
     if (false === isStopped) {
         isStopped = true;
 
-        console.log(chalk.white.bgRed('Test queue is stopping. ' + reason));
+        logger.write(logger.colorize.white.bgRed('Test queue is stopping. ' + reason) + '\n');
 
         if(undefined !== crawler) {
             crawler.stop();
         }
 
         testQueue.kill();
-        console.log(chalk.white.bgRed(testQueue.running() + ' tests still running.'));
+        logger.write(logger.colorize.white.bgRed(testQueue.running() + ' tests are still running.') + '\n');
     }
 };
 
@@ -179,10 +187,11 @@ var testQueue = async.queue(
             };
         }
 
-        console.log(
-            chalk.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
+        logger.write(
+            logger.colorize.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
             ' ' +
-            chalk.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.')
+            logger.colorize.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.') +
+            '\n'
         );
         tester(
             task.url,
@@ -238,7 +247,7 @@ process.on(
             killQueue('SIGINT');
 
             if (false === firstSignal) {
-                console.log(chalk.white.bgRed('Yes master!'));
+                logger.write(logger.colorize.white.bgRed('Yes master!') + '\n');
 
                 process.exit(255);
             }
