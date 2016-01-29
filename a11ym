@@ -222,10 +222,11 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
         program.maximumUrls = maximumUrls;
     }
 } else {
-    var crawler = require('./lib/crawler');
+    var Crawler = require('./lib/crawler');
+    var crawler = new Crawler(program);
 
     crawler.add(program.args[0]);
-    crawler.start(program, testQueue);
+    crawler.start(testQueue);
 }
 
 process.on(
