@@ -139,7 +139,7 @@ var isStopped = false;
 
 // Test if some tasks are still running, if none and we have errors, exit with
 // a non 0 exit code.
-var quit = function() {
+function quit() {
     if(0 < testQueue.running()) {
         setTimeout(quit, 500);
     } else if (true === hasErrors) {
@@ -147,7 +147,7 @@ var quit = function() {
     }
 };
 
-var killQueue = function(reason) {
+function killQueue(reason) {
     if (false === isStopped) {
         isStopped = true;
 
