@@ -69,19 +69,23 @@ $ ./a11ym --help
 
   Options:
 
-    -h, --help                         output usage information
-    -c, --filter-by-codes <codes>      Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
-    -C, --exclude-by-codes <codes>     Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
-    -l, --level <level>                Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.
-    -d, --maximum-depth <depth>        Explore up to a maximum depth (hops).
-    -m, --maximum-urls <maximum_urls>  Maximum number of URLs to compute.
-    -o, --output <output_directory>    Output directory.
-    -r, --report <report>              Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
-    -s, --standard <standard>          Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).
-    -S, --sniffers <sniffers>          Path to the sniffers file, e.g. `resource/sniffers.js` (default).
-    -u, --filter-by-urls <urls>        Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
-    -U, --exclude-by-urls <urls>       Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
-    --http-tls-disable                 Disable TLS/SSL when crawling or downloading pages.
+    -h, --help                                 output usage information
+    -c, --filter-by-codes <codes>              Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
+    -C, --exclude-by-codes <codes>             Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
+    -l, --level <level>                        Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.
+    -d, --maximum-depth <depth>                Explore up to a maximum depth (hops).
+    -m, --maximum-urls <maximum_urls>          Maximum number of URLs to compute.
+    -o, --output <output_directory>            Output directory.
+    -r, --report <report>                      Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
+    -s, --standard <standard>                  Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).
+    -S, --sniffers <sniffers>                  Path to the sniffers file, e.g. `resource/sniffers.js` (default).
+    -u, --filter-by-urls <urls>                Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
+    -U, --exclude-by-urls <urls>               Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
+    -w, --workers <workers>                    Number of workers, i.e. number of URLs computed in parallel.
+    --http-auth-user <http_auth_user>          Username to authenticate all HTTP requests.
+    --http-auth-password <http_auth_password>  Password to authenticate all HTTP requests.
+    --http-tls-disable                         Disable TLS/SSL when crawling or downloading pages.
+    -V, --no-verbose                           Make the program silent.
 ```
 
 Thus, the simplest use is to run `a11ym` with a URL:
