@@ -60,9 +60,6 @@ function reportResults(results, url) {
 
     results.forEach(
         function(result, index) {
-            result.typeLabel = upperCaseFirst(result.type);
-            result.index     = index;
-
             if (true === /Principle.+Guideline/.test(result.code)) {
                 result.noteCodes = result.code.split('.')[4].split(',');
             } else {
@@ -132,15 +129,15 @@ function upperCaseFirst(string) {
 }
 
 function isError(result) {
-    return (result.type === 'error');
+    return (result.level === 'error');
 }
 
 function isNotice(result) {
-    return (result.type === 'notice');
+    return (result.level === 'notice');
 }
 
 function isWarning(result) {
-    return (result.type === 'warning');
+    return (result.level === 'warning');
 }
 
 // Polyfill from

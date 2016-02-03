@@ -183,7 +183,7 @@
   <h1>Accessibility report</h1>
   <p class="infos">Generated at <%- date %>.</p>
 
-  <svg id="bigPie" viewBox="0 0 64 64" class="pie" data-result-type="error">
+  <svg id="bigPie" viewBox="0 0 64 64" class="pie" data-result-level="error">
     <title>
       {errorCount} errors,
       {warningCount} warnings,
@@ -193,30 +193,30 @@
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="{errorOffset}"
       stroke-dasharray="{errorPercentage} 100"
-      data-result-type="error" />
+      data-result-level="error" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="{warningOffset}"
       stroke-dasharray="{warningPercentage} 100"
-      data-result-type="warning" />
+      data-result-level="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="{noticeOffset}"
       stroke-dasharray="{noticePercentage} 100"
-      data-result-type="notice" />
+      data-result-level="notice" />
     <circle
       r="15%" cx="50%" cy="50%"
       stroke="white"
       style="stroke-width: 19" />
-    <g data-result-text-type="error">
+    <g data-result-text-level="error">
       <text x="50%" y="45%">{errorCount}</text>
       <text x="50%" y="55%">errors</text>
     </g>
-    <g data-result-text-type="warning">
+    <g data-result-text-level="warning">
       <text x="50%" y="45%">{warningCount}</text>
       <text x="50%" y="55%">warnings</text>
     </g>
-    <g data-result-text-type="notice">
+    <g data-result-text-level="notice">
       <text x="50%" y="45%">{noticeCount}</text>
       <text x="50%" y="55%">notices</text>
     </g>

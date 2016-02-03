@@ -3,7 +3,7 @@
   data-errors-count="<%- errorCount %>"
   data-warnings-count="<%- warningCount %>"
   data-notices-count="<%- noticeCount %>">
-  <svg viewBox="0 0 64 64" class="small pie" data-result-type="error">
+  <svg viewBox="0 0 64 64" class="small pie" data-result-level="error">
     <title>
       <%- errorCount %> errors,
       <%- warningCount %> warnings,
@@ -13,17 +13,17 @@
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="0"
       stroke-dasharray="<%- errorPercentage %> 100"
-      data-result-type="error" />
+      data-result-level="error" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="<%- -errorPercentage %>"
       stroke-dasharray="<%- warningPercentage %> 100"
-      data-result-type="warning" />
+      data-result-level="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="<%- -(errorPercentage + warningPercentage) %>"
       stroke-dasharray="<%- noticePercentage %> 100"
-      data-result-type="notice" />
+      data-result-level="notice" />
   </svg>
   <a href="<%- reportUrl %>"><%- url %></a>
   <span class="notes">Note codes: <%=

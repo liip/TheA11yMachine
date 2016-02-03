@@ -103,9 +103,9 @@
       list-style: none;
     }
 
-    #results.filter-errors [data-result-type="error"],
-    #results.filter-warnings [data-result-type="warning"],
-    #results.filter-notices [data-result-type="notice"] {
+    #results.filter-errors [data-result-level="error"],
+    #results.filter-warnings [data-result-level="warning"],
+    #results.filter-notices [data-result-level="notice"] {
       display: none;
     }
 
@@ -184,7 +184,7 @@
     function sortByCategory() {
         var results = document.querySelectorAll('.result');
         var getCategoryOf = function (resultIndex) {
-            return results.item(resultIndex).getAttribute('data-result-type');
+            return results.item(resultIndex).getAttribute('data-result-level');
         };
 
         document.querySelector('#results').innerHTML =
@@ -229,7 +229,7 @@
   </h1>
   <p class="infos">Generated at <%- date %>.</p>
 
-  <svg viewBox="0 0 64 64" class="pie" data-result-type="error">
+  <svg viewBox="0 0 64 64" class="pie" data-result-level="error">
     <title>
       <%- errorCount %> errors,
       <%- warningCount %> warnings,
@@ -239,30 +239,30 @@
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="0"
       stroke-dasharray="<%- errorPercentage %> 100"
-      data-result-type="error" />
+      data-result-level="error" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="<%- -errorPercentage %>"
       stroke-dasharray="<%- warningPercentage %> 100"
-      data-result-type="warning" />
+      data-result-level="warning" />
     <circle
       r="25%" cx="50%" cy="50%"
       stroke-dashoffset="<%- -(errorPercentage + warningPercentage) %>"
       stroke-dasharray="<%- noticePercentage %> 100"
-      data-result-type="notice" />
+      data-result-level="notice" />
     <circle
       r="15%" cx="50%" cy="50%"
       stroke="white"
       style="stroke-width: 19" />
-    <g data-result-text-type="error">
+    <g data-result-text-level="error">
       <text x="50%" y="45%"><%- errorCount %></text>
       <text x="50%" y="55%">errors</text>
     </g>
-    <g data-result-text-type="warning">
+    <g data-result-text-level="warning">
       <text x="50%" y="45%"><%- warningCount %></text>
       <text x="50%" y="55%">warnings</text>
     </g>
-    <g data-result-text-type="notice">
+    <g data-result-text-level="notice">
       <text x="50%" y="45%"><%- noticeCount %></text>
       <text x="50%" y="55%">notices</text>
     </g>
@@ -317,10 +317,10 @@
     <%
       _.each(
           results,
-          function (result) {
+          function (result, index) {
               %>
-              <li class="result" data-result-type="<%- result.type %>" data-result-index="<%- result.index %>">
-                <h2><%- result.typeLabel %>: <%- result.message %></h2>
+              <li class="result" data-result-level="<%- result.level %>" data-result-index="<%- index %>">
+                <h2><%- result.level.charAt(0).toUpperCase() + result.level.substring(1).toLowerCase() %>: <%- result.message %></h2>
                 <p class="notes">Note codes: <%=
                   _.map(
                       result.noteCodes,
