@@ -1,14 +1,15 @@
 # The A11y Machine
 
 **The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
-accessibility testing tool** which **crawls** and **tests** pages of any web
+accessibility testing tool** which **crawls** and **tests** pages of any Web
 application to produce detailed reports. It validates pages against the
 following specifications/laws:
 
   * [W3C Web Content Accessibility Guidelines](http://www.w3.org/TR/WCAG20/)
     (WCAG) 2.0, including A, AA and AAA levels ([understanding levels of
     conformance](http://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html#uc-levels-head)),
-  * U.S. [Section 508](http://www.section508.gov/) legislation.
+  * U.S. [Section 508](http://www.section508.gov/) legislation,
+  * [W3C HTML5 Recommendation](https://www.w3.org/TR/html/).
 
 ## Table of contents
 
@@ -58,6 +59,9 @@ $ npm install -g phantomjs
 $ npm install the-a11y-machine
 ```
 
+If you would like to validate your pages against the HTML5 recommendation, then
+you need to [install Java](https://www.java.com/en/download/).
+
 ## Usage
 
 As a prelude, see the help:
@@ -77,7 +81,7 @@ $ ./a11ym --help
     -m, --maximum-urls <maximum_urls>          Maximum number of URLs to compute.
     -o, --output <output_directory>            Output directory.
     -r, --report <report>                      Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
-    -s, --standard <standard>                  Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).
+    -s, --standards <standards>                Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.
     -S, --sniffers <sniffers>                  Path to the sniffers file, e.g. `resource/sniffers.js` (default).
     -u, --filter-by-urls <urls>                Filter URL to test by using a regular expression without delimiters (e.g. 'news|contact').
     -U, --exclude-by-urls <urls>               Exclude URL to test by using a regular expression without delimiters (e.g. 'news|contact').
@@ -94,8 +98,9 @@ Thus, the simplest use is to run `a11ym` with a URL:
 $ ./a11ym http://example.org/
 ```
 
-All URLs accessible from `http://example.org/` will be tested. See the
-`--maximum-urls` options to reduce the number of URLs to test.
+All URLs accessible from `http://example.org/` will be tested against the
+WCAG2AA standard. See the `--maximum-urls` options to reduce the number of
+URLs to test.
 
 Then open `a11ym_output/index.html` and browser the result!
 
@@ -127,25 +132,50 @@ Report of a specific URL:
 
 ![Report of a specific URL](resource/screenshots/report.png)
 
+### Selecting standards
+
+As mentionned, the following standards are supported:
+  * W3C WCAG,
+  * U.S. Section 508 legislation,
+  * W3C HTML5 recommendation.
+
+You cannot combine standards between each other, except HTML5 that can be
+combined with any other. So for instance, to run `WCAG2AAA`:
+
+```sh
+$ ./a11ym --standards WCAG2AAA http://example.org/
+```
+
+To run `WCAG2AA` along with `HTML`:
+
+```sh
+$ ./a11ym --standards WCAG2AA,HTML http://example.org/
+```
+
 ### How does it work?
 
 The pipe looks like this:
 
-  1. We use
-     [`node-simplecrawler`](https://github.com/cgiffard/node-simplecrawler/) to
-     crawl a web application based on the given URL,
-  2. For each URL found, we run [PhantomJS](http://phantomjs.org/) and inject
-     [`HTML_CodeSniffer`](https://github.com/squizlabs/HTML_CodeSniffer) that
-     will check the page conformance; This step is semi-automated by the help of
-     [`pa11y`](https://github.com/nature/pa11y), which is a very thin layer of
-     code wrapping PhantomJS and `HTML_CodeSniffer`,
-  3. Finally, we transform the results produced by `HTML_CodeSniffer` to produce
-     enhanced and easy to use reports.
+  1. The [`node-simplecrawler`](https://github.com/cgiffard/node-simplecrawler/)
+     tool is used to crawl a Web application based on the given URLs, with **our
+     own specific exploration algorithm** to provide better results quickly, in
+     addition to support **parallelism**,
+  2. For each URL found, 2 kind of tests are applied:
+      1. **Accessibility**: [PhantomJS](http://phantomjs.org/) runs and
+         [`HTML_CodeSniffer`](https://github.com/squizlabs/HTML_CodeSniffer) is
+         injected in order to check the page conformance; This step is
+         semi-automated by the help of
+         [`pa11y`](https://github.com/nature/pa11y), which is a very thin layer
+         of code wrapping PhantomJS and `HTML_CodeSniffer`,
+      2. **HTML**: [The Nu Html Checker](http://validator.github.io/validator/)
+         (v.Nu) is run on the same URL.
+  3. Finally, results from different tools are normalized, and enhanced and easy
+     to use reports are produced.
 
-So basically, The A11y Machine puts `node-simplecrawler` and `pa11y` (so
-`HTML_CodeSniffer` and PhantomJS) together and provides cool reports! Moreover,
-the command-line provides useful options to work efficiently and pragmatically,
-like the `--filter-by-codes` option.
+PhantomJS and `HTML_CodeSniffer` are widely-used, tested and precise tools.
+`pa11y` simplifies the use of these two latters. The Nu Html Checker is the tool
+used by the W3C to validate documents online. However, in this case, we **do all
+validations offline**! Nothing is sent over the network. Again, privacy.
 
 ### Write your custom rules
 
