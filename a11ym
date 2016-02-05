@@ -76,8 +76,8 @@ program
         'html'
     )
     .option(
-        '-s, --standard <standard>',
-        'Standard to use: `Section508`, `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA` or your own (see `--sniffers`).',
+        '-s, --standards <standards>',
+        'Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.',
         'WCAG2AA'
     )
     .option(
