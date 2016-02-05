@@ -140,6 +140,8 @@ var isStopped = false;
 // Test if some tasks are still running, if none and we have errors, exit with
 // a non 0 exit code.
 function quit() {
+    crawler.stop();
+
     if(0 < testQueue.running()) {
         setTimeout(quit, 500);
     } else if (true === hasErrors) {
@@ -170,7 +172,7 @@ var tester = Tester(program);
 // When the maximum number of URL is reached, then we kill this queue, in
 // addition to kill all URL queues.
 var testQueue = async.queue(
-    function (task, onTaskComplete) {
+    function (url, onTaskComplete) {
         if (--maximumUrls < 0) {
             killQueue('Maximum URLs reached.');
             onTaskComplete();
@@ -190,18 +192,16 @@ var testQueue = async.queue(
         logger.write(
             logger.colorize.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
             ' ' +
-            logger.colorize.black.bgGreen('[' + task.queueName + '] Run: ' + task.url + '.') +
+            logger.colorize.black.bgGreen('Run: ' + url + '.') +
             '\n'
         );
         tester(
-            task.url,
+            url,
             function (results) {
-                task.onUrlComplete();
                 onTaskComplete(null, results);
             },
             function (error) {
                 hasErrors = true;
-                task.onUrlComplete();
                 onTaskComplete(error);
             }
         );
@@ -214,11 +214,7 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
 
     var add = function (url) {
         ++maximumUrls;
-        testQueue.push({
-            url          : url,
-            queueName    : 'cli',
-            onUrlComplete: function () {}
-        });
+        testQueue.push(url);
     };
 
     if('-' === program.args[0]) {
@@ -231,11 +227,7 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
         program.maximumUrls = maximumUrls;
     }
 } else if (1 === maximumUrls) {
-    testQueue.push({
-        url          : program.args[0],
-        queueName    : 'cli',
-        onUrlComplete: function () {}
-    });
+    testQueue.push(program.args[0]);
 } else {
     var Crawler = require('./lib/crawler');
     var crawler = new Crawler(program);
