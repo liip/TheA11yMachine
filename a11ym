@@ -51,11 +51,6 @@ program
         'Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).'
     )
     .option(
-        '-l, --level <level>',
-        'Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.',
-        'error'
-    )
-    .option(
         '-d, --maximum-depth <depth>',
         'Explore up to a maximum depth (hops).',
         3
@@ -137,57 +132,51 @@ var hasErrors = false;
 // the “stop computation” more than once.
 var isStopped = false;
 
-// Test if some tasks are still running, if none and we have errors, exit with
-// a non 0 exit code.
+// Force to quit the program. If errors, exit with a non 0 exit code.
 function quit() {
-    crawler.stop();
+    process.exit(true === hasErrors ? 2 : 0);
+}
 
-    if(0 < testQueue.running()) {
-        setTimeout(quit, 500);
-    } else if (true === hasErrors) {
-        process.exit(2);
-    }
-};
-
+// Kill the test queue and stop the crawler.
 function killQueue(reason) {
-    if (false === isStopped) {
-        isStopped = true;
-
-        logger.write(logger.colorize.white.bgRed('Test queue is stopping. ' + reason) + '\n');
-
-        if(undefined !== crawler) {
-            crawler.stop();
-        }
-
-        testQueue.kill();
-        logger.write(logger.colorize.white.bgRed(testQueue.running() + ' tests are still running.') + '\n');
+    if (false !== isStopped) {
+        return;
     }
-};
+
+    isStopped = true;
+    logger.write(logger.colorize.white.bgRed('Test queue is stopping. ' + reason) + '\n');
+
+    if(undefined !== crawler) {
+        crawler.stop();
+    }
+
+    testQueue.kill();
+    logger.write(logger.colorize.white.bgRed(testQueue.running() + ' tests are still running, waiting…') + '\n');
+}
 
 var tester = Tester(program);
 
-// Queue of URL waiting to be tested (see the `runTest` function). This queue
-// has a user-defined concurrency level.
-// When a test is executed, it calls the “complete” callback on the task.
-// When the maximum number of URL is reached, then we kill this queue, in
-// addition to kill all URL queues.
+// Queue of URL waiting to be tested. This queue has a user-defined concurrency
+// level. When a test is executed, it calls the “complete” callback on the
+// task. When the maximum number of URL is reached, then we kill this queue.
 var testQueue = async.queue(
     function (url, onTaskComplete) {
         if (--maximumUrls < 0) {
-            killQueue('Maximum URLs reached.');
             onTaskComplete();
+            killQueue('Maximum URLs reached.');
 
             return;
         }
 
-        if (maximumUrls <= 0) {
-            var previousOnTaskComplete = onTaskComplete;
+        var _wrap = function (callback) {
+            return function () {
+                callback();
 
-            onTaskComplete = function (errors, results) {
-                previousOnTaskComplete(errors, results);
-                quit();
+                if (0 === testQueue.running()) {
+                    quit();
+                }
             };
-        }
+        };
 
         logger.write(
             logger.colorize.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
@@ -197,13 +186,17 @@ var testQueue = async.queue(
         );
         tester(
             url,
-            function (results) {
-                onTaskComplete(null, results);
-            },
-            function (error) {
-                hasErrors = true;
-                onTaskComplete(error);
-            }
+            _wrap(
+                function (results) {
+                    onTaskComplete(null, results);
+                }
+            ),
+            _wrap(
+                function (error) {
+                    hasErrors = true;
+                    onTaskComplete(error);
+                }
+            )
         );
     },
     program.workers

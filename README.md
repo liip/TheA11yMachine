@@ -76,7 +76,6 @@ $ ./a11ym --help
     -h, --help                                 output usage information
     -c, --filter-by-codes <codes>              Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
     -C, --exclude-by-codes <codes>             Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
-    -l, --level <level>                        Level of message to fail on (exit code 2): `error` (default), `warning`, `notice`.
     -d, --maximum-depth <depth>                Explore up to a maximum depth (hops).
     -m, --maximum-urls <maximum_urls>          Maximum number of URLs to compute.
     -o, --output <output_directory>            Output directory.
