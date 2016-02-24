@@ -173,6 +173,18 @@
   </style>
 
   <script>
+    function backToListing() {
+        history.back();
+
+        // If there is no history, we try to reach the `index.html` page.
+        setTimeout(
+            function () {
+                window.location = 'index.html'
+            },
+            1000
+        );
+    }
+
     function toggleFilter(name) {
         var classList = document.querySelector('#results').classList;
 
@@ -294,7 +306,7 @@
 
   <div id="controls">
     <p>
-      <a href="index.html">Back to report listing</a>
+      <a href="javascript:backToListing()">Back to report listing</a>
     </p>
     <p>
       Filter by:
