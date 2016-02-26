@@ -37,6 +37,7 @@ h2 {
 }
 
 [data-result-level="error"] {
+  fill: rgb(244, 96, 37);
   stroke: rgb(244, 96, 37);
   background-color: rgba(244, 96, 37, .1);
 }
@@ -46,6 +47,7 @@ h2 {
   }
 
 [data-result-level="warning"] {
+  fill: rgb(254, 178, 54);
   stroke: rgb(254, 178, 54);
   background-color: rgba(254, 178, 54, .1);
 }
@@ -55,6 +57,7 @@ h2 {
   }
 
 [data-result-level="notice"] {
+  fill: rgb(10, 172, 207);
   stroke: rgb(10, 172, 207);
   background-color: rgba(10, 172, 207, .1);
 }
@@ -62,6 +65,11 @@ h2 {
   [data-result-level="notice"] h2 {
     color: rgb(10, 172, 207);
   }
+
+text[data-result-level],
+[data-result-level] text {
+  fill: #000;
+}
 
 .pie {
   display: block;

@@ -7,7 +7,7 @@
   <base href="." />
 
   <style>
-    <%- css.common %>
+    <%= css.common %>
 
     body {
       text-align: center;
@@ -19,6 +19,20 @@
       border-spacing: 2em 1em;
       border: 1px rgb(160, 193, 62) solid;
       border-width: 1px 0;
+    }
+
+    svg {
+      display: block;
+      margin: 0 auto 2em auto;
+      max-height: 50vh;
+      max-width: 800px;
+      border: 1px red solid;
+    }
+
+    svg text {
+      text-anchor: start;
+      dominant-baseline: central;
+      transform: translate(.7em);
     }
   </style>
 
@@ -33,10 +47,14 @@
 
     function buildListing (data) {
         var tbody = document.querySelector('#listing tbody');
-        console.log(data);
 
         Object
             .keys(data)
+            .sort(
+                function (a, b) {
+                    return new Date(data[b].date) - new Date(data[a].date);
+                }
+            )
             .forEach(
                 function (key) {
                     var report = data[key];
@@ -56,6 +74,110 @@
             );
     }
 
+    function buildGraph (data) {
+        var svgNS        = 'http://www.w3.org/2000/svg';
+        var graphHeight  = 400;
+        var graphWidth   = 800;
+        var marginHeight = 50;
+        var marginWidth  = 50;
+        var graph        = document.querySelector('#graph');
+        graph.setAttribute(
+            'viewBox',
+            '0 0 ' + (graphWidth + marginWidth) + ' ' + (graphHeight + marginHeight)
+
+        );
+        var polylines = document.createElementNS(svgNS, 'g');
+        var boundY    = 0;
+
+        Object
+            .keys(data)
+            .sort(
+                function (a, b) {
+                    return new Date(data[a].date) - new Date(data[b].date);
+                }
+            )
+            .slice(0, 8)
+            .map(
+                function (key) {
+                    var report = data[key];
+                    boundY     = Math.max(
+                        boundY,
+                        report.errorCount,
+                        report.warningCount,
+                        report.noticeCount
+                    );
+
+                    return key;
+                }
+            )
+            .map(
+                function (key, index) {
+                    var report = data[key];
+                    var x      = 50 + 100 * index;
+
+                    var computeY = function (count) {
+                        return Math.round((graphHeight + marginHeight) - ((count * graphHeight) / boundY));
+                    };
+
+                    var createPoint = function (cx, cy, type) {
+                        var point = document.createElementNS(svgNS, 'circle');
+                        point.setAttribute('cx', cx);
+                        point.setAttribute('cy', cy);
+                        point.setAttribute('r', 5);
+                        point.setAttribute('data-result-level', type);
+
+                        return point;
+                    };
+
+                    var coordinates = {
+                        error  : [x, computeY(report.errorCount)],
+                        warning: [x, computeY(report.warningCount)],
+                        notice : [x, computeY(report.noticeCount)]
+                    };
+
+                    var errorPoint   = createPoint(coordinates.error[0],   coordinates.error[1],   'error');
+                    var warningPoint = createPoint(coordinates.warning[0], coordinates.warning[1], 'warning');
+                    var noticePoint  = createPoint(coordinates.notice[0],  coordinates.notice[1],  'notice');
+
+                    var group = document.createElementNS(svgNS, 'g');
+                    group.appendChild(errorPoint);
+                    group.appendChild(warningPoint);
+                    group.appendChild(noticePoint);
+
+                    graph.appendChild(group);
+
+                    return coordinates;
+                }
+            )
+            .reduce(
+                function (previous, current) {
+                    if (null === previous) {
+                        return current;
+                    }
+
+                    var createLine = function (type) {
+                        var line = document.createElementNS(svgNS, 'line');
+                        line.setAttribute('x1', previous[type][0]);
+                        line.setAttribute('y1', previous[type][1]);
+                        line.setAttribute('x2', current[type][0]);
+                        line.setAttribute('y2', current[type][1]);
+                        line.setAttribute('data-result-level', type);
+
+                        return line;
+                    };
+
+                    polylines.appendChild(createLine('error'));
+                    polylines.appendChild(createLine('warning'));
+                    polylines.appendChild(createLine('notice'));
+
+                    return current;
+                },
+                null
+            );
+
+        graph.appendChild(polylines);
+    }
+
     document.addEventListener(
         'DOMContentLoaded',
         function () {
@@ -63,6 +185,7 @@
                 '/api/statistics/all',
                 function () {
                     buildListing(this.response);
+                    buildGraph(this.response);
                 }
             );
         }
@@ -73,6 +196,9 @@
 <body>
 
 <h1>Dashboard</h1>
+
+<svg viewBox="0 0 900 500" id="graph">
+</svg>
 
 <table id="listing">
   <thead>
