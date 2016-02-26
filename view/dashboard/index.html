@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard — The Accessibility Machine</title>
+  <base href="." />
+
+  <style>
+    <%- css.common %>
+
+    body {
+      text-align: center;
+    }
+
+    table {
+      display: inline-table;
+      margin: 0 auto;
+      border-spacing: 2em 1em;
+      border: 1px rgb(160, 193, 62) solid;
+      border-width: 1px 0;
+    }
+  </style>
+
+  <script>
+    function GET(url, onComplete) {
+        var request = new XMLHttpRequest();
+        request.addEventListener('load', onComplete);
+        request.open('GET', url);
+        request.responseType = 'json';
+        request.send();
+    }
+
+    function buildListing (data) {
+        var tbody = document.querySelector('#listing tbody');
+        console.log(data);
+
+        Object
+            .keys(data)
+            .forEach(
+                function (key) {
+                    var report = data[key];
+                    var tr                 = document.createElement('tr');
+                    var tdDate             = document.createElement('td');
+                    tdDate.innerHTML       = '<a href="/report/' + report.reportDirectory + '/index.html">' + report.date + '</a>';
+                    var tdStatistics       = document.createElement('td');
+                    tdStatistics.innerHTML =
+                        'Errors  : ' + report.errorCount + ', ' +
+                        'Warnings: ' + report.warningCount + ', ' +
+                        'Notices : ' + report.noticeCount;
+
+                    tr.appendChild(tdDate);
+                    tr.appendChild(tdStatistics);
+                    tbody.appendChild(tr);
+                }
+            );
+    }
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+            GET(
+                '/api/statistics/all',
+                function () {
+                    buildListing(this.response);
+                }
+            );
+        }
+    );
+  </script>
+</head>
+
+<body>
+
+<h1>Dashboard</h1>
+
+<table id="listing">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Statistics</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+</body>
+</html>

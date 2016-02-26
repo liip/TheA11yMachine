@@ -1,0 +1,135 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * Copyright (c) 2016, Ivan Enderlin and Liip
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var URL     = require('url');
+var _       = require('underscore');
+var fs      = require('fs');
+var glob    = require('glob');
+var http    = require('http');
+var path    = require('path');
+var program = require('commander');
+
+// Define all the options, with their description and default value.
+program
+    .usage('[options]')
+    .option(
+        '-r, --root <root>',
+        'Path to the directory containing all the report directories.'
+    )
+    .option(
+        '-a, --address <address>',
+        'Address the server must listen to.',
+        '127.0.0.1'
+    )
+    .option(
+        '-p, --port <port>',
+        'Port the server must listen to.',
+        8080
+    )
+    .parse(process.argv);
+
+// No address and port to compute? Then exit.
+if (!program.root) {
+    program.help();
+    process.exit(1);
+}
+
+// Create an HTTP server.
+var server = http.createServer(
+    function (request, response) {
+        var url     = URL.parse(request.url);
+        var matches = null;
+
+        if (url.pathname.match(/^\/$/)) {
+            response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+
+            var render = _.template(
+                fs.readFileSync(__dirname + '/view/dashboard/index.html', {encoding: 'utf-8'})
+            );
+
+            response.end(
+                render({
+                    css: {
+                        common: fs.readFileSync(__dirname + '/view/common.css', {encoding: 'utf-8'})
+                    }
+                })
+            );
+        } else if (matches = url.pathname.match(/^\/report\/(.*)/)) {
+            response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+            response.end(
+                fs.readFileSync(program.root + '/' + matches[1])
+            );
+        } else if (url.pathname.match(/^\/api\/statistics\/all$/)) {
+            var stats = {};
+            glob
+                .sync(program.root + '/*/index.json')
+                .forEach(
+                    function (file) {
+                        stats[file] =
+                            JSON
+                                .parse(fs.readFileSync(file, {encoding: 'utf-8'}))
+                                .reduce(
+                                    function (previous, current) {
+                                        return {
+                                            reportDirectory: previous.reportDirectory,
+                                            date           : previous.date || current.date,
+                                            errorCount     : previous.errorCount   + current.errorCount,
+                                            warningCount   : previous.warningCount + current.warningCount,
+                                            noticeCount    : previous.noticeCount  + current.noticeCount,
+                                        }
+                                    },
+                                    {
+                                        reportDirectory: path.basename(path.dirname(file)),
+                                        date           : null,
+                                        errorCount     : 0,
+                                        noticeCount    : 0,
+                                        warningCount   : 0
+                                    }
+                                );
+                    }
+                );
+
+            response.writeHead(200, {'Content-Type': 'application/json; charset=UTf-8'});
+            response.end(JSON.stringify(stats));
+        } else {
+            response.writeHead(404, {'Content-Type': 'text/plain'});
+            response.end('URL not found! Sorry.');
+        }
+    }
+);
+
+// Listen!
+server.listen(program.port, program.address);
+
+console.log('Server is listening!');
