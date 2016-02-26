@@ -4,21 +4,41 @@
 <head>
   <meta charset="utf-8" />
   <title>Dashboard — The Accessibility Machine</title>
-  <base href="." />
 
   <style>
     <%= css.common %>
 
     body {
+      margin: 0;
+      padding: 0;
       text-align: center;
+    }
+
+    header {
+      padding: 3em 0 2em 0;
+      background: url('https://www.liip.ch/bundles/liipchcore/img/slashpattern_big.jpg');
+    }
+
+    h1 {
+      color: #fff;
+      font-weight: bold;
     }
 
     table {
       display: inline-table;
       margin: 0 auto;
-      border-spacing: 2em 1em;
-      border: 1px rgb(160, 193, 62) solid;
-      border-width: 1px 0;
+      border-spacing: 3em 1em;
+    }
+
+    a {
+      display: inline-block;
+      overflow: hidden;
+      text-indent: -9999px;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      background: rgb(244, 96, 37) url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTAwIDEyNSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwIDEwMCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTQ5Ljk3NiwyMC4wMjRjLTI5LjM4NywwLTQ1LjA3MSwyNC42ODItNDUuMDcxLDI5LjQ3OXMxNS42ODQsMjkuNDgsNDUuMDcxLDI5LjQ4ICBzNDUuMDcxLTI0LjY4Myw0NS4wNzEtMjkuNDhTNzkuMzYzLDIwLjAyNCw0OS45NzYsMjAuMDI0eiBNNDkuOTc2LDc0Ljk4NGMtMjcuMDg1LDAtNDAuODM0LTIyLjQyNy00MS4wNzEtMjUuNDU3ICBjMC4yMzctMy4wNzcsMTMuOTg3LTI1LjUwMyw0MS4wNzEtMjUuNTAzYzI3LjA4NCwwLDQwLjgzNCwyMi40MjYsNDEuMDcxLDI1LjQ1NkM5MC44MSw1Mi41NTgsNzcuMDYxLDc0Ljk4NCw0OS45NzYsNzQuOTg0eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik00OS45NjcsMzMuMDA1Yy05LjM2MywwLTE2Ljk4LDcuNDExLTE2Ljk4LDE2LjUxOWMwLDkuMTA5LDcuNjE3LDE2LjUyMSwxNi45OCwxNi41MjEgIHMxNi45ODEtNy40MTEsMTYuOTgxLTE2LjUyMUM2Ni45NDgsNDAuNDE2LDU5LjMzLDMzLjAwNSw0OS45NjcsMzMuMDA1eiBNNDkuOTY3LDYyLjA0NWMtNy4xNTcsMC0xMi45OC01LjYxNy0xMi45OC0xMi41MjEgIGMwLTYuOTAzLDUuODIzLTEyLjUxOSwxMi45OC0xMi41MTljNy4xNTgsMCwxMi45ODEsNS42MTYsMTIuOTgxLDEyLjUxOUM2Mi45NDgsNTYuNDI4LDU3LjEyNSw2Mi4wNDUsNDkuOTY3LDYyLjA0NXoiLz48L3N2Zz4=') no-repeat .25em .28em;
+      background-size: 1.5em;
     }
 
     svg {
@@ -26,7 +46,7 @@
       margin: 0 auto 2em auto;
       max-height: 50vh;
       max-width: 800px;
-      border: 1px red solid;
+      background: #fff;
     }
 
     svg text {
@@ -57,18 +77,33 @@
             )
             .forEach(
                 function (key) {
-                    var report = data[key];
-                    var tr                 = document.createElement('tr');
-                    var tdDate             = document.createElement('td');
-                    tdDate.innerHTML       = '<a href="/report/' + report.reportDirectory + '/index.html">' + report.date + '</a>';
+                    var report      = data[key];
+                    var tr          = document.createElement('tr');
+                    var tdDate      = document.createElement('td');
+                    var dateOptions = {
+                        weekday: 'long',
+                        year   : 'numeric',
+                        month  : 'long',
+                        day    : 'numeric',
+                        hour   : 'numeric',
+                        minute : 'numeric'
+                    };
+                    var date               = new Date(report.date).toLocaleDateString('en-GB', dateOptions)
+                    tdDate.innerHTML       = date;
                     var tdStatistics       = document.createElement('td');
                     tdStatistics.innerHTML =
-                        'Errors  : ' + report.errorCount + ', ' +
-                        'Warnings: ' + report.warningCount + ', ' +
-                        'Notices : ' + report.noticeCount;
+                        'errors  : ' + report.errorCount + ', ' +
+                        'warnings: ' + report.warningCount + ', ' +
+                        'notices : ' + report.noticeCount;
+                    var tdLink       = document.createElement('td');
+                    tdLink.innerHTML =
+                        '<a href="/report/' +
+                        report.reportDirectory +
+                        '/index.html" target="_blank">See report from ' + date + '</a>';
 
                     tr.appendChild(tdDate);
                     tr.appendChild(tdStatistics);
+                    tr.appendChild(tdLink);
                     tbody.appendChild(tr);
                 }
             );
@@ -195,16 +230,19 @@
 
 <body>
 
-<h1>Dashboard</h1>
+<header>
+  <h1>Dashboard</h1>
 
-<svg viewBox="0 0 900 500" id="graph">
-</svg>
+  <svg viewBox="0 0 900 500" id="graph">
+  </svg>
+</header>
 
 <table id="listing">
   <thead>
     <tr>
       <th>Date</th>
       <th>Statistics</th>
+      <th><span style="display: none" aria-hidden="true">Links</span></th>
     </tr>
   </thead>
   <tbody>
