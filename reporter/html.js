@@ -7,22 +7,22 @@ var mkdirp = require('mkdirp');
 
 module.exports = {
     config: config,
-    begin: emptyFunction,
     error: reportError,
     debug: emptyFunction,
     info: emptyFunction,
     results: reportResults
 };
 
-var outputDirectory = null;
-var indexStream     = null;
+var outputDirectory  = null;
+var indexHtmlStream  = null;
+var indexJsonContent = [];
 
 function emptyFunction() {}
 
 function config(options) {
     outputDirectory = options.outputDirectory;
     mkdirp.sync(outputDirectory);
-    indexStream = fs.createWriteStream(
+    indexHtmlStream = fs.createWriteStream(
         outputDirectory + '/index.html',
         {
             flag: 'a',
@@ -31,15 +31,15 @@ function config(options) {
     );
 
     var indexDotHtml = _.template(
-        fs.readFileSync(__dirname + '/templates/index.html', {encoding: 'utf-8'})
+        fs.readFileSync(__dirname + '/../view/reports/index.html', {encoding: 'utf-8'})
     );
 
-    indexStream.write(
+    indexHtmlStream.write(
         indexDotHtml(
             {
                 date: new Date(),
                 css : {
-                    common: fs.readFileSync(__dirname + '/templates/common.css', {encoding: 'utf-8'})
+                    common: fs.readFileSync(__dirname + '/../view/common.css', {encoding: 'utf-8'})
                 }
             }
         )
@@ -90,10 +90,10 @@ function reportResults(results, url) {
     var noticePercentage  = (noticeCount * 100) / total;
 
     var reportDotHtml = _.template(
-        fs.readFileSync(__dirname + '/templates/report.html', {encoding: 'utf-8'})
+        fs.readFileSync(__dirname + '/../view/reports/report.html', {encoding: 'utf-8'})
     );
     var indexReportDotHtml = _.template(
-        fs.readFileSync(__dirname + '/templates/index-report.html', {encoding: 'utf-8'})
+        fs.readFileSync(__dirname + '/../view/reports/index-report.html', {encoding: 'utf-8'})
     );
 
     var options = {
@@ -109,9 +109,18 @@ function reportResults(results, url) {
         results          : results,
         noteCodes        : noteCodes,
         css              : {
-            common: fs.readFileSync(__dirname + '/templates/common.css', {encoding: 'utf-8'})
+            common: fs.readFileSync(__dirname + '/../view/common.css', {encoding: 'utf-8'})
         }
     };
+
+    indexJsonContent.push({
+        url         : url,
+        hash        : hash,
+        date        : new Date(),
+        errorCount  : errorCount,
+        warningCount: warningCount,
+        noticeCount : noticeCount
+    });
 
     fs.writeFileSync(
         outputDirectory + '/' + hash + '.html',
@@ -121,7 +130,16 @@ function reportResults(results, url) {
             encoding: 'utf8'
         }
     );
-    indexStream.write(indexReportDotHtml(options));
+    indexHtmlStream.write(indexReportDotHtml(options));
+    fs.writeFileSync(
+        outputDirectory + '/index.json',
+        JSON.stringify(indexJsonContent),
+        {
+            flag    : 'w',
+            encoding: 'utf8'
+        }
+
+    );
 }
 
 function upperCaseFirst(string) {
