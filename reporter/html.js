@@ -21,7 +21,7 @@ function emptyFunction() {}
 
 function config(options) {
     outputDirectory = options.outputDirectory;
-    mkdirp(outputDirectory);
+    mkdirp.sync(outputDirectory);
     indexStream = fs.createWriteStream(
         outputDirectory + '/index.html',
         {
