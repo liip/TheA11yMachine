@@ -1,6 +1,9 @@
 FROM node
 
-RUN npm install -g phantomjs
-RUN npm install the-a11y-machine
+ENV NPM_CONFIG_LOGLEVEL=warn \
+    NPM_CONFIG_PROGRESS=false \
+    NPM_CONFIG_SPIN=false
 
-ENTRYPOINT ["/node_modules/.bin/a11ym"]
+RUN npm install -g phantomjs-prebuilt the-a11y-machine
+
+ENTRYPOINT ["a11ym"]
