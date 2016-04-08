@@ -62,6 +62,12 @@ $ npm install the-a11y-machine
 If you would like to validate your pages against the HTML5 recommendation, then
 you need to [install Java](https://www.java.com/en/download/).
 
+As an alternative you can run a Docker image instead which will ensure the image is available locally.
+
+```sh
+$ docker run liip/the-a11y-machine --help
+```
+
 ## Usage
 
 As a prelude, see the help:
