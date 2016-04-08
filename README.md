@@ -68,6 +68,17 @@ As an alternative you can run a Docker image instead which will ensure the image
 $ docker run liip/the-a11y-machine --help
 ```
 
+To get access to a report you will need to:
+
+* Mount a path into the container
+* Specifify that internal path in your a11ym cli options
+
+eg.
+
+```
+$ docker run -v $PWD:/var/output liip/the-a11y-machine [URL] -o /var/output
+```
+
 ## Usage
 
 As a prelude, see the help:
