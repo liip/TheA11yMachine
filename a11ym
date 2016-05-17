@@ -206,15 +206,14 @@ if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.l
     maximumUrls = 0;
 
     var add = function (url) {
-        ++maximumUrls;
+        program.maximumUrls = ++maximumUrls;
         testQueue.push(url);
     };
 
     if('-' === program.args[0]) {
         readline
             .createInterface(process.stdin, undefined)
-            .on('line', add)
-            .on('close', function() { program.maximumUrls = maximumUrls; });
+            .on('line', add);
     } else {
         program.args.forEach(add);
         program.maximumUrls = maximumUrls;
