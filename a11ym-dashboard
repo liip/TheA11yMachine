@@ -86,9 +86,22 @@ var server = http.createServer(
                 })
             );
         } else if (matches = url.pathname.match(/^\/report\/(.*)/)) {
-            response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
-            response.end(
-                fs.readFileSync(program.root + '/' + matches[1])
+            var index = program.root + '/' + matches[1];
+
+            fs.access(
+                index,
+                fs.R_OK,
+                function (error) {
+                    if (error) {
+                        response.writeHead(404, {'Content-Type': 'text/plain'});
+                        response.end('Report not found! Sorry.');
+
+                        return;
+                    }
+
+                    response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+                    response.end(fs.readFileSync(index));
+                }
             );
         } else if (url.pathname.match(/^\/api\/statistics\/all$/)) {
             var stats = {};
