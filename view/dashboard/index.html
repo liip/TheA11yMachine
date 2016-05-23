@@ -46,13 +46,28 @@
       margin: 0 auto 2em auto;
       max-height: 50vh;
       max-width: 800px;
+      font-size: 1.2em;
       background: #fff;
     }
 
     svg text {
       text-anchor: start;
       dominant-baseline: central;
-      transform: translate(.7em);
+    }
+
+    svg [role="tooltip"] {
+      pointer-events: none;
+      opacity: 0;
+
+      transform: translate(1.8em);
+      transition: transform .1s ease-out, opacity .1s ease-out;
+    }
+
+    svg g:hover > [role="tooltip"] {
+      pointer-events: auto;
+      opacity: 1;
+
+      transform: translate(.9em);
     }
   </style>
 
@@ -155,13 +170,24 @@
                     };
 
                     var createPoint = function (cx, cy, type) {
+                        var group = document.createElementNS(svgNS, 'g');
+
                         var point = document.createElementNS(svgNS, 'circle');
                         point.setAttribute('cx', cx);
                         point.setAttribute('cy', cy);
-                        point.setAttribute('r', 5);
+                        point.setAttribute('r', 9);
                         point.setAttribute('data-result-level', type);
 
-                        return point;
+                        var text = document.createElementNS(svgNS, 'text');
+                        text.setAttribute('x', cx);
+                        text.setAttribute('y', cy);
+                        text.setAttribute('role', 'tooltip');
+                        text.appendChild(document.createTextNode(report[type + 'Count'] + ' ' + type + 's'));
+
+                        group.appendChild(point);
+                        group.appendChild(text);
+
+                        return group;
                     };
 
                     var coordinates = {
