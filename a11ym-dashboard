@@ -145,4 +145,4 @@ var server = http.createServer(
 // Listen!
 server.listen(program.port, program.address);
 
-console.log('Server is listening!');
+console.log('Server is listening on ' + program.address + ':' + program.port + '!');
