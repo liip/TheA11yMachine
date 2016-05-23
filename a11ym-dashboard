@@ -93,7 +93,7 @@ var server = http.createServer(
         } else if (url.pathname.match(/^\/api\/statistics\/all$/)) {
             var stats = {};
             glob
-                .sync(program.root + '/*/index.json')
+                .sync(program.root + '/*/statistics.json')
                 .forEach(
                     function (file) {
                         stats[file] =

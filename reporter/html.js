@@ -13,9 +13,9 @@ module.exports = {
     results: reportResults
 };
 
-var outputDirectory  = null;
-var indexHtmlStream  = null;
-var indexJsonContent = [];
+var outputDirectory = null;
+var indexHtmlStream = null;
+var statistics      = [];
 
 function emptyFunction() {}
 
@@ -113,7 +113,7 @@ function reportResults(results, url) {
         }
     };
 
-    indexJsonContent.push({
+    statistics.push({
         url         : url,
         hash        : hash,
         date        : new Date(),
@@ -132,8 +132,8 @@ function reportResults(results, url) {
     );
     indexHtmlStream.write(indexReportDotHtml(options));
     fs.writeFileSync(
-        outputDirectory + '/index.json',
-        JSON.stringify(indexJsonContent),
+        outputDirectory + '/statistics.json',
+        JSON.stringify(statistics),
         {
             flag    : 'w',
             encoding: 'utf8'
