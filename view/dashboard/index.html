@@ -92,9 +92,9 @@
                     tdDate.innerHTML       = date;
                     var tdStatistics       = document.createElement('td');
                     tdStatistics.innerHTML =
-                        'errors  : ' + report.errorCount + ', ' +
-                        'warnings: ' + report.warningCount + ', ' +
-                        'notices : ' + report.noticeCount;
+                        '<span data-result-level="error">errors  : ' + report.errorCount + '</span>, ' +
+                        '<span data-result-level="warning">warnings: ' + report.warningCount + '</span>, ' +
+                        '<span data-result-level="notice">notices : ' + report.noticeCount + '</span>';
                     var tdLink       = document.createElement('td');
                     tdLink.innerHTML =
                         '<a href="/report/' +
