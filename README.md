@@ -29,7 +29,7 @@ following specifications/laws:
 If **privacy** matters for you, you're likely to install The A11y Machine over
 any SaaS services: It runs locally so you don't need to send your code
 somewhere, you can test all parts of your application including the ones which
-requires an authentification (like a checkout, a back-office etc.)…
+require an authentification (like a checkout, a back-office etc.)…
 
 Here are some pros and cons compared to SaaS solutions:
 
