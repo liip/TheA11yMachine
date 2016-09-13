@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/liip/TheA11yMachine#readme",
   "dependencies": {
-    "HTML_CodeSniffer": "https://github.com/liip-forks/HTML_CodeSniffer#role_presentation",
+    "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer#master",
     "async": "^1.5.0",
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
     "crypto": "0.0.3",
     "glob": "^6.0.4",
     "mkdirp": "^0.5.1",
-    "pa11y": "https://github.com/liip-forks/pa11y#relax_standards",
+    "pa11y": "^4.0.1",
     "process": "^0.11.2",
     "simplecrawler": "https://github.com/cgiffard/node-simplecrawler#master",
     "underscore": "^1.8.3"
