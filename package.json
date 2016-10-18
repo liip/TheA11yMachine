@@ -35,6 +35,8 @@
     "node": ">=0.12.9"
   },
   "bin": {
-    "a11ym": "./a11ym"
+    "a11ym": "./a11ym",
+    "a11ym-dashboard": "./a11ym-dashboard",
+    "a11ym-sniffers": "./a11ym-sniffers"
   }
 }
