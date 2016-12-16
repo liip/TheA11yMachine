@@ -57,7 +57,7 @@ reap the benefits.
 
 ```sh
 $ npm install -g phantomjs
-$ npm install the-a11y-machine
+$ npm install -g the-a11y-machine
 ```
 
 If you would like to validate your pages against the HTML5 recommendation, then
