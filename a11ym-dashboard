@@ -57,6 +57,10 @@ program
         'Port the server must listen to.',
         8080
     )
+    .option(
+        '-s, --static-output <static_output_directory>',
+        'Generate static files instead of serving them.'
+    )
     .parse(process.argv);
 
 // No address and port to compute? Then exit.
