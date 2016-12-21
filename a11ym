@@ -134,7 +134,13 @@ var isStopped = false;
 
 // Force to quit the program. If errors, exit with a non 0 exit code.
 function quit() {
-    process.exit(true === hasErrors ? 2 : 0);
+    if (true === hasErrors) {
+        logger.write(loggers.colorize.red('Quiting with errors…'));
+        process.exit(2);
+    } else {
+        logger.write(logger.colorize.green('Quitting with success…'));
+        process.exit(0);
+    }
 }
 
 // Kill the test queue and stop the crawler.
