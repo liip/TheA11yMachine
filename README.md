@@ -93,6 +93,7 @@ $ ./a11ym --help
   Options:
 
     -h, --help                                 output usage information
+    -e, --error-level <error_level>            Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).
     -c, --filter-by-codes <codes>              Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
     -C, --exclude-by-codes <codes>             Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
     -d, --maximum-depth <depth>                Explore up to a maximum depth (hops).
