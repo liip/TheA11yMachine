@@ -6,10 +6,10 @@ var fs     = require('fs');
 var mkdirp = require('mkdirp');
 
 module.exports = {
-    config: config,
-    error: reportError,
-    debug: emptyFunction,
-    info: emptyFunction,
+    config : config,
+    error  : reportError,
+    debug  : emptyFunction,
+    info   : emptyFunction,
     results: reportResults
 };
 
