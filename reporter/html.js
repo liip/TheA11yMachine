@@ -25,7 +25,7 @@ function config(options) {
     indexHtmlStream = fs.createWriteStream(
         outputDirectory + '/index.html',
         {
-            flag: 'a',
+            flag           : 'a',
             defaultEncoding: 'utf8'
         }
     );

@@ -49,17 +49,17 @@ program
     )
     .option(
         '-a, --address <address>',
-        'Address the server must listen to.',
+        'Start an HTTP server, and listen this address.',
         '127.0.0.1'
     )
     .option(
         '-p, --port <port>',
-        'Port the server must listen to.',
+        'Port the HTTP server must listen to.',
         8080
     )
     .option(
-        '-s, --static-output <static_output_directory>',
-        'Generate static files instead of serving them.'
+        '-s, --static-output',
+        'Generate static files instead of serving them over HTTP.'
     )
     .parse(process.argv);
 
@@ -122,47 +122,61 @@ function computeAllStatistics() {
 }
 
 // Create an HTTP server.
-var server = http.createServer(
-    new function () {
-        var indexRegex  = /^\/$/;
-        var reportRegex = new RegExp('^\/' + path.basename(program.root) + '\/([^/]+)/(.+)');
+if (undefined === program.staticOutput) {
+    var server = http.createServer(
+        new function () {
+            var indexRegex  = /^\/$/;
+            var reportRegex = new RegExp('^\/([^/]+)/(.+)');
 
-        return function (request, response) {
-            var url     = URL.parse(request.url);
-            var matches = null;
+            return function (request, response) {
+                var url     = URL.parse(request.url);
+                var matches = null;
 
-            if (url.pathname.match(indexRegex)) {
-                response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+                if (url.pathname.match(indexRegex)) {
+                    response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
 
-                response.end(computeIndex());
-            } else if (matches = url.pathname.match(reportRegex)) {
-                var index = program.root + '/' + matches[1] + '/' + matches[2];
-                console.log('========> ' + index);
+                    response.end(computeIndex());
+                } else if (matches = url.pathname.match(reportRegex)) {
+                    var index = program.root + '/' + matches[1] + '/' + matches[2];
 
-                fs.access(
-                    index,
-                    fs.R_OK,
-                    function (error) {
-                        if (error) {
-                            response.writeHead(404, {'Content-Type': 'text/plain'});
-                            response.end('Report not found! Sorry.');
+                    fs.access(
+                        index,
+                        fs.R_OK,
+                        function (error) {
+                            if (error) {
+                                response.writeHead(404, {'Content-Type': 'text/plain'});
+                                response.end('Report not found! Sorry.');
 
-                            return;
+                                return;
+                            }
+
+                            response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+                            response.end(fs.readFileSync(index));
                         }
+                    );
+                } else {
+                    response.writeHead(404, {'Content-Type': 'text/plain'});
+                    response.end('URL not found! Sorry.');
+                }
+            };
+        }
+    );
 
-                        response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
-                        response.end(fs.readFileSync(index));
-                    }
-                );
-            } else {
-                response.writeHead(404, {'Content-Type': 'text/plain'});
-                response.end('URL not found! Sorry.');
-            }
-        };
-    }
-);
+    // Listen!
+    server.listen(program.port, program.address);
 
-// Listen!
-server.listen(program.port, program.address);
+    console.log('Server is listening on ' + program.address + ':' + program.port + '!');
+}
+// Generate static files.
+else {
+    var dashboardIndex = fs.createWriteStream(
+        program.root + '/index.html',
+        {
+            flag           : 'w',
+            defaultEncoding: 'utf8'
+        }
+    );
+    dashboardIndex.write(computeIndex());
 
-console.log('Server is listening on ' + program.address + ':' + program.port + '!');
+    console.log('Dashboard generated!');
+}
