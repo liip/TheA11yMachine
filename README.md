@@ -1,4 +1,10 @@
-<a href="https://liip.ch/"><img src="https://www.liip.ch/og-logo.png" alt="Liip" width="150px" /></a>
+<p align="center">
+  <a href="https://liip.ch/"><img src="https://www.liip.ch/og-logo.png" alt="Liip" width="150px" /></a><br />
+  <em>presents</em><br />
+  The Accessibility Testing Machine
+</p>
+
+<hr />
 
 # The A11y Machine
 
