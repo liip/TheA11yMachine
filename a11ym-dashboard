@@ -37,6 +37,7 @@ var _       = require('underscore');
 var fs      = require('fs');
 var glob    = require('glob');
 var http    = require('http');
+var open    = require('open');
 var path    = require('path');
 var program = require('commander');
 
@@ -60,6 +61,10 @@ program
     .option(
         '-s, --static-output',
         'Generate static files instead of serving them over HTTP.'
+    )
+    .option(
+        '-o, --open',
+        'Directly open the dashboard in your favorite browser.'
     )
     .parse(process.argv);
 
@@ -166,11 +171,16 @@ if (undefined === program.staticOutput) {
     server.listen(program.port, program.address);
 
     console.log('Server is listening on ' + program.address + ':' + program.port + '!');
+
+    if (program.open) {
+        open('http://' + program.address + ':' + program.port);
+    }
 }
 // Generate static files.
 else {
-    var dashboardIndex = fs.createWriteStream(
-        program.root + '/index.html',
+    var dashboardIndexPath = program.root + '/index.html';
+    var dashboardIndex     = fs.createWriteStream(
+        dashboardIndexPath,
         {
             flag           : 'w',
             defaultEncoding: 'utf8'
@@ -179,4 +189,8 @@ else {
     dashboardIndex.write(computeIndex());
 
     console.log('Dashboard generated!');
+
+    if (program.open) {
+        open(dashboardIndexPath);
+    }
 }
