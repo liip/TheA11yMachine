@@ -66,83 +66,99 @@ program
 // No address and port to compute? Then exit.
 if (!program.root) {
     program.help();
-    process.exit(1);
+    process.exit(2);
+}
+
+function computeIndex() {
+    var render = _.template(
+        fs.readFileSync(__dirname + '/view/dashboard/index.html', {encoding: 'utf-8'})
+    );
+
+    return render({
+        css: {
+            common: fs.readFileSync(__dirname + '/view/common.css', {encoding: 'utf-8'})
+        },
+        js: {
+            allStatistics: JSON.stringify(computeAllStatistics())
+        }
+    });
+}
+
+function computeAllStatistics() {
+    var stats = [];
+
+    glob
+        .sync(program.root + '/*/statistics.json')
+        .forEach(
+            function (file) {
+                stats.push(
+                    JSON
+                        .parse(fs.readFileSync(file, {encoding: 'utf-8'}))
+                        .reduce(
+                            function (previous, current) {
+                                return {
+                                    reportId       : previous.reportId,
+                                    reportDirectory: previous.reportDirectory,
+                                    date           : previous.date || current.date,
+                                    errorCount     : previous.errorCount   + current.errorCount,
+                                    warningCount   : previous.warningCount + current.warningCount,
+                                    noticeCount    : previous.noticeCount  + current.noticeCount,
+                                }
+                            },
+                            {
+                                reportId       : path.basename(path.dirname(file)),
+                                reportDirectory: path.basename(path.dirname(path.dirname(file))),
+                                date           : null,
+                                errorCount     : 0,
+                                noticeCount    : 0,
+                                warningCount   : 0
+                            }
+                        )
+                );
+            }
+        );
+
+    return stats;
 }
 
 // Create an HTTP server.
 var server = http.createServer(
-    function (request, response) {
-        var url     = URL.parse(request.url);
-        var matches = null;
+    new function () {
+        var indexRegex  = /^\/$/;
+        var reportRegex = new RegExp('^\/' + path.basename(program.root) + '\/([^/]+)/(.+)');
 
-        if (url.pathname.match(/^\/$/)) {
-            response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+        return function (request, response) {
+            var url     = URL.parse(request.url);
+            var matches = null;
 
-            var render = _.template(
-                fs.readFileSync(__dirname + '/view/dashboard/index.html', {encoding: 'utf-8'})
-            );
+            if (url.pathname.match(indexRegex)) {
+                response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
 
-            response.end(
-                render({
-                    css: {
-                        common: fs.readFileSync(__dirname + '/view/common.css', {encoding: 'utf-8'})
-                    }
-                })
-            );
-        } else if (matches = url.pathname.match(/^\/report\/(.*)/)) {
-            var index = program.root + '/' + matches[1];
+                response.end(computeIndex());
+            } else if (matches = url.pathname.match(reportRegex)) {
+                var index = program.root + '/' + matches[1] + '/' + matches[2];
+                console.log('========> ' + index);
 
-            fs.access(
-                index,
-                fs.R_OK,
-                function (error) {
-                    if (error) {
-                        response.writeHead(404, {'Content-Type': 'text/plain'});
-                        response.end('Report not found! Sorry.');
+                fs.access(
+                    index,
+                    fs.R_OK,
+                    function (error) {
+                        if (error) {
+                            response.writeHead(404, {'Content-Type': 'text/plain'});
+                            response.end('Report not found! Sorry.');
 
-                        return;
-                    }
+                            return;
+                        }
 
-                    response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
-                    response.end(fs.readFileSync(index));
-                }
-            );
-        } else if (url.pathname.match(/^\/api\/statistics\/all$/)) {
-            var stats = {};
-            glob
-                .sync(program.root + '/*/statistics.json')
-                .forEach(
-                    function (file) {
-                        stats[file] =
-                            JSON
-                                .parse(fs.readFileSync(file, {encoding: 'utf-8'}))
-                                .reduce(
-                                    function (previous, current) {
-                                        return {
-                                            reportDirectory: previous.reportDirectory,
-                                            date           : previous.date || current.date,
-                                            errorCount     : previous.errorCount   + current.errorCount,
-                                            warningCount   : previous.warningCount + current.warningCount,
-                                            noticeCount    : previous.noticeCount  + current.noticeCount,
-                                        }
-                                    },
-                                    {
-                                        reportDirectory: path.basename(path.dirname(file)),
-                                        date           : null,
-                                        errorCount     : 0,
-                                        noticeCount    : 0,
-                                        warningCount   : 0
-                                    }
-                                );
+                        response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+                        response.end(fs.readFileSync(index));
                     }
                 );
-
-            response.writeHead(200, {'Content-Type': 'application/json; charset=UTf-8'});
-            response.end(JSON.stringify(stats));
-        } else {
-            response.writeHead(404, {'Content-Type': 'text/plain'});
-            response.end('URL not found! Sorry.');
-        }
+            } else {
+                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.end('URL not found! Sorry.');
+            }
+        };
     }
 );
 

@@ -72,28 +72,22 @@
   </style>
 
   <script>
-    function GET(url, onComplete) {
-        var request = new XMLHttpRequest();
-        request.addEventListener('load', onComplete);
-        request.open('GET', url);
-        request.responseType = 'json';
-        request.send();
-    }
-
     function buildListing (data) {
         var tbody = document.querySelector('#listing tbody');
 
-        Object
-            .keys(data)
+        data
             .sort(
                 function (a, b) {
-                    return new Date(data[b].date) - new Date(data[a].date);
+                    return new Date(b.date) - new Date(a.date);
                 }
             )
             .forEach(
-                function (key) {
-                    var report      = data[key];
-                    var tr          = document.createElement('tr');
+                function (report) {
+                    var tr = document.createElement('tr');
+
+                    var tdReportId       = document.createElement('td');
+                    tdReportId.innerHTML = report.reportId;
+
                     var tdDate      = document.createElement('td');
                     var dateOptions = {
                         weekday: 'long',
@@ -103,19 +97,21 @@
                         hour   : 'numeric',
                         minute : 'numeric'
                     };
-                    var date               = new Date(report.date).toLocaleDateString('en-GB', dateOptions)
-                    tdDate.innerHTML       = date;
+                    var date         = new Date(report.date).toLocaleDateString('en-GB', dateOptions)
+                    tdDate.innerHTML = date;
+
                     var tdStatistics       = document.createElement('td');
                     tdStatistics.innerHTML =
                         '<span data-result-level="error">errors  : ' + report.errorCount + '</span>, ' +
                         '<span data-result-level="warning">warnings: ' + report.warningCount + '</span>, ' +
                         '<span data-result-level="notice">notices : ' + report.noticeCount + '</span>';
+
                     var tdLink       = document.createElement('td');
                     tdLink.innerHTML =
-                        '<a href="/report/' +
-                        report.reportDirectory +
-                        '/index.html" target="_blank">See report from ' + date + '</a>';
+                        '<a href="' + report.reportDirectory + '/' + report.reportId + '/index.html" ' +
+                        'target="_blank">See report from ' + date + '</a>';
 
+                    tr.appendChild(tdReportId);
                     tr.appendChild(tdDate);
                     tr.appendChild(tdStatistics);
                     tr.appendChild(tdLink);
@@ -139,31 +135,28 @@
         var polylines = document.createElementNS(svgNS, 'g');
         var boundY    = 0;
 
-        Object
-            .keys(data)
+        data
             .sort(
                 function (a, b) {
-                    return new Date(data[a].date) - new Date(data[b].date);
+                    return new Date(a.date) - new Date(b.date);
                 }
             )
             .slice(0, 8)
             .map(
-                function (key) {
-                    var report = data[key];
-                    boundY     = Math.max(
+                function (report) {
+                    boundY = Math.max(
                         boundY,
                         report.errorCount,
                         report.warningCount,
                         report.noticeCount
                     );
 
-                    return key;
+                    return report;
                 }
             )
             .map(
-                function (key, index) {
-                    var report = data[key];
-                    var x      = 50 + 100 * index;
+                function (report, index) {
+                    var x = 50 + 100 * index;
 
                     var computeY = function (count) {
                         return Math.round((graphHeight + marginHeight) - ((count * graphHeight) / boundY));
@@ -239,16 +232,13 @@
         graph.appendChild(polylines);
     }
 
+    var allStatistics = <%= js.allStatistics %>;
+
     document.addEventListener(
         'DOMContentLoaded',
         function () {
-            GET(
-                '/api/statistics/all',
-                function () {
-                    buildListing(this.response);
-                    buildGraph(this.response);
-                }
-            );
+            buildListing(allStatistics);
+            buildGraph(allStatistics);
         }
     );
   </script>
@@ -266,6 +256,7 @@
 <table id="listing">
   <thead>
     <tr>
+      <th>Report ID</th>
       <th>Date</th>
       <th>Statistics</th>
       <th><span style="display: none" aria-hidden="true">Links</span></th>
