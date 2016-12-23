@@ -1,4 +1,10 @@
+<a href="https://liip.ch/"><img src="https://www.liip.ch/og-logo.png" alt="Liip" width="150px" /></a>
+
 # The A11y Machine
+
+[![Version](https://img.shields.io/npm/v/the-a11y-machine.svg)](https://github.com/liip/TheA11yMachine)
+[![Downloads](https://img.shields.io/npm/dt/the-a11y-machine.svg)](https://www.npmjs.com/package/the-a11y-machine)
+[![License](https://img.shields.io/npm/l/the-a11y-machine.svg)](#authors-and-license)
 
 **The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
 accessibility testing tool** which **crawls** and **tests** pages of any Web
