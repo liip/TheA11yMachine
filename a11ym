@@ -35,6 +35,7 @@
 var Logger   = require('./lib/logger');
 var Tester   = require('./lib/tester');
 var async    = require('async');
+var fs       = require('fs');
 var process  = require('process');
 var program  = require('commander');
 var readline = require('readline');
@@ -143,7 +144,10 @@ function quit() {
         logger.write(loggers.colorize.red('Quiting with errors…'));
         process.exit(2);
     } else {
-        logger.write(logger.colorize.green('Quitting with success…'));
+        logger.write(
+            logger.colorize.green('Quitting with success…') + "\n" +
+            'Report index at file://' + fs.realpathSync(program.output) + "\n"
+        );
         process.exit(0);
     }
 }
