@@ -32,12 +32,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var Logger   = require('./lib/logger');
-var Tester   = require('./lib/tester');
-var async    = require('async');
-var process  = require('process');
-var program  = require('commander');
-var readline = require('readline');
+var Bin     = require('./lib/bin');
+var program = require('commander');
 
 // Define all the options, with their description and default value.
 program
@@ -45,7 +41,7 @@ program
     .option(
         '-e, --error-level <error_level>',
         'Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).',
-        'notice'
+        Bin.defaultOptions.errorLevel
     )
     .option(
         '-c, --filter-by-codes <codes>',
@@ -58,32 +54,32 @@ program
     .option(
         '-d, --maximum-depth <depth>',
         'Explore up to a maximum depth (hops).',
-        3
+        Bin.defaultOptions.maximumDepth
     )
     .option(
         '-m, --maximum-urls <maximum_urls>',
         'Maximum number of URLs to compute.',
-        128
+        Bin.defaultOptions.maximumUrls
     )
     .option(
         '-o, --output <output_directory>',
         'Output directory.',
-        __dirname + '/a11ym_output'
+        Bin.defaultOptions.outputDirectory
     )
     .option(
         '-r, --report <report>',
         'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.',
-        'html'
+        Bin.defaultOptions.report
     )
     .option(
         '-s, --standards <standards>',
         'Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.',
-        'WCAG2AA'
+        Bin.defaultOptions.standards
     )
     .option(
         '-S, --sniffers <sniffers>',
         'Path to the sniffers file, e.g. `resource/sniffers.js` (default).',
-        __dirname + '/resource/sniffers.js'
+        Bin.defaultOptions.sniffers
     )
     .option(
         '-u, --filter-by-urls <urls>',
@@ -96,7 +92,7 @@ program
     .option(
         '-w, --workers <workers>',
         'Number of workers, i.e. number of URLs computed in parallel.',
-        4
+        Bin.defaultOptions.workers
     )
     .option(
         '--http-auth-user <http_auth_user>',
@@ -113,7 +109,7 @@ program
     .option(
         '-V, --no-verbose',
         'Make the program silent.',
-        false
+        Bin.defaultOptions.noVerbose
     )
     .parse(process.argv);
 
@@ -123,137 +119,4 @@ if (!program.args[0]) {
     process.exit(1);
 }
 
-// Set the logger.
-var logger = new Logger(program);
-
-// Maximum number of URL to compute.
-var maximumUrls = +program.maximumUrls;
-
-// When an error occurs, update this flag. It will change the exit code of the
-// process.
-var hasErrors = false;
-
-// When the test queue has been stopped once, update this flag. It avoids to do
-// the “stop computation” more than once.
-var isStopped = false;
-
-// Force to quit the program. If errors, exit with a non 0 exit code.
-function quit() {
-    if (true === hasErrors) {
-        logger.write(loggers.colorize.red('Quiting with errors…'));
-        process.exit(2);
-    } else {
-        logger.write(logger.colorize.green('Quitting with success…'));
-        process.exit(0);
-    }
-}
-
-// Kill the test queue and stop the crawler.
-function killQueue(reason) {
-    if (false !== isStopped) {
-        return;
-    }
-
-    isStopped = true;
-    logger.write(logger.colorize.white.bgRed('Test queue is stopping. ' + reason) + '\n');
-
-    if(undefined !== crawler) {
-        crawler.stop();
-    }
-
-    testQueue.kill();
-    logger.write(logger.colorize.white.bgRed(testQueue.running() + ' tests are still running, waiting…') + '\n');
-}
-
-var tester = Tester(program);
-
-// Queue of URL waiting to be tested. This queue has a user-defined concurrency
-// level. When a test is executed, it calls the “complete” callback on the
-// task. When the maximum number of URL is reached, then we kill this queue.
-var testQueue = async.queue(
-    function (url, onTaskComplete) {
-        if (--maximumUrls < 0) {
-            onTaskComplete();
-            killQueue('Maximum URLs reached.');
-
-            return;
-        }
-
-        var _wrap = function (callback) {
-            return function () {
-                callback();
-
-                if (0 === testQueue.running()) {
-                    quit();
-                }
-            };
-        };
-
-        logger.write(
-            logger.colorize.black.bgGreen(' ' + (program.maximumUrls - maximumUrls) + '/' + program.maximumUrls + ' ') +
-            ' ' +
-            logger.colorize.black.bgGreen('Run: ' + url + '.') +
-            '\n'
-        );
-        tester(
-            url,
-            _wrap(
-                function (results) {
-                    onTaskComplete(null, results);
-                }
-            ),
-            _wrap(
-                function (error) {
-                    hasErrors = true;
-                    onTaskComplete(error);
-                }
-            )
-        );
-    },
-    program.workers
-);
-
-if ((1 === program.args.length && '-' === program.args[0]) || 1 < program.args.length) {
-    maximumUrls = 0;
-
-    var add = function (url) {
-        program.maximumUrls = ++maximumUrls;
-        testQueue.push(url);
-    };
-
-    if('-' === program.args[0]) {
-        readline
-            .createInterface(process.stdin, undefined)
-            .on('line', add);
-    } else {
-        program.args.forEach(add);
-        program.maximumUrls = maximumUrls;
-    }
-} else if (1 === maximumUrls) {
-    testQueue.push(program.args[0]);
-} else {
-    var Crawler = require('./lib/crawler');
-    var crawler = new Crawler(program);
-
-    crawler.add(program.args[0]);
-    crawler.start(testQueue);
-}
-
-process.on(
-    'SIGINT',
-    new function () {
-        var firstSignal = true;
-
-        return function () {
-            killQueue('SIGINT');
-
-            if (false === firstSignal) {
-                logger.write(logger.colorize.white.bgRed('Yes master!') + '\n');
-
-                process.exit(255);
-            }
-
-            firstSignal = false;
-        }
-    }
-);
+Bin.start(program.opts(), program.args);
