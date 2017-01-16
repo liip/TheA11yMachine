@@ -20,17 +20,17 @@
   "homepage": "https://github.com/liip/TheA11yMachine#readme",
   "dependencies": {
     "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer#master",
-    "async": "^1.5.0",
-    "chalk": "^1.1.1",
+    "async": "^2.1.4",
+    "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "crypto": "0.0.3",
     "glob": "^6.0.4",
     "merge": "^1.2.0",
     "mkdirp": "^0.5.1",
     "open": "0.0.5",
-    "pa11y": "^4.0.1",
-    "process": "^0.11.2",
-    "simplecrawler": "^1.0.1",
+    "pa11y": "^4.3.0",
+    "process": "^0.11.9",
+    "simplecrawler": "^1.0.3",
     "underscore": "^1.8.3"
   },
   "engines": {
