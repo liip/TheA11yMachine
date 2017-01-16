@@ -99,19 +99,18 @@ $ docker run -v $PWD:/var/output liip/the-a11y-machine -o /var/output http://exa
 As a prelude, see the help:
 
 ```sh
-$ ./a11ym --help
-
   Usage: a11ym [options] url …
 
   Options:
 
     -h, --help                                 output usage information
+    -b, --bootstrap <path>                     Bootstrap file, i.e. the configuration file. All CLI options will overwrite options defined in the configuration file.
     -e, --error-level <error_level>            Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).
     -c, --filter-by-codes <codes>              Filter results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
     -C, --exclude-by-codes <codes>             Exclude results by comma-separated WCAG codes (e.g. `H25,H91,G18`).
     -d, --maximum-depth <depth>                Explore up to a maximum depth (hops).
     -m, --maximum-urls <maximum_urls>          Maximum number of URLs to compute.
-    -o, --output <output_directory>            Output directory.
+    -o, --output-directory <output_directory>  Output directory.
     -r, --report <report>                      Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.
     -s, --standards <standards>                Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.
     -S, --sniffers <sniffers>                  Path to the sniffers file, e.g. `resource/sniffers.js` (default).
@@ -122,6 +121,7 @@ $ ./a11ym --help
     --http-auth-password <http_auth_password>  Password to authenticate all HTTP requests.
     --http-tls-disable                         Disable TLS/SSL when crawling or downloading pages.
     -V, --no-verbose                           Make the program silent.
+
 ```
 
 Thus, the simplest use is to run `a11ym` with a URL:
