@@ -108,10 +108,8 @@ program
     )
     .parse(process.argv);
 
-// No URL to compute? Then exit.
-if (!program.args[0]) {
+if (false === Bin.start(program.opts(), program.args)) {
     program.help();
+
     process.exit(1);
 }
-
-Bin.start(program.opts(), program.args);

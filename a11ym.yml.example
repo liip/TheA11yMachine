@@ -1,3 +1,9 @@
+# List of URLs to test.
+urls:
+  - https://www.liip.ch/en
+  - https://www.liip.ch/en/who
+  - https://www.liip.ch/en/what
+
 # Minimum error level: In ascending order, `notice`, `warning`, and `error`.
 errorLevel: notice
 
