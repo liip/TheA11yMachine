@@ -63,7 +63,8 @@ program
     )
     .option(
         '-o, --output <output_directory>',
-        'Output directory.'
+        'Output directory.',
+        Bin.defaultOptions.outputDirectory
     )
     .option(
         '-r, --report <report>',
