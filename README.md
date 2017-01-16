@@ -288,7 +288,7 @@ Jeanmonod](https://github.com/jeanmonod). This software is backed by
 
 [BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
 
-> Copyright (c) 2016, Ivan Enderlin and Liip
+> Copyright (c), Ivan Enderlin and Liip
 > All rights reserved.
 >
 > Redistribution and use in source and binary forms, with or without modification,
