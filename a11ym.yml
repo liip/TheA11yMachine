@@ -1,0 +1,47 @@
+# Minimum error level: In ascending order, `notice`, `warning`, and `error`.
+errorLevel: notice
+
+# Filter results by comma-separated WCAG codes.
+filterByCodes: H25,H91,G18
+
+# Exclude results by comma-separated WCAG codes.
+excludeByCodes: H25,H91,G18
+
+# Explore up to a maximum depth (hops).
+maximumDepth: 3
+
+# Maximum number of URLs to compute.
+maximumUrls: 128
+
+# Output directory.
+outputDirectory: ./a11ym_output
+
+# Report format: `cli`, `csv`, `html`, `json`, or `markdown`.
+report: html
+
+# Standard to use: `WCAG2A`, `WCAG2AA`, `WCAG2AAA`, `Section508`, `HTML` or your own. `HTML` can be combined with any other by a comma.
+standards: WCAG2AA
+
+# Path to the sniffer file.
+sniffers: /resource/sniffers.js
+
+# Filter URL to test by using a regular expression without delimiters.
+filterByUrls: news|contact
+
+# Exclude URL to test by using a regular expression without delimiters.
+excludeByUrls: news|contact
+
+# Number of workers, i.e. number of URLs computed in parallel.
+workers: 4
+
+# Username to authenticate all HTTP requests.
+httpAuthUser: gordon
+
+# Password to authenticate all HTTP requests.
+httpAuthPassword: fr33m4n
+
+# Disable TLS/SSL when crawling or downloading pages.
+httpTlsDisable: false
+
+# Make the program verbose.
+verbose: true

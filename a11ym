@@ -39,9 +39,12 @@ var program = require('commander');
 program
     .usage('[options] url …')
     .option(
+        '-b, --bootstrap <path>',
+        'Bootstrap file, i.e. the configuration file. All CLI options will overwrite options defined in the configuration file.'
+    )
+    .option(
         '-e, --error-level <error_level>',
-        'Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).',
-        Bin.defaultOptions.errorLevel
+        'Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).'
     )
     .option(
         '-c, --filter-by-codes <codes>',
@@ -53,33 +56,27 @@ program
     )
     .option(
         '-d, --maximum-depth <depth>',
-        'Explore up to a maximum depth (hops).',
-        Bin.defaultOptions.maximumDepth
+        'Explore up to a maximum depth (hops).'
     )
     .option(
         '-m, --maximum-urls <maximum_urls>',
-        'Maximum number of URLs to compute.',
-        Bin.defaultOptions.maximumUrls
+        'Maximum number of URLs to compute.'
     )
     .option(
-        '-o, --output <output_directory>',
-        'Output directory.',
-        Bin.defaultOptions.outputDirectory
+        '-o, --output-directory <output_directory>',
+        'Output directory.'
     )
     .option(
         '-r, --report <report>',
-        'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.',
-        Bin.defaultOptions.report
+        'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.'
     )
     .option(
         '-s, --standards <standards>',
-        'Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.',
-        Bin.defaultOptions.standards
+        'Standard to use: `WCAG2A`, `WCAG2AA` (default), ` WCAG2AAA`, `Section508`, `HTML` or your own (see `--sniffers`). `HTML` can be combined with any other by a comma.'
     )
     .option(
         '-S, --sniffers <sniffers>',
-        'Path to the sniffers file, e.g. `resource/sniffers.js` (default).',
-        Bin.defaultOptions.sniffers
+        'Path to the sniffers file, e.g. `resource/sniffers.js` (default).'
     )
     .option(
         '-u, --filter-by-urls <urls>',
@@ -91,8 +88,7 @@ program
     )
     .option(
         '-w, --workers <workers>',
-        'Number of workers, i.e. number of URLs computed in parallel.',
-        Bin.defaultOptions.workers
+        'Number of workers, i.e. number of URLs computed in parallel.'
     )
     .option(
         '--http-auth-user <http_auth_user>',
@@ -108,8 +104,7 @@ program
     )
     .option(
         '-V, --no-verbose',
-        'Make the program silent.',
-        Bin.defaultOptions.noVerbose
+        'Make the program silent.'
     )
     .parse(process.argv);
 
