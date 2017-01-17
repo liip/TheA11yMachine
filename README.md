@@ -68,7 +68,6 @@ reap the benefits.
 [NPM](http://npmjs.org/) is required. Then, execute the following lines:
 
 ```sh
-$ npm install -g phantomjs
 $ npm install -g the-a11y-machine
 ```
 
