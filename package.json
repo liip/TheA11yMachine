@@ -18,6 +18,7 @@
     "url": "https://github.com/liip/TheA11yMachine/issues"
   },
   "homepage": "https://github.com/liip/TheA11yMachine#readme",
+  "main": "./lib/a11ym.js",
   "dependencies": {
     "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer#master",
     "async": "^2.1.4",
