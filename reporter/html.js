@@ -50,6 +50,10 @@ var statistics      = [];
 function emptyFunction() {}
 
 function config(options) {
+    if (!options.outputDirectory) {
+        throw "The `html` reporter must have a `outputDirectory` option.";
+    }
+
     outputDirectory = options.outputDirectory;
     mkdirp.sync(outputDirectory);
     indexHtmlStream = fs.createWriteStream(
