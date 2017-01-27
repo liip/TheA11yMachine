@@ -71,7 +71,11 @@ program
     )
     .option(
         '-r, --report <report>',
-        'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`.'
+        'Report format: `cli`, `csv`, `html` (default), `json` or `markdown`, or your own absolute path to a reporter.'
+    )
+    .option(
+        '--report-options <options>',
+        'Report options, as a JSON formatted object.'
     )
     .option(
         '-s, --standards <standards>',

@@ -25,6 +25,10 @@ outputDirectory: ./a11ym_output
 # Report format: `cli`, `csv`, `html`, `json`, or `markdown`.
 report: html
 
+# Report options.
+reportOptions:
+  - foo: bar
+
 # Standard to use: `WCAG2A`, `WCAG2AA`, `WCAG2AAA`, `Section508`, `HTML` or your own. `HTML` can be combined with any other by a comma.
 standards: WCAG2AA
 
