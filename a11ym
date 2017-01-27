@@ -44,7 +44,8 @@ program
     )
     .option(
         '-e, --error-level <error_level>',
-        'Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).'
+        'Minimum error level: In ascending order, `notice` (default), `warning`, and `error` (e.g. `warning` includes all warnings and errors).',
+        /^notice|warning|error$/i
     )
     .option(
         '-c, --filter-by-codes <codes>',
@@ -56,11 +57,13 @@ program
     )
     .option(
         '-d, --maximum-depth <depth>',
-        'Explore up to a maximum depth (hops).'
+        'Explore up to a maximum depth (hops).',
+        /^\d+$/
     )
     .option(
         '-m, --maximum-urls <maximum_urls>',
-        'Maximum number of URLs to compute.'
+        'Maximum number of URLs to compute.',
+        /^\d+$/
     )
     .option(
         '-o, --output-directory <output_directory>',
@@ -88,7 +91,8 @@ program
     )
     .option(
         '-w, --workers <workers>',
-        'Number of workers, i.e. number of URLs computed in parallel.'
+        'Number of workers, i.e. number of URLs computed in parallel.',
+        /^\d+$/i
     )
     .option(
         '--http-auth-user <http_auth_user>',
