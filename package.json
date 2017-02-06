@@ -1,6 +1,6 @@
 {
   "name": "the-a11y-machine",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "The A11y Machine is an automated accessibility testing tool which crawls and tests all pages of any website.",
   "repository": {
     "type": "git",
