@@ -226,7 +226,7 @@ somewhere as a basis, complete it, then compile it with the `a11ym-sniffers`
 utility:
 
 ```sh
-$ ./a11ym-sniffers --directory my/sniffers/ --output my_sniffers.js
+$ ./a11ym-sniffers --directory my/sniffers/ --output-directory my_sniffers.js
 ```
 
 Then, to effectively use it:
@@ -245,7 +245,7 @@ second, nothing more than just a flag. For instance, if the reports are
 generated with the following command:
 
 ```sh
-$ ./a11ym --output my_reports/`date +%s`/ http://example.org/A http://example.org/B
+$ ./a11ym --output-directory my_reports/`date +%s`/ http://example.org/A http://example.org/B
 ```
 
 Then, the root directory is `my_reports/` and thus the dashboard will be started
