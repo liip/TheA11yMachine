@@ -34,6 +34,7 @@
 
 var fs      = require('fs');
 var glob    = require('glob');
+var path    = require('path');
 var program = require('commander');
 
 program
@@ -74,6 +75,25 @@ var appendToOutput = function (file) {
     );
 };
 
-glob.sync(__dirname + '/node_modules/HTML_CodeSniffer/Standards/**/*.js').forEach(appendToOutput);
-glob.sync(__dirname + '/node_modules/HTML_CodeSniffer/HTMLCS.js').forEach(appendToOutput);
+function findNodeModules() {
+    var out = __dirname;
+
+    while (false === fs.existsSync(out + '/node_modules')) {
+        out = path.dirname(out);
+
+        if ('/' === out) {
+            return null;
+        }
+    }
+
+    return out + '/node_modules';
+}
+
+var nodeModulesPath = findNodeModules();
+
+if (null !== nodeModulesPath) {
+    glob.sync(nodeModulesPath + '/HTML_CodeSniffer/Standards/**/*.js').forEach(appendToOutput);
+    glob.sync(nodeModulesPath + '/HTML_CodeSniffer/HTMLCS.js').forEach(appendToOutput);
+}
+
 glob.sync(program.directory + '/**/*.js').forEach(appendToOutput);
