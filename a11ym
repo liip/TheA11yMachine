@@ -114,6 +114,10 @@ program
         '-V, --no-verbose',
         'Make the program silent.'
     )
+    .option(
+        '--ignore-robots',
+        'Ignore robots.txt file.'
+    )
     .parse(process.argv);
 
 if (false === a11ym.start(program.opts(), program.args)) {
