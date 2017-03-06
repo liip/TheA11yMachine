@@ -115,7 +115,7 @@ program
         'Make the program silent.'
     )
     .option(
-        '--ignore-robots',
+        '--ignore-robots-txt',
         'Ignore robots.txt file.'
     )
     .parse(process.argv);
