@@ -120,6 +120,7 @@ As a prelude, see the help:
     --http-auth-password <http_auth_password>  Password to authenticate all HTTP requests.
     --http-tls-disable                         Disable TLS/SSL when crawling or downloading pages.
     -V, --no-verbose                           Make the program silent.
+    --ignore-robots-txt                        Ignore robots.txt file.
 
 ```
 
