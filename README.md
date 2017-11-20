@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://liip.ch/"><img src="https://www.liip.ch/og-logo.png" alt="Liip" width="150px" /></a><br />
+  <a href="https://liip.ch/"><img src="https://github.com/liip.png" alt="Liip" width="150px" /></a><br />
   <em>presents</em><br />
   The Accessibility Testing Machine
 </p>
