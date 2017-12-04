@@ -1,0 +1,21 @@
+# List of URLs to test.
+urls:
+  - https://act.staging.benchprep.com/app/act-online-prep-tm
+
+# Minimum error level: In ascending order, `notice`, `warning`, and `error`.
+errorLevel: notice
+
+# Maximum number of URLs to compute.
+maximumUrls: 128
+
+# Report format: `cli`, `csv`, `html`, `json`, or `markdown`.
+report: html
+
+# Number of workers, i.e. number of URLs computed in parallel.
+workers: 4
+
+# Disable TLS/SSL when crawling or downloading pages.
+httpTlsDisable: false
+
+# Make the program verbose.
+verbose: true

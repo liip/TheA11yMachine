@@ -118,6 +118,14 @@ program
         '--ignore-robots-txt',
         'Ignore robots.txt file.'
     )
+    .option(
+      '-i, --user-id <user_id>',
+      'Id associated with the user with which the script will authenticate'
+    )
+    .option(
+      '-t, --user-auth-token <user_auth_token>',
+      'Authentication token associated with the user with which the script will authenticate'
+    )
     .parse(process.argv);
 
 if (false === a11ym.start(program.opts(), program.args)) {

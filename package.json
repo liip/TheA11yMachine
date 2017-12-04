@@ -31,7 +31,7 @@
     "merge": "^1.2.0",
     "mkdirp": "^0.5.1",
     "open": "0.0.5",
-    "pa11y": "^4.3.0",
+    "pa11y": "^4.13.2",
     "phantomjs-prebuilt": "^2.1.14",
     "process": "^0.11.9",
     "simplecrawler": "^1.0.3",
@@ -44,5 +44,8 @@
     "a11ym": "./a11ym",
     "a11ym-dashboard": "./a11ym-dashboard",
     "a11ym-sniffers": "./a11ym-sniffers"
+  },
+  "scripts": {
+    "clear-output": "rm -rf a11ym_output/*"
   }
 }
