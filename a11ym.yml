@@ -1,6 +1,6 @@
 # List of URLs to test.
 urls:
-  - https://act.staging.benchprep.com/app/act-online-prep-tm
+  - http://act.benchprep.localhost/app/act-online-prep-tm
 
 # Minimum error level: In ascending order, `notice`, `warning`, and `error`.
 errorLevel: notice
