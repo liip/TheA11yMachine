@@ -126,6 +126,10 @@ program
       '-t, --user-auth-token <user_auth_token>',
       'Authentication token associated with the user with which the script will authenticate'
     )
+    .option(
+      '--login-url <login_url>',
+      'Url of the endpoint used to authenticate users'
+    )
     .parse(process.argv);
 
 if (false === a11ym.start(program.opts(), program.args)) {
