@@ -1,6 +1,6 @@
 # List of URLs to test.
 urls:
-  - http://act.benchprep.localhost/app/act-online-prep-tm
+  - https://act.staging.benchprep.com/app/act-online-prep-tm
 
 # Minimum error level: In ascending order, `notice`, `warning`, and `error`.
 errorLevel: notice
@@ -19,3 +19,5 @@ httpTlsDisable: false
 
 # Make the program verbose.
 verbose: true
+
+timeout: 480000
