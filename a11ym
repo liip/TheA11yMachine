@@ -111,7 +111,7 @@ program
         'Disable TLS/SSL when crawling or downloading pages.'
     )
     .option(
-        '-V, --no-verbose',
+        '-V, --verbose <verbose>',
         'Make the program silent.'
     )
     .option(

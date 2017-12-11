@@ -2,9 +2,6 @@
 urls:
   - https://act.staging.benchprep.com/app/act-online-prep-tm
 
-# Minimum error level: In ascending order, `notice`, `warning`, and `error`.
-errorLevel: notice
-
 # Maximum number of URLs to compute.
 maximumUrls: 128
 
@@ -17,7 +14,4 @@ workers: 4
 # Disable TLS/SSL when crawling or downloading pages.
 httpTlsDisable: false
 
-# Make the program verbose.
-verbose: true
-
-timeout: 480000
+timeout: 580000
