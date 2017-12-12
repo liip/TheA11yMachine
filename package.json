@@ -30,10 +30,13 @@
     "js-yaml": "^3.7.0",
     "merge": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "node-fetch": "^1.7.3",
     "open": "0.0.5",
-    "pa11y": "^4.3.0",
+    "pa11y": "git@github.com:watermelonexpress/pa11y.git#5.x",
+    "pa11y-reporter-json": "^1.0.0",
     "phantomjs-prebuilt": "^2.1.14",
     "process": "^0.11.9",
+    "puppeteer": "^0.13.0",
     "simplecrawler": "^1.0.3",
     "underscore": "^1.8.3"
   },
@@ -44,5 +47,8 @@
     "a11ym": "./a11ym",
     "a11ym-dashboard": "./a11ym-dashboard",
     "a11ym-sniffers": "./a11ym-sniffers"
+  },
+  "scripts": {
+    "clear-output": "rm -rf a11ym_output/*"
   }
 }
