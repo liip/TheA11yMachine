@@ -111,12 +111,24 @@ program
         'Disable TLS/SSL when crawling or downloading pages.'
     )
     .option(
-        '-V, --no-verbose',
+        '-V, --verbose <verbose>',
         'Make the program silent.'
     )
     .option(
         '--ignore-robots-txt',
         'Ignore robots.txt file.'
+    )
+    .option(
+      '-i, --user-id <user_id>',
+      'Id associated with the user with which the script will authenticate'
+    )
+    .option(
+      '-t, --user-auth-token <user_auth_token>',
+      'Authentication token associated with the user with which the script will authenticate'
+    )
+    .option(
+      '--login-url <login_url>',
+      'Url of the endpoint used to authenticate users'
     )
     .parse(process.argv);
 

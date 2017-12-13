@@ -1,3 +1,6 @@
+.DS_Store
+npm-debug.log
 /node_modules
-/a11ym_output
+/a11ym_output/**/*
 /resource/vnu/validator
+.DS_Store
