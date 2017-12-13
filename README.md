@@ -27,7 +27,7 @@ following specifications/laws:
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Possible output](#possible-output)
+  * [Output Example](#output-example)
   * [How does it work?](#how-does-it-work)
 * [Authors and license](#authors-and-license)
 
@@ -40,32 +40,16 @@ following specifications/laws:
 $ npm install -g the-a11y-machine
 ```
 
-If you would like to validate your pages against the HTML5 recommendation, then
-you need to [install Java](https://www.java.com/en/download/).
+You need to [install Java](https://www.java.com/en/download/).
 
-As an alternative you can run a Docker image instead, which will ensure the image
-is available locally:
-
-```sh
-$ docker build -t liip/the-a11y-machine .
-$ docker run liip/the-a11y-machine --help
-```
-
-To get access to a report you will need to:
-
-  * Mount a path into the container,
-  * Specifify that internal path in your `a11ym` CLI options.
-
-For example:
-
-```sh
-$ docker run -v $PWD:/var/output liip/the-a11y-machine -o /var/output http://example.org
-```
 
 ## Usage
 
+```sh
+./a11ym --user-id [user_id] --user-auth-token [auth_token] --login-url https://act.staging.benchprep.com/api/v2/sessions/companion-auth --verbose true
+```
 
-### Possible output
+###  Output Example
 
 The index of the reports:
 
@@ -105,17 +89,13 @@ PhantomJS and `HTML_CodeSniffer` are widely-used, tested and precise tools.
 used by the W3C to validate documents online. However, in this case, we **do all
 validations offline**! Nothing is sent over the network. Again, privacy.
 
-
-
-### Watch the dashboard
-
-
 ## Authors and license
 
 Original author is [Ivan Enderlin](http://mnt.io/), accompagnied by [Gilles
 Crettenand](https://github.com/krtek4) and [David
 Jeanmonod](https://github.com/jeanmonod). This software is backed by
 [Liip](https://liip.ch/).
+Modifications were done by Chris Jackson for BenchPrep specific needs
 
 [BSD-3-Clause](http://opensource.org/licenses/BSD-3-Clause):
 
