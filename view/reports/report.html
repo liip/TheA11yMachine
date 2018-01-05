@@ -376,11 +376,11 @@
                             _.map(
                                 bikCodeMap,
                                 function (bikCodeMapItem) {
-                                    if (bikCodeMapItem.noteCode == noteCode) {
+                                    if (bikCodeMapItem.noteCode === noteCode) {
                                         _.map(
                                             bikCodeMapItem.bikTestSteps,
                                             function (bikTestStepsItem) { %>
-                                                <a href="<%=bikTestStepsItem.url%>"><%=bikTestStepsItem.name%></a>,
+                                                <a href="<%= bikTestStepsItem.url %>"><%= bikTestStepsItem.name %></a>,
                                              <% }
                                         )
                                     }

@@ -34,7 +34,7 @@ var _      = require('underscore');
 var crypto = require('crypto');
 var fs     = require('fs');
 var mkdirp = require('mkdirp');
-var bikBitvMap = require(__dirname + '/../resource/bikBitvArraMap.json');
+var bikBitvMap = require(__dirname + '/../resource/bikBitvArrayMap.json');
 
 module.exports = {
     config : config,
