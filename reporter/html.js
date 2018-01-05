@@ -34,6 +34,7 @@ var _      = require('underscore');
 var crypto = require('crypto');
 var fs     = require('fs');
 var mkdirp = require('mkdirp');
+var bikBitvMap = require(__dirname + '/../resource/bikBitvArraMap.json');
 
 module.exports = {
     config : config,
@@ -91,6 +92,10 @@ function reportResults(results, url) {
     var errorCount   = 0;
     var warningCount = 0;
     var noticeCount  = 0;
+    /** maping of the wcag note codes to the bik test tasks
+     * list of the tasks: http://www.bitvtest.de/bitvtest/das_testverfahren_im_detail/pruefschritte.html
+     **/
+    var bikCodeMap = {};
 
     results.forEach(
         function(result, index) {
@@ -103,6 +108,9 @@ function reportResults(results, url) {
             result.noteCodes.forEach(
                 function (value) {
                     noteCodes[value] = value;
+                    if ( _.findWhere(bikBitvMap.wcagNoteCodes, { noteCode:noteCodes[value] }) != undefined){
+                        bikCodeMap[value] = _.findWhere(bikBitvMap.wcagNoteCodes, { noteCode:noteCodes[value] });
+                    }
                 }
             );
 
@@ -142,6 +150,7 @@ function reportResults(results, url) {
         noticePercentage : noticePercentage,
         results          : results,
         noteCodes        : noteCodes,
+        bikCodeMap       : bikCodeMap,
         css              : {
             common: fs.readFileSync(__dirname + '/../view/common.css', {encoding: 'utf-8'})
         }
