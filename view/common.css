@@ -6,7 +6,9 @@
 body {
   font-style: normal;
   font-weight: 200;
-  font-size: .9em/1.2em, Arial, Verdana, Helvetica, sans-serif;
+  font-size: .9em;
+  line-height: 1.2em;
+  font-family: Arial, Verdana, Helvetica, sans-serif;
   color: rgb(43, 6, 1);
 }
 
