@@ -1,19 +1,12 @@
-@font-face {
-  font-family: Source Sans Pro;
-  font-style: normal;
-  font-weight: 200;
-  src: local(Source Sans Pro ExtraLight),
-       local(SourceSansPro-ExtraLight),
-       url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGIAPdqzPmKFFIYQ-46z3JxY.woff2) format('woff2');
-}
-
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font: .9em/1.2em Source Sans Pro;
+  font-style: normal;
+  font-weight: 200;
+  font-size: .9em/1.2em, Arial, Verdana, Helvetica, sans-serif;
   color: rgb(43, 6, 1);
 }
 
