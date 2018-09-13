@@ -20,8 +20,7 @@
   "homepage": "https://github.com/liip/TheA11yMachine#readme",
   "main": "./lib/a11ym.js",
   "dependencies": {
-    "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer#master",
-    "async": "^2.1.4",
+    "HTML_CodeSniffer": "git+https://github.com/squizlabs/HTML_CodeSniffer.git#d209ce54876657858a8a01528ad812cd234f37f0",    "async": "^2.1.4",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "crypto": "0.0.3",
