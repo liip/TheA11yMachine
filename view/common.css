@@ -1,14 +1,19 @@
+@font-face {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: 200;
+  src: local(Source Sans Pro ExtraLight),
+  local(SourceSansPro-ExtraLight),
+  url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGIAPdqzPmKFFIYQ-46z3JxY.woff2) format('woff2');
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-style: normal;
-  font-weight: 200;
-  font-size: .9em;
-  line-height: 1.2em;
-  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font: .9em/1.2em Source Sans Pro, Arial, Verdana, Helvetica, sans-serif;
   color: rgb(43, 6, 1);
 }
 
@@ -37,9 +42,9 @@ h2 {
   background-color: rgba(244, 96, 37, .1);
 }
 
-  [data-result-level="error"] h2 {
-    color: rgb(244, 96, 37);
-  }
+[data-result-level="error"] h2 {
+  color: rgb(244, 96, 37);
+}
 
 [data-result-level="warning"] {
   fill: rgb(254, 178, 54);
@@ -47,9 +52,9 @@ h2 {
   background-color: rgba(254, 178, 54, .1);
 }
 
-  [data-result-level="warning"] h2 {
-    color: rgb(254, 178, 54);
-  }
+[data-result-level="warning"] h2 {
+  color: rgb(254, 178, 54);
+}
 
 [data-result-level="notice"] {
   fill: rgb(10, 172, 207);
@@ -57,9 +62,9 @@ h2 {
   background-color: rgba(10, 172, 207, .1);
 }
 
-  [data-result-level="notice"] h2 {
-    color: rgb(10, 172, 207);
-  }
+[data-result-level="notice"] h2 {
+  color: rgb(10, 172, 207);
+}
 
 text[data-result-level],
 [data-result-level] text {
@@ -128,27 +133,27 @@ text[data-result-level],
   transition: max-height .5s ease-in-out;
 }
 
-  #controls > .all-notes:hover {
-    max-height: 1000px;
-  }
+#controls > .all-notes:hover {
+  max-height: 1000px;
+}
 
-  #controls > .all-notes > p {
-    cursor: pointer;
-    text-align: right;
-    text-decoration: underline;
-    margin-bottom: .7em;
-  }
+#controls > .all-notes > p {
+  cursor: pointer;
+  text-align: right;
+  text-decoration: underline;
+  margin-bottom: .7em;
+}
 
-  #controls > .all-notes > ul {
-    list-style: none;
-    -moz-column-width: 3.5em;
-    -moz-column-gap: 2.5em;
-    -webkit-column-width: 3.5em;
-    -webkit-column-gap: 2.5em;
-    column-width: 3.5em;
-    column-gap: 2.5em;
-  }
+#controls > .all-notes > ul {
+  list-style: none;
+  -moz-column-width: 3.5em;
+  -moz-column-gap: 2.5em;
+  -webkit-column-width: 3.5em;
+  -webkit-column-gap: 2.5em;
+  column-width: 3.5em;
+  column-gap: 2.5em;
+}
 
-  #controls > .all-notes > ul > li > small {
-    float: right;
-  }
+#controls > .all-notes > ul > li > small {
+  float: right;
+}
