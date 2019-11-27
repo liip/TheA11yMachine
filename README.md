@@ -12,6 +12,8 @@
 [![Downloads](https://img.shields.io/npm/dt/the-a11y-machine.svg)](https://www.npmjs.com/package/the-a11y-machine)
 [![License](https://img.shields.io/npm/l/the-a11y-machine.svg)](#authors-and-license)
 
+> Note: TheA11yMachine is no longer maintained.
+
 **The A11y Machine** (or `a11ym` for short, spelled “alym”) is an **automated
 accessibility testing tool** which **crawls** and **tests** pages of any Web
 application to produce detailed reports. It validates pages against the
