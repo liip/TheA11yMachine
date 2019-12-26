@@ -1,0 +1,2681 @@
+{
+  "wcagNoteCodes": [
+    {
+      "noteCode": "G94",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H2",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H24",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H30",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H36",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H37",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA6",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G73",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G74",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G82",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G92",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G95",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G100",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G196",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H45",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H46",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA10",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA15",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F30",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F67",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H67",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=66&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C9",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=66&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F38",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=66&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F39",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=66&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G143",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=15&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G144",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=15&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F3",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        },
+        {
+          "name": "1.1.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=15&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F65",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        },
+        {
+          "name": "1.1.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=15&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G166",
+      "bikTestSteps": [
+        {
+          "name": "1.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=16&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G158",
+      "bikTestSteps": [
+        {
+          "name": "1.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=16&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G159",
+      "bikTestSteps": [
+        {
+          "name": "1.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=16&s=n"
+        }
+      ],
+      "BikTestSteps": [
+      ]
+    },
+    {
+      "noteCode": "H53",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=16&s=n"
+        }
+      ],
+      "BikTestSteps": [
+      ]
+    },
+    {
+      "noteCode": "H95",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F8",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F74",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F75",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G58",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G69",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G9",
+      "bikTestSteps": [
+        {
+          "name": "1.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=70&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G87",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        },
+        {
+          "name": "1.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=70&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G93",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        },
+        {
+          "name": "1.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=70&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM11",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        },
+        {
+          "name": "1.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=70&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM12",
+      "bikTestSteps": [
+        {
+          "name": "1.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=67&s=n"
+        },
+        {
+          "name": "1.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=70&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G78",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G173",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G203",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM1",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM2",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM6",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SM7",
+      "bikTestSteps": [
+        {
+          "name": "1.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=68&s=n"
+        },
+        {
+          "name": "1.2.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=71&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA12",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H48",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H49",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=75&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F2",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F43",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H51",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F33",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F48",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F91",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H43",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H63",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F90",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F92",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "1.3.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=75&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        },
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H39",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1g",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=35&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H73",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        },
+        {
+          "name": "1.3.1g",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=35&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F46",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1g",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=35&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F87",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G57",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C6",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C8",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C27",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR21",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR28",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F1",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F32",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F34",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        },
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F49",
+      "bikTestSteps": [
+        {
+          "name": "1.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=105&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G96",
+      "bikTestSteps": [
+        {
+          "name": "1.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=82&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F14",
+      "bikTestSteps": [
+        {
+          "name": "1.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=82&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F26",
+      "bikTestSteps": [
+        {
+          "name": "1.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=82&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G14",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G111",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G182",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G183",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G205",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F13",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F73",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F81",
+      "bikTestSteps": [
+        {
+          "name": "1.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=83&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G60",
+      "bikTestSteps": [
+        {
+          "name": "1.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=84&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G170",
+      "bikTestSteps": [
+        {
+          "name": "1.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=84&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G171",
+      "bikTestSteps": [
+        {
+          "name": "1.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=84&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F23",
+      "bikTestSteps": [
+        {
+          "name": "1.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=84&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F93",
+      "bikTestSteps": [
+        {
+          "name": "1.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=84&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G18",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G145",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G148",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G174",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F83",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F24",
+      "bikTestSteps": [
+        {
+          "name": "1.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=86&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G146",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G178",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G179",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C12",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C13",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C14",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C20",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C28",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C29",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR34",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F69",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F80",
+      "bikTestSteps": [
+        {
+          "name": "1.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=87&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C22",
+      "bikTestSteps": [
+        {
+          "name": "1.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=54&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C30",
+      "bikTestSteps": [
+        {
+          "name": "1.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=54&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G90",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G202",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR2",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR20",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR29",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR35",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F42",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F54",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G21",
+      "bikTestSteps": [
+        {
+          "name": "2.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=89&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "FLASH17",
+      "bikTestSteps": [
+        {
+          "name": "2.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=89&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F10",
+      "bikTestSteps": [
+        {
+          "name": "2.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=89&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G133",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G180",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G198",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR16",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F40",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F41",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F58",
+      "bikTestSteps": [
+        {
+          "name": "2.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=90&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G4",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G11",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G152",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G186",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G191",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR22",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR33",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F4",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F7",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F16",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F47",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F50",
+      "bikTestSteps": [
+        {
+          "name": "2.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=20&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G15",
+      "bikTestSteps": [
+        {
+          "name": "2.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=21&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G176",
+      "bikTestSteps": [
+        {
+          "name": "2.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=21&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G1",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G115",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "1.3.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=75&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        },
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ],
+      "BikTestSteps": [
+        {
+          "name": "1.3.1g",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=35&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G123",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G124",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G140",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "1.3.1c",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=75&s=n"
+        },
+        {
+          "name": "1.3.1d",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=76&s=n"
+        },
+        {
+          "name": "1.3.1e",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=77&s=n"
+        },
+        {
+          "name": "1.3.1f",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=78&s=n"
+        }
+      ],
+      "BikTestSteps": [
+        {
+          "name": "1.3.1g",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=35&s=n"
+        },
+        {
+          "name": "1.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=54&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H42",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H69",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H97",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=74&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA11",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA13",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G88",
+      "bikTestSteps": [
+        {
+          "name": "2.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=55&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G127",
+      "bikTestSteps": [
+        {
+          "name": "2.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=55&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H25",
+      "bikTestSteps": [
+        {
+          "name": "2.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=55&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H86",
+      "bikTestSteps": [
+        {
+          "name": "2.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=55&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F25",
+      "bikTestSteps": [
+        {
+          "name": "2.4.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=55&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G59",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H4",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR26",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR27",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        },
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR37",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F44",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F85",
+      "bikTestSteps": [
+        {
+          "name": "2.4.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=91&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G53",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G91",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H33",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H77",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H78",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H79",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H80",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H81",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C7",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA7",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA8",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F63",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F89",
+      "bikTestSteps": [
+        {
+          "name": "2.4.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=94&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G63",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G64",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G126",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G161",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G185",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G130",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=72&s=n"
+        },
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        },
+        {
+          "name": "2.4.6a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=80&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G149",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G165",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G195",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "C15",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR31",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F55",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        },
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F78",
+      "bikTestSteps": [
+        {
+          "name": "2.4.7a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=102&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G65",
+      "bikTestSteps": [
+        {
+          "name": "2.4.8a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=101&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G125",
+      "bikTestSteps": [
+        {
+          "name": "2.4.5a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=58&s=n"
+        },
+        {
+          "name": "2.4.8a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=101&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G128",
+      "bikTestSteps": [
+        {
+          "name": "2.4.8a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=101&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H57",
+      "bikTestSteps": [
+        {
+          "name": "3.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=92&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H58",
+      "bikTestSteps": [
+        {
+          "name": "3.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=93&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G107",
+      "bikTestSteps": [
+        {
+          "name": "3.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=95&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G200",
+      "bikTestSteps": [
+        {
+          "name": "3.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=95&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G201",
+      "bikTestSteps": [
+        {
+          "name": "3.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=95&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F52",
+      "bikTestSteps": [
+        {
+          "name": "3.2.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=95&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G80",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H32",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H84",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F36",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F37",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G61",
+      "bikTestSteps": [
+        {
+          "name": "3.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=97&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F66",
+      "bikTestSteps": [
+        {
+          "name": "3.2.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=97&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G197",
+      "bikTestSteps": [
+        {
+          "name": "3.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=98&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H70",
+      "bikTestSteps": [
+        {
+          "name": "3.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=98&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F31",
+      "bikTestSteps": [
+        {
+          "name": "3.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=98&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA19",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA21",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G13",
+      "bikTestSteps": [
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G131",
+      "bikTestSteps": [
+        {
+          "name": "2.4.6a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=80&s=n"
+        },
+        {
+          "name": "3.2.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=98&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G162",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G184",
+      "bikTestSteps": [
+        {
+          "name": "3.2.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=96&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H44",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H65",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H71",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H90",
+      "bikTestSteps": [
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA1",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA9",
+      "bikTestSteps": [
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA17",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F82",
+      "bikTestSteps": [
+        {
+          "name": "3.3.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=81&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G83",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G84",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G85",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G177",
+      "bikTestSteps": [
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR18",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "SCR32",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA2",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA18",
+      "bikTestSteps": [
+        {
+          "name": "3.3.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=103&s=n"
+        },
+        {
+          "name": "3.3.3a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=104&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G98",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G99",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G155",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G164",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G168",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G199",
+      "bikTestSteps": [
+        {
+          "name": "3.3.4a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=51&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G134",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G192",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H74",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H75",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H88",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H93",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F70",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F77",
+      "bikTestSteps": [
+        {
+          "name": "4.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=99&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G10",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G108",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "G135",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H64",
+      "bikTestSteps": [
+        {
+          "name": "2.4.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=73&s=n"
+        },
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "H91",
+      "bikTestSteps": [
+        {
+          "name": "2.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=88&s=n"
+        },
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA4",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA5",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA14",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "ARIA16",
+      "bikTestSteps": [
+        {
+          "name": "1.3.1h",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=79&s=n"
+        },
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F15",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F20",
+      "bikTestSteps": [
+        {
+          "name": "1.1.1a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=64&s=n"
+        },
+        {
+          "name": "1.1.1b",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=65&s=n"
+        },
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F59",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    },
+    {
+      "noteCode": "F79",
+      "bikTestSteps": [
+        {
+          "name": "4.1.2a",
+          "url": "http://testen.bitv-test.de/index.php?a=di&iid=100&s=n"
+        }
+      ]
+    }
+  ]
+}

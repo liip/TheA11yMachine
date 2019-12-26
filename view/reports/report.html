@@ -369,6 +369,27 @@
                     )
                     .join(', ')
                   %> <code>#<%- result.code %></code></p>
+                <p>BIK BITV Prüfschritt:
+                    <% _.map(
+                        result.noteCodes,
+                        function (noteCode) {
+                            _.map(
+                                bikCodeMap,
+                                function (bikCodeMapItem) {
+                                    if (bikCodeMapItem.noteCode === noteCode) {
+                                        _.map(
+                                            bikCodeMapItem.bikTestSteps,
+                                            function (bikTestStepsItem) { %>
+                                                <a href="<%= bikTestStepsItem.url %>"><%= bikTestStepsItem.name %></a>,
+                                             <% }
+                                        )
+                                    }
+
+                                }
+                            )
+                        }
+                    )%>
+                </p>
                   <p class="selector"><input type="text" class="selector" value="<%- result.selector %>" readonly="readonly" /></p>
                   <pre><%- result.context %></pre>
 
